@@ -96,7 +96,7 @@ namespace ReportDocumentationConsole.Controllers
             DB.ReportChangeLog temp = new DB.ReportChangeLog();
             temp.SSRSReportId = SSRSReportId;
             temp.ReportSPId = DB_MSBDW.ReportSPs.FirstOrDefault(sp => sp.SPName == selectedSPName).ID;
-            temp.ITComment = Request.Form["ITComment"];
+            temp.ITComment = Request.Unvalidated.Form["ITComment"];
             temp.PublicComment = Request.Form["PublicComment"];
             temp.RowCreateDate = DateTime.Now;
             temp.IsRDLChange = true;
