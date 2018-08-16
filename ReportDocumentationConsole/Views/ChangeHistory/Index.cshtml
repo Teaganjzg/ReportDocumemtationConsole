@@ -1,0 +1,113 @@
+﻿
+@model List<ReportDocumentationConsole.ViewModels.ReportChangeLog>
+
+@{
+    ViewBag.Title = "ChangeHistory";
+}
+@*<h2>ChangeHistory</h2>*@
+
+@{
+
+    Html.RenderAction("_DropDownList", "Home", @ViewData["selectedReportName"].ToString());
+}
+
+
+@Html.Action("_ReportDescription", "MainConsole", new { selectedReportId = @ViewData["selectedReportId"].ToString() })
+
+@Html.Partial("_MainButtons")
+
+
+
+@section Scripts{
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $(".delete").click(function (e) {
+                e.stopPropagation();
+                var CurrentEle = $(this);
+                var value = $(this).html();
+                var row = $(e.target).closest('tr');
+                var ChangeHisID = row.find($("[id*=key]")).val();
+                DeleteRow(ChangeHisID);
+            });
+
+        });
+        function DeleteRow(ChangeHisID) {
+            var para = {};
+
+            para.ID = ChangeHisID;
+            $.ajax({
+                type: "POST",
+                url: "ChangeHistory/DeleteCH",
+                data: '{para: ' + JSON.stringify(para) + '}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    alert("done!! ");
+                    location.href = location.href;
+                    window.location.reload();
+                }
+
+            });
+        }
+    </script>
+}
+
+
+
+<div style="height: 500px; overflow: auto;">
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                @*<th scope="col">ID</th>
+                    <th scope="col">SSRSReportId</th>*@
+                <th></th>
+                <th scope="col">ReportSPName</th>
+
+
+                <th scope="col">RowCreateDate</th>
+                <th scope="col">ITComment</th>
+
+                <th scope="col">PublicComment</th>
+                <th scope="col">IsRDLChange</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var sp in Model)
+            {
+                <tr class="table-primary" width="130">
+                    @*<th scope="row">Primary</th>*@
+                    @*<td>@sp.ID</td>
+                        <td>@sp.SSRSReportId</td>*@
+                    <td>@Html.HiddenFor(modelItem => sp.ID, new { id = "key" })</td>
+                    <td>@sp.ReportSPName</td>
+                    <td>@sp.RowCreateDate.ToShortDateString()</td>
+                    <td display="inline-block">@sp.ItComment</td>
+                    <td>@sp.PublicComment</td>
+                    <td>@sp.IsRDLChange</td>
+                    <td width="40px"><div class="delete"><button class="btn btn-outline-secondary">Delete</button></div></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+@*@using (Html.BeginForm("AddChangeHistory", "ChangeHistory", FormMethod.Post))
+
+    {
+        @Html.Hidden("selectedReportId", @ViewData["selectedReportId"])
+        @Html.Hidden("selectedReportName", @ViewData["selectedReportName"])
+        <input type="submit" value="ADD" class="btn btn-primary" />
+    }*@
+
+@*@Html.Partial("AddChangeHistory")*@
+
+
+@Html.Partial("_AddChangeHistory")
+
+@*<input type="button" class="btn btn-primary btn-lg btn-block" value="ADD" onclick="location.href='@Url.Action("AddChangeHistory", "MainConsole")'" />*@

@@ -1,0 +1,30 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+@using (Html.BeginForm("Index", "ChangeHistory", FormMethod.Post))
+
+{@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+<fieldset>
+    
+
+
+    <div class="form-group">
+
+        @*<option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>*@
+
+        @*@Html.Hidden("buttonName", "CH")*@
+        
+        @Html.Hidden("selectedReportName", @ViewData["selectedReportName"])
+       
+    </div>
+
+</fieldset>
+}
+
+

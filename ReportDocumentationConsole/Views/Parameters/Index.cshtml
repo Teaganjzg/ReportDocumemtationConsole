@@ -1,0 +1,218 @@
+﻿
+@model List<ReportDocumentationConsole.ViewModels.ReportSPParameter>
+
+@{
+    ViewBag.Title = "Parameters";
+}
+@*<h2>ChangeHistory</h2>*@
+
+@{
+
+    Html.RenderAction("_DropDownList", "Home", @ViewData["selectedReportName"].ToString());
+}
+
+@Html.Action("_ReportDescription", "MainConsole", new { selectedReportId = @ViewData["selectedReportId"].ToString() })
+
+
+@Html.Partial("_MainButtons")
+
+@section Scripts{
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".RDLParamName").dblclick(function (e) {
+                e.stopPropagation();
+                var CurrentEle = $(this);
+                var value = $(this).html();
+                var row = $(e.target).closest('tr');
+                var ParameterID = row.find($("[id*=key]")).val();
+                UpdateVal(CurrentEle, value, ParameterID, "RDLParamName");
+            });
+            $(".ParameterDesc").dblclick(function (e) {
+                e.stopPropagation();
+                var CurrentEle = $(this);
+                var value = $(this).html();
+                var row = $(e.target).closest('tr');
+                var ParameterID = row.find($("[id*=key]")).val();
+                UpdateVal(CurrentEle, value, ParameterID, "ParameterDesc");
+            });
+            $(".IsUserControlled").dblclick(function (e) {
+                e.stopPropagation();
+                var CurrentEle = $(this);
+                var value = $(this).html();
+                var row = $(e.target).closest('tr');
+                var ParameterID = row.find($("[id*=key]")).val();
+                UpdateVal(CurrentEle, value, ParameterID, "IsUserControlled");
+            });
+            $(".UserControlType").dblclick(function (e) {
+                e.stopPropagation();
+                var CurrentEle = $(this);
+                var value = $(this).html();
+                var row = $(e.target).closest('tr');
+                var ParameterID = row.find($("[id*=key]")).val();
+                UpdateVal(CurrentEle, value, ParameterID, "UserControlType");
+            });
+            $(".IsSetvalue").dblclick(function (e) {
+                e.stopPropagation();
+                var CurrentEle = $(this);
+                var value = $(this).html();
+                var row = $(e.target).closest('tr');
+                var ParameterID = row.find($("[id*=key]")).val();
+                UpdateVal(CurrentEle, value, ParameterID, "IsSetvalue");
+            });
+            $(".AdditionalInfo").dblclick(function (e) {
+                e.stopPropagation();
+                var CurrentEle = $(this);
+                var value = $(this).html();
+                var row = $(e.target).closest('tr');
+                var ParameterID = row.find($("[id*=key]")).val();
+                UpdateVal(CurrentEle, value, ParameterID, "AdditionalInfo");
+            });
+            $(".delete").click(function (e) {
+                e.stopPropagation();
+                var CurrentEle = $(this);
+                var value = $(this).html();
+                var row = $(e.target).closest('tr');
+                var ParameterID = row.find($("[id*=key]")).val();
+                DeleteRow(ParameterID);
+            });
+        });
+        function UpdateVal(CurrentEle, value, ParameterID, ColumnToUpdate) {
+            if ($(".cellValue") !== undefined) {
+                if ($(".cellValue").val() !== undefined) {
+                    $(".cellValue").parent().html($("#OriginalValue").val().trim());
+                    $(".cellValue").remove();
+                }
+            }
+            if (value.match("<") == null) {
+                $(CurrentEle).html('<div class="cellValue" id="cellWrapper"> ' +
+                    '<input class="cellValue" type="text" id="txtValue" value="' + value + '" />' +
+                    '<input class="cellValue" type="hidden" value="' + ParameterID + '" id="keySelected" />' +
+                    '<input class="cellValue" type="hidden" value="' + ColumnToUpdate + '" id="ColumnToUpdate" /> ' +
+                    '<input class="cellValue" type="hidden" value="' + value + '" id="OriginalValue" /> ' +
+                    '<input class="cellValue" type="button" value="save"   onclick="return SaveChanges()" /> ' +
+                    '<input class="cellValue" type="button" value="cancel" onclick="return CancelChanges()" /> ' +
+                    '</div> ');
+            }
+            $(".cellValue").focus();
+            $(".cellValue").keyup(function (event) {
+                if (event.keyCode == 13) {
+                    $(CurrentEle).html($(".cellValue").val().trim());
+                }
+            });
+        }
+
+        function CancelChanges(e) {
+            if ($(".cellValue") !== undefined) {
+                if ($(".cellValue").val() !== undefined) {
+                    $(".cellValue").parent().html($("#OriginalValue").val().trim());
+                    $(".cellValue").remove();
+                }
+            }
+            window.location.reload();
+        }
+
+        function SaveChanges(e) {
+            var para = {};
+            para.ColumnToUpdate = $("[id*=ColumnToUpdate]").val();
+            para.FieldValue = $("[id*=txtValue]").val();
+            para.ID = $("[id*=keySelected]").val();
+            $.ajax({
+                type: "POST",
+                url: "Parameters/SavePara",
+                data: '{para: ' + JSON.stringify(para) + '}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response == 0) { alert("input wrong!! only 'true' or 'false' allowed"); }
+                    else {
+                        alert("done!!");
+                        location.href = location.href;
+                        window.location.reload();
+                    }
+                }
+
+            });
+        }
+
+        function DeleteRow(ParameterID) {
+            var para = {};
+          
+            para.ID = ParameterID;
+            $.ajax({
+                type: "POST",
+                url: "Parameters/DeletePara",
+                data: '{para: ' + JSON.stringify(para) + '}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    alert("done!!");
+                    location.href = location.href;
+                    
+                    window.location.reload();
+                    
+                }
+
+            });
+        }
+    </script>
+}
+
+
+<div style="height: 500px; overflow: auto;">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                @*<th scope="col">ID</th>
+                    <th scope="col">SSRSReportId</th>*@
+                <th></th>
+                <th scope="col">ReportSPName</th>
+                <th scope="col">RDLParameterName</th>
+                <th scope="col">ParamDescription</th>
+                <th scope="col">IsUserControlled</th>
+                <th scope="col">UserControlledType</th>
+                <th scope="col">IsSetValue</th>
+                <th scope="col">AdditionalInfo</th>
+                <th scope="col">RowCreateDate</th>
+                <th scope="col">CreateEnduserName</th>
+                <th></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var sp in Model)
+            {
+            <tr class="table-primary">
+                @*<th scope="row">Primary</th>*@
+                @*<td>@sp.ID</td>
+        <td>@sp.SSRSReportId</td>*@
+                <td>@Html.HiddenFor(modelItem => sp.ID, new { id = "key" })</td>
+                <td>@sp.SPName</td>
+                <td><div class="RDLParamName">@Html.DisplayFor(modelItem => sp.RDLParamName)</td>
+                <td><div class="ParameterDesc">@Html.DisplayFor(modelItem => sp.ParameterDesc)</td>
+                <td><div class="IsUserControlled">@Html.DisplayFor(modelItem => sp.IsUserControlled)</td>
+                <td><div class="UserControlType">@Html.DisplayFor(modelItem => sp.UserControlType)</td>
+                <td><div class="IsSetvalue">@Html.DisplayFor(modelItem => sp.IsSetvalue)</td>
+                <td><div class="AdditionalInfo">@Html.DisplayFor(modelItem => sp.AdditionalInfo)</td>
+                <td>@sp.RowCreateDate.ToShortDateString()</td>
+                <td>@sp.CreateEndUserName</td>
+                <td width="40px" ><div class="delete"><button class="btn btn-outline-secondary">Delete</button></div></td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+@*using (Html.BeginForm("AddParameters", "Parameters", FormMethod.Post))
+
+    {
+        @Html.Hidden("selectedReportId", @ViewData["selectedReportId"])
+        @Html.Hidden("selectedReportName", @ViewData["selectedReportName"])
+        <input type="submit" value="ADD" class="btn btn-primary" />
+    }*@
+
+@Html.Partial("_AddParameters")
+
+@*<input type="button" class="btn btn-primary btn-lg btn-block" value="ADD" onclick="location.href='@Url.Action("AddChangeHistory", "MainConsole")'" />*@

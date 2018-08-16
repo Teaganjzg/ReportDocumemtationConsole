@@ -1,0 +1,30 @@
+﻿
+@model ReportDocumentationConsole.ViewModels.ReportsViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+@using (Html.BeginForm("Index", "ChangeHistory", FormMethod.Post))
+
+{@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+<fieldset>
+    <legend>Reports</legend>
+
+
+    <div class="form-group">
+
+        @*<option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>*@
+        @Html.Label("Report Name")
+
+
+        @Html.DropDownList("selectedReportName", new SelectList(Model.names), @ViewData["selectedReportName"] == null?"select report": ViewData["selectedReportName"].ToString(), new { @class = "custom-select" })
+        @Html.Hidden("buttonName", "CH")
+        <input type="submit" value="submit" class="btn btn-primary" />
+    </div>
+
+</fieldset>
+}

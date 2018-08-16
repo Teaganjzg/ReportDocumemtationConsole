@@ -1,0 +1,438 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MSBDWModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="enduser">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="ad_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="first_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="mid_init" Type="char" MaxLength="1" />
+          <Property Name="last_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="full_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="email_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ad_active_flag" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="row_create_date" Type="datetime" Nullable="false" />
+          <Property Name="row_modify_date" Type="datetime" />
+          <Property Name="ad_account_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="user_phone" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="department" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ad_user_account_control" Type="int" />
+          <Property Name="manager_enduser_id" Type="int" Nullable="false" />
+          <Property Name="always_active_flag" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="token" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="deactivate_date" Type="datetime" />
+          <Property Name="active_flag" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="user_fax" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="user_cell" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="user_phone_full" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="business_street" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="business_city" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="business_state" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="business_zip" Type="char" MaxLength="20" Nullable="false" />
+          <Property Name="segment_id" Type="int" Nullable="false" />
+          <Property Name="credit_enduser_id" Type="int" Nullable="false" />
+          <Property Name="timezone_offset" Type="smallint" />
+          <Property Name="real_user_flag" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="lp_initials" Type="varchar" MaxLength="10" />
+          <Property Name="lp_name" Type="varchar" MaxLength="50" />
+          <Property Name="lp_active" Type="char" MaxLength="1" />
+          <Property Name="aspire_entt_id" Type="bigint" />
+          <Property Name="buy_rate" Type="decimal" Precision="10" Scale="6" />
+          <Property Name="commission_pct" Type="decimal" Precision="10" Scale="6" />
+          <Property Name="password_last_changed" Type="datetime" />
+          <Property Name="password_expired" Type="nchar" MaxLength="10" />
+          <Property Name="password_never_expires" Type="nchar" MaxLength="10" />
+          <Property Name="password_expiration_date" Type="datetime" />
+          <Property Name="phone_ext" Type="varchar" MaxLength="10" />
+          <Property Name="title_alias" Type="varchar" MaxLength="100" />
+          <Property Name="primary_ad_role_id" Type="int" />
+          <Property Name="hire_date" Type="datetime" />
+          <Property Name="term_date" Type="datetime" />
+          <Property Name="edocs_flag" Type="bit" />
+          <Property Name="edocs_approve_flag" Type="bit" />
+          <Property Name="docmaide_email" Type="varchar" MaxLength="100" />
+          <Property Name="reporting_manager_id" Type="int" />
+          <Property Name="payquote_permission" Type="varchar" MaxLength="10" />
+          <Property Name="notification_emails" Type="varchar" MaxLength="250" />
+          <Property Name="DST_Flag" Type="bit" />
+        </EntityType>
+        <EntityType Name="ReportChangeLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SSRSReportId" Type="int" />
+          <Property Name="ReportSPId" Type="int" />
+          <Property Name="RowCreateDate" Type="datetime" />
+          <Property Name="ITComment" Type="varchar(max)" />
+          <Property Name="PublicComment" Type="varchar(max)" />
+          <Property Name="IsRDLChange" Type="bit" />
+        </EntityType>
+        <EntityType Name="ReportLinkages">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LinkageType" Type="varchar" MaxLength="100" />
+          <Property Name="LinkLocation" Type="varchar" MaxLength="500" />
+          <Property Name="RowCreateDate" Type="datetime" />
+          <Property Name="CreateEnduserId" Type="int" />
+          <Property Name="SSRSReportId" Type="int" />
+        </EntityType>
+        <EntityType Name="ReportSP">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SSRSReportId" Type="int" />
+          <Property Name="SPName" Type="varchar" MaxLength="500" />
+          <Property Name="IsRDLDropdown" Type="bit" />
+          <Property Name="PermissionsNotes" Type="varchar(max)" />
+          <Property Name="RowCreateDate" Type="datetime" />
+          <Property Name="CreateEnduserId" Type="int" />
+          <Property Name="RowModifyDate" Type="datetime" />
+          <Property Name="ModifyEnduserId" Type="int" />
+        </EntityType>
+        <EntityType Name="ReportSPParameters">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReportSPId" Type="int" Nullable="false" />
+          <Property Name="RDLParameterName" Type="varchar" MaxLength="250" />
+          <Property Name="ParamDescription" Type="varchar" MaxLength="250" />
+          <Property Name="IsUserControlled" Type="bit" />
+          <Property Name="UserControlType" Type="varchar" MaxLength="250" />
+          <Property Name="IsSetValue" Type="bit" />
+          <Property Name="DefaultValue" Type="varchar" MaxLength="250" />
+          <Property Name="AdditionalInfo" Type="varchar(max)" />
+          <Property Name="RowCreateDate" Type="datetime" />
+          <Property Name="CreateEnduserId" Type="int" />
+          <Property Name="SSRSReportId" Type="int" />
+        </EntityType>
+        <EntityType Name="SsrsReports">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="reportcat_id" Type="int" />
+          <Property Name="rpt_name" Type="varchar" MaxLength="100" />
+          <Property Name="rpt_desc" Type="varchar" MaxLength="200" />
+          <Property Name="create_date" Type="datetime" />
+          <Property Name="sp_name" Type="varchar" MaxLength="100" />
+          <Property Name="RdlName" Type="varchar" MaxLength="50" />
+          <Property Name="OwnerEnduserId" Type="int" />
+        </EntityType>
+        <EntityContainer Name="MSBDWModelStoreContainer">
+          <EntitySet Name="enduser" EntityType="Self.enduser" Schema="dw" store:Type="Tables" />
+          <EntitySet Name="ReportChangeLog" EntityType="Self.ReportChangeLog" Schema="dw" store:Type="Tables" />
+          <EntitySet Name="ReportLinkages" EntityType="Self.ReportLinkages" Schema="dw" store:Type="Tables" />
+          <EntitySet Name="ReportSP" EntityType="Self.ReportSP" Schema="dw" store:Type="Tables" />
+          <EntitySet Name="ReportSPParameters" EntityType="Self.ReportSPParameters" Schema="dw" store:Type="Tables" />
+          <EntitySet Name="SsrsReports" EntityType="Self.SsrsReports" Schema="dw" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MSBDWModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ReportChangeLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SSRSReportId" Type="Int32" />
+          <Property Name="ReportSPId" Type="Int32" />
+          <Property Name="RowCreateDate" Type="DateTime" Precision="3" />
+          <Property Name="ITComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PublicComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IsRDLChange" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="ReportLinkage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LinkageType" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LinkLocation" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="RowCreateDate" Type="DateTime" Precision="3" />
+          <Property Name="CreateEnduserId" Type="Int32" />
+          <Property Name="SSRSReportId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ReportSP">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SSRSReportId" Type="Int32" />
+          <Property Name="SPName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IsRDLDropdown" Type="Boolean" />
+          <Property Name="PermissionsNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RowCreateDate" Type="DateTime" Precision="3" />
+          <Property Name="CreateEnduserId" Type="Int32" />
+          <Property Name="RowModifyDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifyEnduserId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ReportSPParameter">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReportSPId" Type="Int32" Nullable="false" />
+          <Property Name="RDLParameterName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ParamDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="IsUserControlled" Type="Boolean" />
+          <Property Name="UserControlType" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="IsSetValue" Type="Boolean" />
+          <Property Name="DefaultValue" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="AdditionalInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RowCreateDate" Type="DateTime" Precision="3" />
+          <Property Name="CreateEnduserId" Type="Int32" />
+          <Property Name="SSRSReportId" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="MSBDWEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ReportChangeLogs" EntityType="Self.ReportChangeLog" />
+          <EntitySet Name="ReportLinkages" EntityType="Self.ReportLinkage" />
+          <EntitySet Name="ReportSPs" EntityType="Self.ReportSP" />
+          <EntitySet Name="ReportSPParameters" EntityType="Self.ReportSPParameter" />
+          <EntitySet Name="SsrsReports" EntityType="MSBDWModel.SsrsReport" />
+          <EntitySet Name="endusers" EntityType="MSBDWModel.enduser" />
+        </EntityContainer>
+        <EntityType Name="SsrsReport">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="reportcat_id" Type="Int32" />
+          <Property Name="rpt_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="rpt_desc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="create_date" Type="DateTime" Precision="3" />
+          <Property Name="sp_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="RdlName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OwnerEnduserId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="enduser">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="ad_name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="first_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="mid_init" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="last_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="full_name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="email_name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ad_active_flag" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="row_create_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="row_modify_date" Type="DateTime" Precision="3" />
+          <Property Name="ad_account_name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="user_phone" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="title" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="department" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ad_user_account_control" Type="Int32" />
+          <Property Name="manager_enduser_id" Type="Int32" Nullable="false" />
+          <Property Name="always_active_flag" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="token" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="deactivate_date" Type="DateTime" Precision="3" />
+          <Property Name="active_flag" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="user_fax" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="user_cell" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="user_phone_full" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="business_street" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="business_city" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="business_state" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="business_zip" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="segment_id" Type="Int32" Nullable="false" />
+          <Property Name="credit_enduser_id" Type="Int32" Nullable="false" />
+          <Property Name="timezone_offset" Type="Int16" />
+          <Property Name="real_user_flag" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="lp_initials" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="lp_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lp_active" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="aspire_entt_id" Type="Int64" />
+          <Property Name="buy_rate" Type="Decimal" Precision="10" Scale="6" />
+          <Property Name="commission_pct" Type="Decimal" Precision="10" Scale="6" />
+          <Property Name="password_last_changed" Type="DateTime" Precision="3" />
+          <Property Name="password_expired" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="password_never_expires" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="password_expiration_date" Type="DateTime" Precision="3" />
+          <Property Name="phone_ext" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="title_alias" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="primary_ad_role_id" Type="Int32" />
+          <Property Name="hire_date" Type="DateTime" Precision="3" />
+          <Property Name="term_date" Type="DateTime" Precision="3" />
+          <Property Name="edocs_flag" Type="Boolean" />
+          <Property Name="edocs_approve_flag" Type="Boolean" />
+          <Property Name="docmaide_email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="reporting_manager_id" Type="Int32" />
+          <Property Name="payquote_permission" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="notification_emails" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="DST_Flag" Type="Boolean" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MSBDWModelStoreContainer" CdmEntityContainer="MSBDWEntities">
+          <EntitySetMapping Name="ReportChangeLogs">
+            <EntityTypeMapping TypeName="MSBDWModel.ReportChangeLog">
+              <MappingFragment StoreEntitySet="ReportChangeLog">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SSRSReportId" ColumnName="SSRSReportId" />
+                <ScalarProperty Name="ReportSPId" ColumnName="ReportSPId" />
+                <ScalarProperty Name="RowCreateDate" ColumnName="RowCreateDate" />
+                <ScalarProperty Name="ITComment" ColumnName="ITComment" />
+                <ScalarProperty Name="PublicComment" ColumnName="PublicComment" />
+                <ScalarProperty Name="IsRDLChange" ColumnName="IsRDLChange" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReportLinkages">
+            <EntityTypeMapping TypeName="MSBDWModel.ReportLinkage">
+              <MappingFragment StoreEntitySet="ReportLinkages">
+                <ScalarProperty Name="SSRSReportId" ColumnName="SSRSReportId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="LinkageType" ColumnName="LinkageType" />
+                <ScalarProperty Name="LinkLocation" ColumnName="LinkLocation" />
+                <ScalarProperty Name="RowCreateDate" ColumnName="RowCreateDate" />
+                <ScalarProperty Name="CreateEnduserId" ColumnName="CreateEnduserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReportSPs">
+            <EntityTypeMapping TypeName="MSBDWModel.ReportSP">
+              <MappingFragment StoreEntitySet="ReportSP">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SSRSReportId" ColumnName="SSRSReportId" />
+                <ScalarProperty Name="SPName" ColumnName="SPName" />
+                <ScalarProperty Name="IsRDLDropdown" ColumnName="IsRDLDropdown" />
+                <ScalarProperty Name="PermissionsNotes" ColumnName="PermissionsNotes" />
+                <ScalarProperty Name="RowCreateDate" ColumnName="RowCreateDate" />
+                <ScalarProperty Name="CreateEnduserId" ColumnName="CreateEnduserId" />
+                <ScalarProperty Name="RowModifyDate" ColumnName="RowModifyDate" />
+                <ScalarProperty Name="ModifyEnduserId" ColumnName="ModifyEnduserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReportSPParameters">
+            <EntityTypeMapping TypeName="MSBDWModel.ReportSPParameter">
+              <MappingFragment StoreEntitySet="ReportSPParameters">
+                <ScalarProperty Name="SSRSReportId" ColumnName="SSRSReportId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ReportSPId" ColumnName="ReportSPId" />
+                <ScalarProperty Name="RDLParameterName" ColumnName="RDLParameterName" />
+                <ScalarProperty Name="ParamDescription" ColumnName="ParamDescription" />
+                <ScalarProperty Name="IsUserControlled" ColumnName="IsUserControlled" />
+                <ScalarProperty Name="UserControlType" ColumnName="UserControlType" />
+                <ScalarProperty Name="IsSetValue" ColumnName="IsSetValue" />
+                <ScalarProperty Name="DefaultValue" ColumnName="DefaultValue" />
+                <ScalarProperty Name="AdditionalInfo" ColumnName="AdditionalInfo" />
+                <ScalarProperty Name="RowCreateDate" ColumnName="RowCreateDate" />
+                <ScalarProperty Name="CreateEnduserId" ColumnName="CreateEnduserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SsrsReports">
+            <EntityTypeMapping TypeName="MSBDWModel.SsrsReport">
+              <MappingFragment StoreEntitySet="SsrsReports">
+                <ScalarProperty Name="OwnerEnduserId" ColumnName="OwnerEnduserId" />
+                <ScalarProperty Name="RdlName" ColumnName="RdlName" />
+                <ScalarProperty Name="sp_name" ColumnName="sp_name" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="rpt_desc" ColumnName="rpt_desc" />
+                <ScalarProperty Name="rpt_name" ColumnName="rpt_name" />
+                <ScalarProperty Name="reportcat_id" ColumnName="reportcat_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="endusers">
+            <EntityTypeMapping TypeName="MSBDWModel.enduser">
+              <MappingFragment StoreEntitySet="enduser">
+                <ScalarProperty Name="DST_Flag" ColumnName="DST_Flag" />
+                <ScalarProperty Name="notification_emails" ColumnName="notification_emails" />
+                <ScalarProperty Name="payquote_permission" ColumnName="payquote_permission" />
+                <ScalarProperty Name="reporting_manager_id" ColumnName="reporting_manager_id" />
+                <ScalarProperty Name="docmaide_email" ColumnName="docmaide_email" />
+                <ScalarProperty Name="edocs_approve_flag" ColumnName="edocs_approve_flag" />
+                <ScalarProperty Name="edocs_flag" ColumnName="edocs_flag" />
+                <ScalarProperty Name="term_date" ColumnName="term_date" />
+                <ScalarProperty Name="hire_date" ColumnName="hire_date" />
+                <ScalarProperty Name="primary_ad_role_id" ColumnName="primary_ad_role_id" />
+                <ScalarProperty Name="title_alias" ColumnName="title_alias" />
+                <ScalarProperty Name="phone_ext" ColumnName="phone_ext" />
+                <ScalarProperty Name="password_expiration_date" ColumnName="password_expiration_date" />
+                <ScalarProperty Name="password_never_expires" ColumnName="password_never_expires" />
+                <ScalarProperty Name="password_expired" ColumnName="password_expired" />
+                <ScalarProperty Name="password_last_changed" ColumnName="password_last_changed" />
+                <ScalarProperty Name="commission_pct" ColumnName="commission_pct" />
+                <ScalarProperty Name="buy_rate" ColumnName="buy_rate" />
+                <ScalarProperty Name="aspire_entt_id" ColumnName="aspire_entt_id" />
+                <ScalarProperty Name="lp_active" ColumnName="lp_active" />
+                <ScalarProperty Name="lp_name" ColumnName="lp_name" />
+                <ScalarProperty Name="lp_initials" ColumnName="lp_initials" />
+                <ScalarProperty Name="real_user_flag" ColumnName="real_user_flag" />
+                <ScalarProperty Name="timezone_offset" ColumnName="timezone_offset" />
+                <ScalarProperty Name="credit_enduser_id" ColumnName="credit_enduser_id" />
+                <ScalarProperty Name="segment_id" ColumnName="segment_id" />
+                <ScalarProperty Name="business_zip" ColumnName="business_zip" />
+                <ScalarProperty Name="business_state" ColumnName="business_state" />
+                <ScalarProperty Name="business_city" ColumnName="business_city" />
+                <ScalarProperty Name="business_street" ColumnName="business_street" />
+                <ScalarProperty Name="user_phone_full" ColumnName="user_phone_full" />
+                <ScalarProperty Name="user_cell" ColumnName="user_cell" />
+                <ScalarProperty Name="user_fax" ColumnName="user_fax" />
+                <ScalarProperty Name="active_flag" ColumnName="active_flag" />
+                <ScalarProperty Name="deactivate_date" ColumnName="deactivate_date" />
+                <ScalarProperty Name="token" ColumnName="token" />
+                <ScalarProperty Name="always_active_flag" ColumnName="always_active_flag" />
+                <ScalarProperty Name="manager_enduser_id" ColumnName="manager_enduser_id" />
+                <ScalarProperty Name="ad_user_account_control" ColumnName="ad_user_account_control" />
+                <ScalarProperty Name="department" ColumnName="department" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="user_phone" ColumnName="user_phone" />
+                <ScalarProperty Name="ad_account_name" ColumnName="ad_account_name" />
+                <ScalarProperty Name="row_modify_date" ColumnName="row_modify_date" />
+                <ScalarProperty Name="row_create_date" ColumnName="row_create_date" />
+                <ScalarProperty Name="ad_active_flag" ColumnName="ad_active_flag" />
+                <ScalarProperty Name="email_name" ColumnName="email_name" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="mid_init" ColumnName="mid_init" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="ad_name" ColumnName="ad_name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

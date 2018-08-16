@@ -1,0 +1,103 @@
+﻿
+@model List<ReportDocumentationConsole.ViewModels.ReportSP>
+
+@{
+    ViewBag.Title = "StoredProcs";
+}
+@*<h2>ChangeHistory</h2>*@
+@{
+
+    Html.RenderAction("_DropDownList", "Home", @ViewData["selectedReportName"].ToString());
+}
+
+@Html.Action("_ReportDescription", "MainConsole", new { selectedReportId = @ViewData["selectedReportId"].ToString() })
+
+@Html.Partial("_MainButtons")
+
+@section Scripts{
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $(".delete").click(function (e) {
+                e.stopPropagation();
+                var CurrentEle = $(this);
+                var value = $(this).html();
+                var row = $(e.target).closest('tr');
+                var SPID = row.find($("[id*=key]")).val();
+                DeleteRow(SPID);
+            });
+
+        });
+        function DeleteRow(SPID) {
+            var sp = {};
+
+            sp.ID = SPID;
+            $.ajax({
+                type: "POST",
+                url: "StoredProcs/DeleteSP",
+                data: '{sp: ' + JSON.stringify(sp) + '}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    alert("done!!");
+                    location.href = location.href;
+                    window.location.reload();
+                }
+
+            });
+        }
+    </script>
+}
+
+
+<div style="height: 500px; overflow: auto;">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th></th>
+                <th scope="col">SPName</th>
+                @*<th scope="col">SSRSReportId</th>*@
+                <th scope="col">IsRDLDropdown</th>
+                <th scope="col">PermissionNotes</th>
+                <th scope="col">RowCreateDate</th>
+                <th scope="col">CreateEnduserName</th>
+                <th scope="col">RowModifyDate</th>
+                <th scope="col">ModifyEnduserName</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var sp in Model)
+            {
+            <tr class="table-primary">
+                @*<th scope="row">Primary</th>*@
+                <td>@Html.HiddenFor(modelItem => sp.ID, new { id = "key" })</td>
+                <td>@sp.SPName</td>
+                @*<td>@sp.SSRSReportId</td>*@
+                <td>@sp.IsRDLDropdown</td>
+                <td>@sp.PermissionNotes</td>
+                <td>@sp.RowCreateDate.ToShortDateString()</td>
+                <td>@sp.CreateEndUserName</td>
+                <td>@sp.RowModifyDate.ToShortDateString()</td>
+                <td>@sp.ModifyEndUserName</td>
+                <td width="40px"><div class="delete"><button class="btn btn-outline-secondary">Delete</button></div></td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+@*@using (Html.BeginForm("AddStoredProcs", "StoredProcs", FormMethod.Post))
+
+    {
+        @Html.Hidden("selectedReportId", @ViewData["selectedReportId"])
+        @Html.Hidden("selectedReportName", @ViewData["selectedReportName"])
+        <input type="submit" value="ADD" class="btn btn-primary" />
+    }*@
+
+@Html.Partial("_AddStoredProcs")
+
+@*<input type="button" class="btn btn-primary btn-lg btn-block" value="ADD" onclick="location.href='@Url.Action("AddChangeHistory", "MainConsole")'" />*@

@@ -1,0 +1,31 @@
+﻿@model string
+
+
+
+        @using (Html.BeginForm("Index", "ChangeHistory", FormMethod.Post,new { @class = "form-inline"}))
+
+        {@Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <fieldset>
+            
+
+
+            <div class="form-group">
+
+                @*<option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>*@
+
+                @*@Html.Hidden("buttonName", "CH")*@
+                @Html.Hidden("selectedReportId", @ViewData["selectedReportId"])
+                @Html.Hidden("selectedReportName", @ViewData["selectedReportName"])
+                @Html.Label("Report Description")
+               
+                    @Html.TextBox("ReportDescription", @ViewData["ReportDescription"], new { @class = "form-control-desc", @style = "width:2000px;" , @size = "2000" })
+                    <input type="submit" value="save" class="btn btn-primary"  />
+                
+            </div>
+
+        </fieldset>
+    }
+    

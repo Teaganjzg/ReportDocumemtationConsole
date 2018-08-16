@@ -1,0 +1,3 @@
+﻿@model ReportDocumentationConsole.ViewModels.ReportsViewModel
+<label class="col-form-label" for="CreatedEndUser">CreatedEndUser*</label>
+@Html.DropDownList("CreatedEndUser", new SelectList(Model.names), null, new { @class = "form-control" })

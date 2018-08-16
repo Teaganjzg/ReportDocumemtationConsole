@@ -1,0 +1,27 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddParametersResult</title>
+</head>
+<body>
+    <center>
+    <div>
+        Success!
+        @using (Html.BeginForm("Index", "Parameters", FormMethod.Post))
+        {
+            @Html.Hidden("selectedReportId", @ViewData["selectedReportId"])
+            @Html.Hidden("selectedReportName", @ViewData["selectedReportName"])
+            <input type="submit" value="Return To Parameters" class="btn btn-primary" />
+        }
+
+    </div>
+    </center>
+</body>
+</html>

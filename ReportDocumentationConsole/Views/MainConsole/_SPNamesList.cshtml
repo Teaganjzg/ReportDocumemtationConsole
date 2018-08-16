@@ -1,0 +1,4 @@
+﻿
+@model ReportDocumentationConsole.ViewModels.ReportsViewModel
+<label class="col-form-label" for="ReportSPName">ReportSP*</label>
+    @Html.DropDownList("ReportSPName", new SelectList(Model.names), null, new { @class = "form-control valid", @data_val = "true", @data_val_required = "ReportSPName is required" })
