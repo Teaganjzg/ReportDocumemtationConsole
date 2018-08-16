@@ -52,7 +52,7 @@ namespace ReportDocumentationConsole.Controllers
 
             temp.SSRSReportId = SSRSReportId;
             temp.LinkageType = Request.Form["LinkageType"];
-            temp.LinkLocation = Request.Unvalidated.Form["LinkLocation"];
+            temp.LinkLocation = Request.Form["LinkLocation"];
             temp.CreateEnduserId = DB_MSBDW.endusers.FirstOrDefault(eu => eu.full_name == selectedEuName).id;
             temp.RowCreateDate = DateTime.Now;
 
