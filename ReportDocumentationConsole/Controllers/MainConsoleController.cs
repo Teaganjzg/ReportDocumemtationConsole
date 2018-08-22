@@ -55,10 +55,7 @@ namespace ReportDocumentationConsole.Controllers
             DB.SsrsReport report = DB_MSBDW.SsrsReports.FirstOrDefault(re => re.id == reportId);
             report.rpt_desc = Request.Form["ReportDescription"];
             DB_MSBDW.SaveChanges();
-            //TempData["selectedReportName"] = Request.Form["selectedReportName"];
-            //return RedirectToAction("Index1", "ChangeHistory");
-            //ViewData["selectedReportName"] = Request.Form["selectedReportName"];
-            //return View();
+            
             ViewData["ReportDescription"] = Request.Form["ReportDescription"];
             ViewData["selectedReportName"] = Request.Form["selectedReportName"];
             return PartialView("_ReportDescription");

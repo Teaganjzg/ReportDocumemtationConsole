@@ -205,14 +205,7 @@
     </table>
 
 </div>
-@*using (Html.BeginForm("AddParameters", "Parameters", FormMethod.Post))
 
-    {
-        @Html.Hidden("selectedReportId", @ViewData["selectedReportId"])
-        @Html.Hidden("selectedReportName", @ViewData["selectedReportName"])
-        <input type="submit" value="ADD" class="btn btn-primary" />
-    }*@
 
 @Html.Partial("_AddParameters")
 
-@*<input type="button" class="btn btn-primary btn-lg btn-block" value="ADD" onclick="location.href='@Url.Action("AddChangeHistory", "MainConsole")'" />*@

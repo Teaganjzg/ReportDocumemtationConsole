@@ -16,27 +16,6 @@ namespace ReportDocumentationConsole.Controllers
         public ActionResult Index()
         {
             int selectedReport;
-            //if (Request.Form["isAdd"] == "true")
-            //{
-            //    int SSRSReportId = Convert.ToInt32(Request.Form["selectedReportId"]);
-            //    string selectedSPName = Request.Form["ReportSPName"];
-
-            //    DB.ReportChangeLog temp = new DB.ReportChangeLog();
-            //    temp.SSRSReportId = SSRSReportId;
-            //    temp.ReportSPId = DB_MSBDW.ReportSPs.FirstOrDefault(sp => sp.SPName == selectedSPName).ID;
-            //    temp.ITComment = Request.Form["ITComment"];
-            //    temp.PublicComment = Request.Form["PublicComment"];
-            //    temp.RowCreateDate = DateTime.Now;
-            //    temp.IsRDLChange = true;
-
-            //    DB_MSBDW.ReportChangeLogs.Add(temp);
-            //    DB_MSBDW.SaveChanges();
-
-
-            //    //List<DB.ReportSP> reportSP = DB_MSBDW.ReportSPs.Where(sp => sp.SSRSReportId == selectedReport).ToList();
-                
-            //}
-            
             
             if (Request.Form["selectedReportName"] != null && Request.Form["selectedReportName"] != "select report" && Request.Form["selectedReportName"] != "")
             {
@@ -72,17 +51,7 @@ namespace ReportDocumentationConsole.Controllers
             
         }
 
-        //public ActionResult AddChangeHistory()
-        //{
-        //    int selectedReportId = Convert.ToInt32(Request.Form["selectedReportId"]);
-        //    ViewData["selectedReportId"] = Request.Form["selectedReportId"];
-        //    ViewData["buttonName"] = "CH";
-        //    ViewData["selectedReportName"] = Request.Form["selectedReportName"];
-        //    //List<string> reportSPs = new List<string>();
-        //    var spNames = DB_MSBDW.ReportSPs.Where(sp => sp.SSRSReportId == selectedReportId).Select(sp => sp.SPName).ToList();
-        //    ViewModels.ReportsViewModel spnames = new ReportsViewModel() { names = spNames };
-        //    return View(spnames);
-        //}
+        
       
 
         [HttpPost]
@@ -113,8 +82,7 @@ namespace ReportDocumentationConsole.Controllers
             ViewData["selectedReportId"] = SSRSReportId;
             ViewData["buttonName"] = "CH";
             ViewData["selectedReportName"] = Request.Form["selectedReportName"];
-            //return View("Index", changeHistoryViewModel.reportChangeLogs);
-            //return View(criterias);
+            
             return View();
         }
         public class ChangeHistoryToDelete

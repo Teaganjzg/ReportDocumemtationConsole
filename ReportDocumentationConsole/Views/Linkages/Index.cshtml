@@ -36,14 +36,7 @@
                 var LinkageID = row.find($("[id*=key]")).val();
                 DeleteRow(LinkageID);
             });
-            //$(".rpt_name").dblclick(function (e) {
-            //    e.stopPropagation();
-            //    var CurrentEle = $(this);
-            //    var value = $(this).html();
-            //    var row = $(e.target).closest('tr');
-            //    var ReportID = row.find($("[id*=key]")).val();
-            //    UpdateVal(CurrentEle, value, ReportID, "rpt_name");
-            //});
+
         });
         function UpdateVal(CurrentEle, value, LinkageID, ColumnToUpdate) {
             if ($(".cellValue") !== undefined) {
@@ -159,13 +152,7 @@
     </table>
 </div>
 
-@*@using (Html.BeginForm("AddLinkages", "Linkages", FormMethod.Post))
 
-    {
-        @Html.Hidden("selectedReportId", @ViewData["selectedReportId"])
-        @Html.Hidden("selectedReportName", @ViewData["selectedReportName"])
-        <input type="submit" value="ADD" class="btn btn-primary" />
-    }*@
 @Html.Partial("_AddLinkages")
 
-@*<input type="button" class="btn btn-primary btn-lg btn-block" value="ADD" onclick="location.href='@Url.Action("AddChangeHistory", "MainConsole")'" />*@
+

@@ -28,45 +28,7 @@ namespace ReportDocumentationConsole.Controllers
         }
 
 
-
-        //public ActionResult AddParameters()
-        //{
-        //    int selectedReportId = Convert.ToInt32(Request.Form["selectedReportId"]);
-        //    ViewData["selectedReportId"] = Request.Form["selectedReportId"];
-        //    ViewData["buttonName"] = "PA";
-        //    ViewData["selectedReportName"] = Request.Form["selectedReportName"];
-        //    var spNames = DB_MSBDW.ReportSPs.Where(sp => sp.SSRSReportId == selectedReportId).Select(sp => sp.SPName).ToList();
-        //    var endUserNames = DB_MSBDW.endusers.Where(eu => eu.ad_active_flag == "Y" && eu.primary_ad_role_id == 2031).Select(eu => eu.full_name).ToList();
-        //    ViewModels.ReportsViewModel spEuNames = new ReportsViewModel() { names = spNames, names2 = endUserNames };
-        //    return View(spEuNames);
-        //}
-
-        //public ActionResult AddParametersResult(int SSRSReportId, string selectedEuName, string selectedSPName)
-        //{
-        //    //int SSRSReportId = Convert.ToInt32(Request.Form["selectedReportId"]);
-
-        //    //string selectedEuName = Request.Form["CreatedEndUser"];
-        //    //string selectedSPName = Request.Form["ReportSPName"];
-        //    DB.ReportSPParameter temp = new DB.ReportSPParameter();
-
-        //    temp.ReportSPId = DB_MSBDW.ReportSPs.FirstOrDefault(sp => sp.SPName == selectedSPName).ID;
-        //    temp.SSRSReportId = SSRSReportId;
-        //    temp.RDLParameterName = Request.Form["RDLParameterName"];
-        //    temp.ParamDescription = Request.Form["ParamDescription"];
-        //    temp.IsUserControlled = Request.Form["IsUserControlled"] == "Yes" ? true : false;
-        //    temp.UserControlType = Request.Form["UserControlType"];
-        //    temp.IsSetValue = Request.Form["IsSetValue"] == "Yes" ? true : false;
-        //    temp.DefaultValue = Request.Form["DefaultValue"];
-        //    temp.AdditionalInfo = Request.Form["AdditionalInfo"];
-        //    temp.RowCreateDate = DateTime.Now;
-        //    temp.CreateEnduserId = DB_MSBDW.endusers.FirstOrDefault(eu => eu.full_name == selectedEuName).id;
-
-        //    Dispose();
-        //    DB_MSBDW.ReportSPParameters.Add(temp);
-        //    DB_MSBDW.SaveChanges();
-
-        //    return View();
-        //}
+        
 
         [HttpPost]
         public ActionResult AddParametersResult()
