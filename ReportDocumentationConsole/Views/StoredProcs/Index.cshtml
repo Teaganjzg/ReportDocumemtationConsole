@@ -53,7 +53,7 @@
 }
 
 
-<div style="height: 500px; overflow: auto;">
+<div style="max-height: 500px; overflow: auto;">
     <table class="table table-hover">
         <thead>
             <tr>
@@ -84,7 +84,7 @@
                     <td>@Model[i].CreateEndUserName</td>
                     <td>@Model[i].RowModifyDate.ToShortDateString()</td>
                     <td>@Model[i].ModifyEndUserName</td>
-                    <td width="40px">< div class="delete"><button class="btn btn-outline-secondary">Delete</button>
+                    <td width="40px"><div class="delete"><button class="btn btn-outline-secondary">Delete</button></div></td>
 
                 </tr>
              }

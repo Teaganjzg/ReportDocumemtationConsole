@@ -22,14 +22,14 @@
         @*@Html.TextBox("ReportSPId", null, new { @class = "form-control" })*@
 
 
-        <label class="col-form-label" for="RDLParameterName">RDLParameterName</label>
+        <label class="col-form-label" for="RDLParameterName">RDLName</label>
         @Html.TextBox("RDLParameterName", null, new { @class = "form-control" })
 
-        <label class="col-form-label" for="ParameterName">ParameterName*</label>
+        <label class="col-form-label" for="ParameterName">Description*</label>
         @Html.TextBox("ParamDescription", null, new { @class = "form-control valid", @data_val = "true", @data_val_required = "ParamDescription is required" })
 
 
-        <label class="col-form-label" for="IsUserControlled">IsUserControlled*</label>
+        <label class="col-form-label" for="IsUserControlled">User Controlled?*</label>
         <div class="custom-control custom-radio">
             @Html.RadioButton("IsUserControlled", "Yes", new { @class = "custom-control", @checked = true, id = "IsUserControlled" })
             @Html.Label("Yes", "Yes")
@@ -39,7 +39,7 @@
         </div>
 
 
-        <label class="col-form-label" for="UserControllType">UserControlType</label>
+        <label class="col-form-label" for="UserControllType">User Control Type</label>
         @Html.TextBox("UserControlType", null, new { @class = "form-control", id = "UserControlType" })
 
         <script type="text/javascript">
@@ -60,7 +60,7 @@
         </script>
 
 
-        <label class="col-form-label" for="IsSetValue">IsSetValue*</label>
+        <label class="col-form-label" for="IsSetValue">Set Value?*</label>
         <div class="custom-control custom-radio">
             @Html.RadioButton("IsSetValue", "Yes", new { @class = "custom-control", @checked = true, @id = "IsSetValue" }) Yes
             @*@Html.Label("Yes", "Yes")*@
@@ -68,7 +68,7 @@
             @*@Html.Label("No", "No")*@
             @*@Html.TextBox("IsSetValue", null, new { @class = "form-control valid", @data_val = "true", @data_val_required = "IsSetValue is required" })*@
         </div>
-        <label class="col-form-label" for="DefaultValue">DefaultValue*</label>
+        <label class="col-form-label" for="DefaultValue">Default Value*</label>
         @Html.TextBox("DefaultValue", null, new { @class = "form-control valid", @data_val = "true", @data_val_required = "DefaultValue is required" })
 
         <script type="text/javascript">
@@ -86,7 +86,7 @@
             });
         </script>
 
-        <label class="col-form-label" for="AdditionalInfo">AdditionalInfo</label>
+        <label class="col-form-label" for="AdditionalInfo">Info</label>
         @Html.TextBox("AdditionalInfo", null, new { @class = "form-control" })
 
         @Html.Action("_EndUserNamesList", "MainConsole")

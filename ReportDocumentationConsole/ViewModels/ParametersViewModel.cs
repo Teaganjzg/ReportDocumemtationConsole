@@ -48,7 +48,7 @@ namespace ReportDocumentationConsole.ViewModels
         public string IsUserControlled { get; set; }
         [DisplayName("User Control Type")]
         public string UserControlType { get; set; }
-        [DisplayName("Setvalue?")]
+        [DisplayName("Set value?")]
         public string IsSetvalue { get; set; }
         [DisplayName("Default Value")]
         public string DefaultValue { get; set; }

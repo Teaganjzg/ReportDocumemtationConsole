@@ -25,6 +25,7 @@ namespace ReportDocumentationConsole.ViewModels
                 temp.CreateEndUserName = sp.CreateEnduserId == null ? "": DB_MSBDW.endusers.FirstOrDefault(eu => eu.id == sp.CreateEnduserId).full_name;
                 temp.RowCreateDate = Convert.ToDateTime(sp.RowModifyDate);
                 temp.ModifyEndUserName = sp.ModifyEnduserId == null ? "":DB_MSBDW.endusers.FirstOrDefault(eu => eu.id == sp.ModifyEnduserId).full_name;
+                temp.RowModifyDate = Convert.ToDateTime(sp.RowModifyDate);
                 reportSPs.Add(temp);
             }
 

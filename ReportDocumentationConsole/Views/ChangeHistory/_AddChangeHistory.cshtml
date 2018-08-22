@@ -28,12 +28,20 @@
         @Html.DropDownList("ReportSPName", new SelectList(Model.names), null, new { @class = "form-control valid", @data_val = "true", @data_val_required = "ReportSPName is required" })*@
 
 
-        <label class="col-form-label" for="ITComment">ITComment*</label>
+        <label class="col-form-label" for="ITComment">Internal Comment*</label>
         @Html.TextBox("ITComment", null, new { @class = "form-control valid", @data_val = "true", @data_val_required = "ITComment is required" })
 
-        <label class="col-form-label" for="PublicComment">PublicComment</label>
+        <label class="col-form-label" for="PublicComment">Public Comment</label>
         @Html.TextBox("PublicComment", null, new { @class = "form-control" })
 
+        <label class="col-form-label" for="IsRDLChange">RDL Change?</label>
+        <div class="custom-control custom-radio">
+            @Html.RadioButton("IsRDLChange", "Yes", new { @class = "custom-control", @checked = true, id = "IsRDLChange" })
+            @Html.Label("Yes", "Yes")
+            @Html.RadioButton("IsRDLChange", "No", new { @class = "custom-control", id = "IsRDLChange" })
+            @Html.Label("No", "No")
+            @*@Html.TextBox("IsUserControlled", null, new { @class = "form-control valid", @data_val = "true", @data_val_required = "IIsUserControlled is required" })*@
+        </div>
         <input type="submit" value="ADD" class="btn btn-primary" />
     </fieldset>
     }

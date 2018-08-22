@@ -68,7 +68,7 @@ namespace ReportDocumentationConsole.Controllers
             temp.ITComment = Request.Unvalidated.Form["ITComment"];
             temp.PublicComment = Request.Form["PublicComment"];
             temp.RowCreateDate = DateTime.Now;
-            temp.IsRDLChange = true;
+            temp.IsRDLChange = Request.Form["IsRDLChange"] == "Yes" ? true : false; 
 
             DB_MSBDW.ReportChangeLogs.Add(temp);
             DB_MSBDW.SaveChanges();
