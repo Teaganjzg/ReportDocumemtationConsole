@@ -7,7 +7,7 @@
       <Diagram DiagramId="12963f9461af443d9ff709b00a1a4153" Name="Diagram1">
         <EntityTypeShape EntityType="MSBDWModel.ReportChangeLog" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MSBDWModel.ReportLinkage" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MSBDWModel.ReportSP" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MSBDWModel.ReportSP" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MSBDWModel.ReportSPParameter" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MSBDWModel.SsrsReport" Width="1.5" PointX="5.375" PointY="4.75" />
         <EntityTypeShape EntityType="MSBDWModel.enduser" Width="1.5" PointX="7.375" PointY="0.75" />

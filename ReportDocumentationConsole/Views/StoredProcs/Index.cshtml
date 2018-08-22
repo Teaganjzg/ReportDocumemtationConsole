@@ -58,39 +58,41 @@
         <thead>
             <tr>
                 <th></th>
-                <th scope="col">SPName</th>
+                <th scope="col">@Html.DisplayNameFor(m => m[0].SPName)</th>
                 @*<th scope="col">SSRSReportId</th>*@
-                <th scope="col">IsRDLDropdown</th>
-                <th scope="col">PermissionNotes</th>
-                <th scope="col">RowCreateDate</th>
-                <th scope="col">CreateEnduserName</th>
-                <th scope="col">RowModifyDate</th>
-                <th scope="col">ModifyEnduserName</th>
+                <th scope="col">@Html.DisplayNameFor(m => m[0].IsRDLDropdown)</th>
+                <th scope="col">
+                    @Html.DisplayNameFor(m => m[0].PermissionNotes)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m[0].RowCreateDate)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m[0].CreateEndUserName)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m[0].RowModifyDate)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m[0].ModifyEndUserName)</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var sp in Model)
+            @for (var i = 0; i < Model.Count; i++)
             {
-            <tr class="table-primary">
-                @*<th scope="row">Primary</th>*@
-                <td>@Html.HiddenFor(modelItem => sp.ID, new { id = "key" })</td>
-                <td>@sp.SPName</td>
-                @*<td>@sp.SSRSReportId</td>*@
-                <td>@sp.IsRDLDropdown</td>
-                <td>@sp.PermissionNotes</td>
-                <td>@sp.RowCreateDate.ToShortDateString()</td>
-                <td>@sp.CreateEndUserName</td>
-                <td>@sp.RowModifyDate.ToShortDateString()</td>
-                <td>@sp.ModifyEndUserName</td>
-                <td width="40px"><div class="delete"><button class="btn btn-outline-secondary">Delete</button></div></td>
-            </tr>
-            }
-        </tbody>
-    </table>
+                <tr class="table-primary">
+                    @*<th scope="row">Primary</th>*@
+                    <td>@Html.HiddenFor(modelItem => @Model[i].ID, new { id = "key" })</td>
+                    <td>@Model[i].SPName</td>
+                    @*<td>@sp.SSRSReportId</td>*@
+                    <td>@Model[i].IsRDLDropdown</td>
+                    <td>@Model[i].PermissionNotes</td>
+                    <td>@Model[i].RowCreateDate.ToShortDateString()</td>
+                    <td>@Model[i].CreateEndUserName</td>
+                    <td>@Model[i].RowModifyDate.ToShortDateString()</td>
+                    <td>@Model[i].ModifyEndUserName</td>
+                    <td width="40px">< div class="delete"><button class="btn btn-outline-secondary">Delete</button>
+
+                </tr>
+             }
+                        </tbody>
+                    </table>
 
 </div>
-@*@using (Html.BeginForm("AddStoredProcs", "StoredProcs", FormMethod.Post))
+                @*@using (Html.BeginForm("AddStoredProcs", "StoredProcs", FormMethod.Post))
 
     {
         @Html.Hidden("selectedReportId", @ViewData["selectedReportId"])
@@ -100,4 +102,4 @@
 
 @Html.Partial("_AddStoredProcs")
 
-@*<input type="button" class="btn btn-primary btn-lg btn-block" value="ADD" onclick="location.href='@Url.Action("AddChangeHistory", "MainConsole")'" />*@
+                @*<input type="button" class="btn btn-primary btn-lg btn-block" value="ADD" onclick="location.href='@Url.Action("AddChangeHistory", "MainConsole")'" />*@

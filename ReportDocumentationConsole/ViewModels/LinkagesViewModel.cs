@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 
@@ -30,9 +31,13 @@ namespace ReportDocumentationConsole.ViewModels
     public class ReportLinkage
     {
         public int ID { get; set; }
+        [DisplayName("Linkage Type")]
         public string LinkageType { get; set; }
+        [DisplayName("Linkage Location")]
         public string LinkageLocation { get; set; }
+        [DisplayName("Create Date")]
         public DateTime RowCreateDate { get; set; }
+        [DisplayName("Create EndUser Name")]
         public string CreateEndUserName { get; set; }
         
     }

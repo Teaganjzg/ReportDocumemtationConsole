@@ -168,38 +168,38 @@
                 @*<th scope="col">ID</th>
                     <th scope="col">SSRSReportId</th>*@
                 <th></th>
-                <th scope="col">ReportSPName</th>
-                <th scope="col">RDLParameterName</th>
-                <th scope="col">ParamDescription</th>
-                <th scope="col">IsUserControlled</th>
-                <th scope="col">UserControlledType</th>
-                <th scope="col">IsSetValue</th>
-                <th scope="col">AdditionalInfo</th>
-                <th scope="col">RowCreateDate</th>
-                <th scope="col">CreateEnduserName</th>
+                <th scope="col">@Html.DisplayNameFor(m => m[0].SPName)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m[0].RDLParamName)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m[0].ParameterDesc)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m[0].IsUserControlled)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m[0].UserControlType)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m[0].IsSetvalue)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m[0].AdditionalInfo)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m[0].RowCreateDate)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m[0].CreateEndUserName)</th>
                 <th></th>
 
             </tr>
         </thead>
         <tbody>
-            @foreach (var sp in Model)
+            @for (var i = 0; i < Model.Count; i++)
             {
-            <tr class="table-primary">
-                @*<th scope="row">Primary</th>*@
-                @*<td>@sp.ID</td>
-        <td>@sp.SSRSReportId</td>*@
-                <td>@Html.HiddenFor(modelItem => sp.ID, new { id = "key" })</td>
-                <td>@sp.SPName</td>
-                <td><div class="RDLParamName">@Html.DisplayFor(modelItem => sp.RDLParamName)</td>
-                <td><div class="ParameterDesc">@Html.DisplayFor(modelItem => sp.ParameterDesc)</td>
-                <td><div class="IsUserControlled">@Html.DisplayFor(modelItem => sp.IsUserControlled)</td>
-                <td><div class="UserControlType">@Html.DisplayFor(modelItem => sp.UserControlType)</td>
-                <td><div class="IsSetvalue">@Html.DisplayFor(modelItem => sp.IsSetvalue)</td>
-                <td><div class="AdditionalInfo">@Html.DisplayFor(modelItem => sp.AdditionalInfo)</td>
-                <td>@sp.RowCreateDate.ToShortDateString()</td>
-                <td>@sp.CreateEndUserName</td>
-                <td width="40px" ><div class="delete"><button class="btn btn-outline-secondary">Delete</button></div></td>
-            </tr>
+                <tr class="table-primary">
+                    @*<th scope="row">Primary</th>*@
+                    @*<td>@sp.ID</td>
+                <td>@sp.SSRSReportId</td>*@
+                    <td>@Html.HiddenFor(modelItem => @Model[i].ID, new { id = "key" })</td>
+                    <td>@Model[i].SPName</td>
+                    <td><div class="RDLParamName">@Html.DisplayFor(modelItem => @Model[i].RDLParamName)</td>
+                    <td><div class="ParameterDesc">@Html.DisplayFor(modelItem => @Model[i].ParameterDesc)</td>
+                    <td><div class="IsUserControlled">@Html.DisplayFor(modelItem => @Model[i].IsUserControlled)</td>
+                    <td><div class="UserControlType">@Html.DisplayFor(modelItem => @Model[i].UserControlType)</td>
+                    <td><div class="IsSetvalue">@Html.DisplayFor(modelItem => @Model[i].IsSetvalue)</td>
+                    <td><div class="AdditionalInfo">@Html.DisplayFor(modelItem => @Model[i].AdditionalInfo)</td>
+                    <td>@Model[i].RowCreateDate.ToShortDateString()</td>
+                    <td>@Model[i].CreateEndUserName</td>
+                    <td width="40px"><div class="delete"><button class="btn btn-outline-secondary">Delete</button></div></td>
+                </tr>
             }
         </tbody>
     </table>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 
@@ -37,15 +38,25 @@ namespace ReportDocumentationConsole.ViewModels
     public class ReportSPParameter
     {
         public int ID { get; set; }
+        [DisplayName("Name")]
         public string SPName { get; set; }
+        [DisplayName("RDLName")]
         public string RDLParamName { get; set; }
+        [DisplayName("Description")]
         public string ParameterDesc { get; set; }
+        [DisplayName("UserControlled?")]
         public string IsUserControlled { get; set; }
+        [DisplayName("User Control Type")]
         public string UserControlType { get; set; }
+        [DisplayName("Setvalue?")]
         public string IsSetvalue { get; set; }
+        [DisplayName("Default Value")]
         public string DefaultValue { get; set; }
+        [DisplayName("Info")]
         public string AdditionalInfo { get; set; }
+        [DisplayName("Create Date")]
         public DateTime RowCreateDate { get; set; }
+        [DisplayName("Create EndUser Name")]
         public string CreateEndUserName { get; set; }
 
     }

@@ -1,5 +1,5 @@
 ﻿
-@model IEnumerable<ReportDocumentationConsole.ViewModels.ReportLinkage>
+@model List<ReportDocumentationConsole.ViewModels.ReportLinkage>
 
 @{
     ViewBag.Title = "Linkages";
@@ -122,29 +122,29 @@
             <tr>
                 @*<th scope="col">ID</th>*@
                 <th></th>
-                <th scope="col">LinkageType</th>
+                <th scope="col">@Html.DisplayNameFor(m => m[0].LinkageType)</th>
                 @*<th scope="col">LinkageLocation</th>*@
-                <th>@Html.DisplayNameFor(model => model.LinkageLocation)</th>
-                <th scope="col">RowCreateDate</th>
-                <th scope="col">CreateEnduserName</th>
+                <th>@Html.DisplayNameFor(m => m[0].LinkageLocation)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m[0].RowCreateDate)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m[0].CreateEndUserName)</th>
                 <th></th>
 
             </tr>
         </thead>
         <tbody>
-            @foreach (var sp in Model)
+            @for (var i = 0; i < Model.Count; i++)
             {
                 <tr class="table-primary">
                     @*<th scope="row">Primary</th>*@
                     @*<td>@sp.ID</td>*@
-                    <td>@Html.HiddenFor(modelItem => sp.ID, new { id = "key" })</td>
-                    
-                    <td>@sp.LinkageType</td>
-                    @*<td>@sp.LinkageLocation</td>*@
-                    <td><div class="LinkageLocation">@Html.DisplayFor(modelItem => sp.LinkageLocation)</div></td>
+                    <td>@Html.HiddenFor(modelItem => @Model[i].ID, new { id = "key" })</td>
 
-                    <td>@sp.RowCreateDate.ToShortDateString()</td>
-                    <td>@sp.CreateEndUserName</td>
+                    <td>@Model[i].LinkageType</td>
+                    @*<td>@sp.LinkageLocation</td>*@
+                    <td><div class="LinkageLocation">@Model[i].LinkageLocation</div></td>
+
+                    <td>@Model[i].RowCreateDate.ToShortDateString()</td>
+                    <td>@Model[i].CreateEndUserName</td>
                     <td width="40px"><div class="delete"><button class="btn btn-outline-secondary">Delete</button></div></td>
                 </tr>
             }

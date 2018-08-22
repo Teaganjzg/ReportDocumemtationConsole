@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 using ReportDocumentationConsole.DB;
@@ -38,10 +39,17 @@ namespace ReportDocumentationConsole.ViewModels
     public class ReportChangeLog
     {
         public int ID { get; set; }
+        [DisplayName("Name")]
         public string ReportSPName { get; set; }
+
+        [DisplayName("Create Date")]
         public DateTime RowCreateDate { get; set; }
+
+        [DisplayName("Internal Comment")]
         public string ItComment { get; set; }
+        [DisplayName("Public Comment")]
         public string PublicComment { get; set; }
+        [DisplayName("RDL Changed? ")]
         public bool IsRDLChange { get; set; }
     }
 

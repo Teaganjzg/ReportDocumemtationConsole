@@ -66,30 +66,32 @@
                 @*<th scope="col">ID</th>
                     <th scope="col">SSRSReportId</th>*@
                 <th></th>
-                <th scope="col">ReportSPName</th>
+              
+                <th scope="col">@Html.DisplayNameFor(m => m[0].ReportSPName)</th>
 
 
-                <th scope="col">RowCreateDate</th>
-                <th scope="col">ITComment</th>
+                <th scope="col">
+                    @Html.DisplayNameFor(m => m[0].RowCreateDate)</th>
+                <th scope="col"> @Html.DisplayNameFor(m => m[0].ItComment) </th>
 
-                <th scope="col">PublicComment</th>
-                <th scope="col">IsRDLChange</th>
+                <th scope="col"> @Html.DisplayNameFor(m => m[0].PublicComment) </th>
+                <th scope="col"> @Html.DisplayNameFor(m => m[0].IsRDLChange) </th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var sp in Model)
+            @for(var i = 0; i < Model.Count; i++)
             {
                 <tr class="table-primary" width="130">
-                    @*<th scope="row">Primary</th>*@
-                    @*<td>@sp.ID</td>
-                        <td>@sp.SSRSReportId</td>*@
-                    <td>@Html.HiddenFor(modelItem => sp.ID, new { id = "key" })</td>
-                    <td>@sp.ReportSPName</td>
-                    <td>@sp.RowCreateDate.ToShortDateString()</td>
-                    <td display="inline-block">@sp.ItComment</td>
-                    <td>@sp.PublicComment</td>
-                    <td>@sp.IsRDLChange</td>
+                @*<th scope="row">Primary</th>*@
+                @*<td>@sp.ID</td>
+    <td>@sp.SSRSReportId</td>*@
+<td>@Html.HiddenFor(modelItem => Model[i].ID, new { id = "key" })</td>
+                    <td>@Model[i].ReportSPName</td>
+                    <td>@Model[i].RowCreateDate.ToShortDateString()</td>
+                    <td display="inline-block">@Model[i].ItComment</td>
+                    <td>@Model[i].PublicComment</td>
+                    <td>@Model[i].IsRDLChange</td>
                     <td width="40px"><div class="delete"><button class="btn btn-outline-secondary">Delete</button></div></td>
                 </tr>
             }
