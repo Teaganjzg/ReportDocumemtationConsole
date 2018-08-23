@@ -1,9 +1,10 @@
 ﻿<div class="btn-group btn-group-toggle">
 
-    @using (Html.BeginForm("Index", "ChangeHistory", FormMethod.Post))
+    @using (Html.BeginForm("Index", "MainConsole", FormMethod.Post))
     {
         @Html.Hidden("selectedReportId", @ViewData["selectedReportId"])
         @Html.Hidden("selectedReportName", @ViewData["selectedReportName"])
+        @Html.Hidden("buttonName", "CH")
         if (@ViewData["buttonName"].ToString() == "CH")
         {
             <input checked="" autocomplete="off" type="submit" name="CH" value="Change History" class="btn btn-secondary active" />
@@ -15,10 +16,11 @@
     }
 
 
-    @using (Html.BeginForm("Index", "StoredProcs", FormMethod.Post))
+    @using (Html.BeginForm("Index", "MainConsole", FormMethod.Post))
     {
         @Html.Hidden("selectedReportId", @ViewData["selectedReportId"])
         @Html.Hidden("selectedReportName", @ViewData["selectedReportName"])
+        @Html.Hidden("buttonName", "SP")
         if (@ViewData["buttonName"].ToString() == "SP")
         {
             <input type="submit" name="SP" value="Stored Procs" class="btn btn-secondary active" />
@@ -31,10 +33,11 @@
     }
 
 
-    @using (Html.BeginForm("Index", "Linkages", FormMethod.Post))
+    @using (Html.BeginForm("Index", "MainConsole", FormMethod.Post))
     {
         @Html.Hidden("selectedReportId", @ViewData["selectedReportId"])
         @Html.Hidden("selectedReportName", @ViewData["selectedReportName"])
+        @Html.Hidden("buttonName", "LK")
         if (@ViewData["buttonName"].ToString() == "LK")
         {
             <input type="submit" name="LK" value="Linkages" class="btn btn-secondary active" />
@@ -46,10 +49,11 @@
 
     }
 
-    @using (Html.BeginForm("Index", "Parameters", FormMethod.Post))
+    @using (Html.BeginForm("Index", "MainConsole", FormMethod.Post))
     {
         @Html.Hidden("selectedReportId", @ViewData["selectedReportId"])
         @Html.Hidden("selectedReportName", @ViewData["selectedReportName"])
+        @Html.Hidden("buttonName", "PA")
         if (@ViewData["buttonName"].ToString() == "PA")
         {
             <input type="submit" name="PA" value="Parameters" class="btn btn-secondary active" />

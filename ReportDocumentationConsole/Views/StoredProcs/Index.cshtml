@@ -7,7 +7,7 @@
 @*<h2>ChangeHistory</h2>*@
 @{
 
-    Html.RenderAction("_DropDownList", "Home", @ViewData["selectedReportName"].ToString());
+    Html.RenderAction("_DropDownList", "Home", new { selectedReportName = ViewData["selectedReportName"] });
 }
 
 @Html.Action("_ReportDescription", "MainConsole", new { selectedReportId = @ViewData["selectedReportId"].ToString() })
@@ -37,7 +37,7 @@
             sp.ID = SPID;
             $.ajax({
                 type: "POST",
-                url: "StoredProcs/DeleteSP",
+                url: '@Url.Action("DeleteSP", "StoredProcs")',
                 data: '{sp: ' + JSON.stringify(sp) + '}',
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",

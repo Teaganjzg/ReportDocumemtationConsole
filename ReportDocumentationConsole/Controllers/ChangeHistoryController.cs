@@ -12,30 +12,31 @@ namespace ReportDocumentationConsole.Controllers
 
         // GET: ChangeHistory
         private DB.MSBDWEntities DB_MSBDW = new DB.MSBDWEntities();
-        [HttpPost]
-        public ActionResult Index()
+      
+        public ActionResult Index(int id, string name)
         {
-            int selectedReport;
+            int selectedReport = id;
+            string selectedReportName = name;
             
-            if (Request.Form["selectedReportName"] != null && Request.Form["selectedReportName"] != "select report" && Request.Form["selectedReportName"] != "")
-            {
-                string SelectedReportName = Request.Form["selectedReportName"];
-                selectedReport = DB_MSBDW.SsrsReports.FirstOrDefault(r => r.rpt_name == SelectedReportName).id;
+            //if (Request.Form["selectedReportName"] != null && Request.Form["selectedReportName"] != "select report" && Request.Form["selectedReportName"] != "")
+            //{
+            //    string SelectedReportName = Request.Form["selectedReportName"];
+            //    selectedReport = DB_MSBDW.SsrsReports.FirstOrDefault(r => r.rpt_name == SelectedReportName).id;
 
-            }
-            else
-            {
-                //selectedReport = Convert.ToInt32(Request.Form["selectedReportId"]);
-                return RedirectToAction("Index", "Home");
-            }
+            //}
+            //else
+            //{
+            //    //selectedReport = Convert.ToInt32(Request.Form["selectedReportId"]);
+            //    return RedirectToAction("Index", "Home");
+            //}
 
-            if (Request.Form["ReportDescription"] != null && Request.Form["ReportDescription"] != "")
-            {
-                DB.SsrsReport report = DB_MSBDW.SsrsReports.FirstOrDefault(re => re.id == selectedReport);
-                report.rpt_desc = Request.Form["ReportDescription"];
-                DB_MSBDW.SaveChanges();
+            //if (Request.Form["ReportDescription"] != null && Request.Form["ReportDescription"] != "")
+            //{
+            //    DB.SsrsReport report = DB_MSBDW.SsrsReports.FirstOrDefault(re => re.id == selectedReport);
+            //    report.rpt_desc = Request.Form["ReportDescription"];
+            //    DB_MSBDW.SaveChanges();
 
-            }
+            //}
 
 
 
@@ -46,7 +47,7 @@ namespace ReportDocumentationConsole.Controllers
 
             ViewData["selectedReportId"] = selectedReport;
             ViewData["buttonName"] = "CH";
-            ViewData["selectedReportName"] = Request.Form["selectedReportName"];
+            ViewData["selectedReportName"] = selectedReportName;
             return View(changeHistoryViewModel.reportChangeLogs);
             
         }
@@ -82,15 +83,15 @@ namespace ReportDocumentationConsole.Controllers
             ViewData["selectedReportId"] = SSRSReportId;
             ViewData["buttonName"] = "CH";
             ViewData["selectedReportName"] = Request.Form["selectedReportName"];
-            
-            return View();
+
+            return RedirectToAction("Index", "ChangeHistory", new { id = SSRSReportId, name = Request.Form["selectedReportName"] });
         }
         public class ChangeHistoryToDelete
         {
             public int ID { get; set; }
 
         }
-
+        
         public int DeleteCH(ChangeHistoryToDelete para)
         {
             var de = DB_MSBDW.ReportChangeLogs.FirstOrDefault(pa => pa.ID == para.ID);

@@ -11,20 +11,21 @@ namespace ReportDocumentationConsole.Controllers
     {
         private DB.MSBDWEntities DB_MSBDW = new DB.MSBDWEntities();
         // GET: Linkages
-        [HttpPost]
-        public ActionResult Index()
+        
+        public ActionResult Index(int id, string name)
         {
-           
+            int selectedReport = id;
+            string selectedReportName = name;
+
             
-            //int selectedReport = Convert.ToInt32(collection["selectedReportId"]);
-            int selectedReport = Convert.ToInt32(Request.Form["selectedReportId"]);
-            //string buttonName = Request.Form["buttonName"];
+            //int selectedReport = Convert.ToInt32(Request.Form["selectedReportId"]);
+            
             List<DB.ReportLinkage> reportLink = DB_MSBDW.ReportLinkages.Where(sp => sp.SSRSReportId == selectedReport).OrderByDescending(sp => sp.RowCreateDate).ToList();
             LinkagesViewModel storedProcsViewModel = new LinkagesViewModel(reportLink);
 
             ViewData["selectedReportId"] = selectedReport;
             ViewData["buttonName"] = "LK";
-            ViewData["selectedReportName"] = Request.Form["selectedReportName"];
+            ViewData["selectedReportName"] = selectedReportName;
             return View(storedProcsViewModel.reportLinkages);
 
 
@@ -58,7 +59,7 @@ namespace ReportDocumentationConsole.Controllers
             ViewData["buttonName"] = "LK";
             ViewData["selectedReportName"] = Request.Form["selectedReportName"];
             //return View("Index", storedProcsViewModel.reportLinkages);
-            return View();
+            return RedirectToAction("Index", "Linkages", new { id = SSRSReportId, name = Request.Form["selectedReportName"] });
         }
 
         public class LinkageToUpdate

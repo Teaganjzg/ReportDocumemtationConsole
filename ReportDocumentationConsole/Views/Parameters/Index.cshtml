@@ -8,7 +8,7 @@
 
 @{
 
-    Html.RenderAction("_DropDownList", "Home", @ViewData["selectedReportName"].ToString());
+    Html.RenderAction("_DropDownList", "Home", new { selectedReportName = ViewData["selectedReportName"] });
 }
 
 @Html.Action("_ReportDescription", "MainConsole", new { selectedReportId = @ViewData["selectedReportId"].ToString() })
@@ -121,7 +121,7 @@
             para.ID = $("[id*=keySelected]").val();
             $.ajax({
                 type: "POST",
-                url: "Parameters/SavePara",
+                url: '@Url.Action("SavePara", "Parameters")',
                 data: '{para: ' + JSON.stringify(para) + '}',
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -143,7 +143,7 @@
             para.ID = ParameterID;
             $.ajax({
                 type: "POST",
-                url: "Parameters/DeletePara",
+                url: '@Url.Action("SavePara", "Parameters")',
                 data: '{para: ' + JSON.stringify(para) + '}',
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",

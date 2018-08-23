@@ -7,7 +7,7 @@
 @*<h2>ChangeHistory</h2>*@
 @{
 
-    Html.RenderAction("_DropDownList", "Home", @ViewData["selectedReportName"].ToString());
+    Html.RenderAction("_DropDownList", "Home", new { selectedReportName = ViewData["selectedReportName"] });
 }
 
 @Html.Action("_ReportDescription", "MainConsole", new { selectedReportId = @ViewData["selectedReportId"].ToString() })
@@ -79,12 +79,12 @@
             link.ID = LinkageID;
             $.ajax({
                 type: "POST",
-                url: "Linkages/DeleteLK",
+                url: '@Url.Action("DeleteLK", "Linkages")',
                 data: '{link: ' + JSON.stringify(link) + '}',
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
-                    alert("done!!Hit Linkage button to reload");
+                    alert("done!!");
                     //location.href = location.href;
                     window.location.reload();
                 }
@@ -99,7 +99,7 @@
             linkage.ID = $("[id*=keySelected]").val();
             $.ajax({
                 type: "POST",
-                url: "Linkages/SaveLinkage",
+                url: '@Url.Action("SaveLinkage", "Linkages")',
                 data: '{linkage: ' + JSON.stringify(linkage) + '}',
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",

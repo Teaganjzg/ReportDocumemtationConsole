@@ -11,18 +11,20 @@ namespace ReportDocumentationConsole.Controllers
     {
         private DB.MSBDWEntities DB_MSBDW = new DB.MSBDWEntities();
         // GET: StoredProcs
-        [HttpPost]
-        public ActionResult Index()
+       
+        public ActionResult Index(int id, string name)
         {
+            int selectedReport = id;
+            string selectedReportName = name;
+
             
-            //int selectedReport = Convert.ToInt32(collection["selectedReportId"]);
-            int selectedReport = Convert.ToInt32(Request.Form["selectedReportId"]);
-            //string buttonName = Request.Form["buttonName"];
+           //int selectedReport = Convert.ToInt32(Request.Form["selectedReportId"]);
+           
             List<DB.ReportSP> reportSP = DB_MSBDW.ReportSPs.Where(sp => sp.SSRSReportId == selectedReport).OrderByDescending(sp => sp.RowCreateDate).ToList();
             StoredProcsViewModel reportsViewModel = new StoredProcsViewModel(reportSP);
             ViewData["selectedReportId"] = selectedReport;
             ViewData["buttonName"] = "SP";
-            ViewData["selectedReportName"] = Request.Form["selectedReportName"];
+            ViewData["selectedReportName"] = selectedReportName;
             return View(reportsViewModel.reportSPs);
         }
 
@@ -58,7 +60,7 @@ namespace ReportDocumentationConsole.Controllers
             ViewData["selectedReportName"] = Request.Form["selectedReportName"];
             //return View("Index", reportsViewModel.reportSPs);
 
-            return View();
+            return RedirectToAction("Index", "StoredProcs", new { id = SSRSReportId, name = Request.Form["selectedReportName"] });
         }
 
         public class SPToDelete
@@ -71,6 +73,10 @@ namespace ReportDocumentationConsole.Controllers
         {
             var de = DB_MSBDW.ReportSPs.FirstOrDefault(s => s.ID == sp.ID);
             DB_MSBDW.ReportSPs.Remove(de);
+            var deCH = DB_MSBDW.ReportChangeLogs.Where(s => s.ReportSPId == sp.ID);
+            DB_MSBDW.ReportChangeLogs.RemoveRange(deCH);
+            var dePA = DB_MSBDW.ReportSPParameters.Where(s => s.ReportSPId == sp.ID);
+            DB_MSBDW.ReportSPParameters.RemoveRange(dePA);
             DB_MSBDW.SaveChanges();
             return 1;
         }

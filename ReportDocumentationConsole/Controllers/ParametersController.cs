@@ -11,19 +11,20 @@ namespace ReportDocumentationConsole.Controllers
     {
         private DB.MSBDWEntities DB_MSBDW = new DB.MSBDWEntities();
         // GET: Parameters
-        [HttpPost]
-        public ActionResult Index()
+       
+        public ActionResult Index(int id, string name)
         {
-            
-            
-            //int selectedReport = Convert.ToInt32(collection["selectedReportId"]);
-            int selectedReport = Convert.ToInt32(Request.Form["selectedReportId"]);
-            //string buttonName = Request.Form["buttonName"];
+
+            int selectedReport = id;
+            string selectedReportName = name;
+
+            //int selectedReport = Convert.ToInt32(Request.Form["selectedReportId"]);
+
             List<DB.ReportSPParameter> reportPara = DB_MSBDW.ReportSPParameters.Where(sp => sp.SSRSReportId == selectedReport).OrderByDescending(sp => sp.RowCreateDate).ToList();
             ParametersViewModel parametersViewModel = new ParametersViewModel(reportPara);
             ViewData["selectedReportId"] = selectedReport;
             ViewData["buttonName"] = "PA";
-            ViewData["selectedReportName"] = Request.Form["selectedReportName"];
+            ViewData["selectedReportName"] = selectedReportName;
             return View(parametersViewModel.reportSPParameters);
         }
 
@@ -63,7 +64,7 @@ namespace ReportDocumentationConsole.Controllers
             ViewData["buttonName"] = "PA";
             ViewData["selectedReportName"] = Request.Form["selectedReportName"];
 
-            return View();
+            return RedirectToAction("Index", "Parameters", new { id = SSRSReportId, name = Request.Form["selectedReportName"] });
         }
 
         public ActionResult RerenderIndex(int ReportId)

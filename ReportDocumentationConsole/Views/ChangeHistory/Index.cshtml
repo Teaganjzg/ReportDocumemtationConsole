@@ -8,7 +8,7 @@
 
 @{
 
-    Html.RenderAction("_DropDownList", "Home", @ViewData["selectedReportName"].ToString());
+    Html.RenderAction("_DropDownList", "Home", new { selectedReportName = ViewData["selectedReportName"] });
 }
 
 
@@ -41,7 +41,7 @@
             para.ID = ChangeHisID;
             $.ajax({
                 type: "POST",
-                url: "ChangeHistory/DeleteCH",
+                url: '@Url.Action("DeleteCH", "ChangeHistory")',
                 data: '{para: ' + JSON.stringify(para) + '}',
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",

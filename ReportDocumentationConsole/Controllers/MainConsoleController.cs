@@ -17,6 +17,55 @@ namespace ReportDocumentationConsole.Controllers
         //}
         DB.MSBDWEntities DB_MSBDW = new DB.MSBDWEntities();
 
+        [HttpPost]
+        public ActionResult Index()
+        {
+            int selectedReport;
+            string SelectedReportName;
+
+            if (Request.Form["selectedReportName"] != null && Request.Form["selectedReportName"] != "select report" && Request.Form["selectedReportName"] != "")
+            {
+                SelectedReportName = Request.Form["selectedReportName"];
+                selectedReport = DB_MSBDW.SsrsReports.FirstOrDefault(r => r.rpt_name == SelectedReportName).id;
+
+            }
+            else
+            {
+                //selectedReport = Convert.ToInt32(Request.Form["selectedReportId"]);
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (Request.Form["ReportDescription"] != null)
+            {
+                DB.SsrsReport report = DB_MSBDW.SsrsReports.FirstOrDefault(re => re.id == selectedReport);
+                report.rpt_desc = Request.Form["ReportDescription"];
+                DB_MSBDW.SaveChanges();
+
+            }
+
+            if (Request.Form["buttonName"] == "SP")
+            {
+                return RedirectToAction("Index", "StoredProcs", new { id = selectedReport, name = SelectedReportName });
+            }
+            else if (Request.Form["buttonName"] == "LK")
+            {
+                return RedirectToAction("Index", "Linkages", new { id = selectedReport, name = SelectedReportName });
+            }
+            else if (Request.Form["buttonName"] == "PA")
+            {
+                return RedirectToAction("Index", "Parameters", new { id = selectedReport, name = SelectedReportName });
+            }
+            else
+            { return RedirectToAction("Index", "ChangeHistory", new { id = selectedReport, name = SelectedReportName }); }
+
+
+                
+        }
+
+        
+
+       
+
         [ChildActionOnly]
         public ActionResult _SPNamesList(string selectedReportId)
         {
