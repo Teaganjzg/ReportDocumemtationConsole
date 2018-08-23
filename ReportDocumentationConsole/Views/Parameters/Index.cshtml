@@ -143,7 +143,7 @@
             para.ID = ParameterID;
             $.ajax({
                 type: "POST",
-                url: '@Url.Action("SavePara", "Parameters")',
+                url: '@Url.Action("DeletePara", "Parameters")',
                 data: '{para: ' + JSON.stringify(para) + '}',
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
