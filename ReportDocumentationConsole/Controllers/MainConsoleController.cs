@@ -31,7 +31,7 @@ namespace ReportDocumentationConsole.Controllers
             }
             else
             {
-                //selectedReport = Convert.ToInt32(Request.Form["selectedReportId"]);
+                
                 return RedirectToAction("Index", "Home");
             }
 

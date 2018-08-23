@@ -195,7 +195,6 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ChangeHistoryViewModel.cs" />
-    <Compile Include="ViewModels\Criterias.cs" />
     <Compile Include="ViewModels\LinkagesViewModel.cs" />
     <Compile Include="ViewModels\ParametersViewModel.cs" />
     <Compile Include="ViewModels\ReportsViewModel.cs" />
@@ -277,11 +276,6 @@
     <Content Include="Views\MainConsole\_ReportDescription.cshtml" />
     <Content Include="Views\MainConsole\_EndUserNamesList.cshtml" />
     <Content Include="Views\MainConsole\SaveReportDesc.cshtml" />
-    <Content Include="Views\Parameters\RerenderIndex.cshtml" />
-    <Content Include="Views\ChangeHistory\AddChangeHistoryResult.cshtml" />
-    <Content Include="Views\Linkages\AddLinkagesResult.cshtml" />
-    <Content Include="Views\Parameters\AddParametersResult.cshtml" />
-    <Content Include="Views\StoredProcs\AddStoredProcsResult.cshtml" />
     <Content Include="Views\Shared\Web.config">
       <SubType>Designer</SubType>
     </Content>

@@ -18,7 +18,7 @@ namespace ReportDocumentationConsole.Controllers
             string selectedReportName = name;
 
             
-            //int selectedReport = Convert.ToInt32(Request.Form["selectedReportId"]);
+           
             
             List<DB.ReportLinkage> reportLink = DB_MSBDW.ReportLinkages.Where(sp => sp.SSRSReportId == selectedReport).OrderByDescending(sp => sp.RowCreateDate).ToList();
             LinkagesViewModel storedProcsViewModel = new LinkagesViewModel(reportLink);
@@ -54,11 +54,11 @@ namespace ReportDocumentationConsole.Controllers
 
             List<DB.ReportLinkage> reportLink = DB_MSBDW.ReportLinkages.Where(sp => sp.SSRSReportId == SSRSReportId).OrderByDescending(sp => sp.RowCreateDate).ToList();
             LinkagesViewModel storedProcsViewModel = new LinkagesViewModel(reportLink);
-            //ViewData["selectedReportId"] = selectedReport;
+           
             ViewData["selectedReportId"] = SSRSReportId;
             ViewData["buttonName"] = "LK";
             ViewData["selectedReportName"] = Request.Form["selectedReportName"];
-            //return View("Index", storedProcsViewModel.reportLinkages);
+            
             return RedirectToAction("Index", "Linkages", new { id = SSRSReportId, name = Request.Form["selectedReportName"] });
         }
 
@@ -70,7 +70,7 @@ namespace ReportDocumentationConsole.Controllers
         }
 
 
-        //[HttpPost]
+      
         public int SaveLinkage(LinkageToUpdate linkage)
         {
             DB.ReportLinkage lk = DB_MSBDW.ReportLinkages.FirstOrDefault(l => l.ID == linkage.ID);
@@ -83,7 +83,7 @@ namespace ReportDocumentationConsole.Controllers
                 default:
                     break;
             }
-            //db.UpdateCustomers(upd.CustomerID, upd.CustomerFirstName, upd.CustomerLastName);
+           
             DB_MSBDW.SaveChanges();
             return 1;
         }

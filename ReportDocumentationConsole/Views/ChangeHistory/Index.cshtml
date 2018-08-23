@@ -4,7 +4,6 @@
 @{
     ViewBag.Title = "ChangeHistory";
 }
-@*<h2>ChangeHistory</h2>*@
 
 @{
 
@@ -63,8 +62,7 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                @*<th scope="col">ID</th>
-                    <th scope="col">SSRSReportId</th>*@
+               
                 <th></th>
               
                 <th scope="col">@Html.DisplayNameFor(m => m[0].ReportSPName)</th>
@@ -83,10 +81,8 @@
             @for(var i = 0; i < Model.Count; i++)
             {
                 <tr class="table-primary" width="130">
-                @*<th scope="row">Primary</th>*@
-                @*<td>@sp.ID</td>
-    <td>@sp.SSRSReportId</td>*@
-<td>@Html.HiddenFor(modelItem => Model[i].ID, new { id = "key" })</td>
+                
+                    <td>@Html.HiddenFor(modelItem => Model[i].ID, new { id = "key" })</td>
                     <td>@Model[i].ReportSPName</td>
                     <td>@Model[i].RowCreateDate.ToShortDateString()</td>
                     <td display="inline-block">@Model[i].ItComment</td>

@@ -18,7 +18,7 @@ namespace ReportDocumentationConsole.Controllers
             string selectedReportName = name;
 
             
-           //int selectedReport = Convert.ToInt32(Request.Form["selectedReportId"]);
+          
            
             List<DB.ReportSP> reportSP = DB_MSBDW.ReportSPs.Where(sp => sp.SSRSReportId == selectedReport).OrderByDescending(sp => sp.RowCreateDate).ToList();
             StoredProcsViewModel reportsViewModel = new StoredProcsViewModel(reportSP);
@@ -54,11 +54,11 @@ namespace ReportDocumentationConsole.Controllers
 
             List<DB.ReportSP> reportSP = DB_MSBDW.ReportSPs.Where(sp => sp.SSRSReportId == SSRSReportId).OrderByDescending(sp => sp.RowCreateDate).ToList();
             StoredProcsViewModel reportsViewModel = new StoredProcsViewModel(reportSP);
-            //ViewData["selectedReportId"] = selectedReport;
+            
             ViewData["selectedReportId"] = SSRSReportId;
             ViewData["buttonName"] = "SP";
             ViewData["selectedReportName"] = Request.Form["selectedReportName"];
-            //return View("Index", reportsViewModel.reportSPs);
+            
 
             return RedirectToAction("Index", "StoredProcs", new { id = SSRSReportId, name = Request.Form["selectedReportName"] });
         }

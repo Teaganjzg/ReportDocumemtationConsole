@@ -9,18 +9,13 @@
         @Html.AntiForgeryToken()
         @Html.ValidationSummary()
     <fieldset>
-        @*<label class="col-form-label" for="SSRSReportId">SSRSReportId</label>
-        @Html.TextBox("SSRSReportId", null, new { @class = "form-control" })*@
-        @*<input class="form-control" id="SSRSReportId" placeholder="SSRSReportId here…" type="text">*@
+       
         @Html.Hidden("selectedReportId", @ViewData["selectedReportId"])
         @Html.Hidden("selectedReportName", @ViewData["selectedReportName"])
         @Html.Hidden("isAdd", "true")
 
         @Html.Action("_SPNamesList", "MainConsole", new { selectedReportId = @ViewData["selectedReportId"].ToString() })
-        @*<label class="col-form-label" for="ReportSPName">ReportSPName*</label>
-        @Html.DropDownList("ReportSPName", new SelectList(Model.names), null, new { @class = "form-control" })*@
-        @*@Html.TextBox("ReportSPId", null, new { @class = "form-control" })*@
-
+        
 
         <label class="col-form-label" for="RDLParameterName">RDLName</label>
         @Html.TextBox("RDLParameterName", null, new { @class = "form-control" })
@@ -35,7 +30,7 @@
             @Html.Label("Yes", "Yes")
             @Html.RadioButton("IsUserControlled", "No", new { @class = "custom-control", id = "IsUserControlled" })
             @Html.Label("No", "No")
-            @*@Html.TextBox("IsUserControlled", null, new { @class = "form-control valid", @data_val = "true", @data_val_required = "IIsUserControlled is required" })*@
+           
         </div>
 
 
@@ -46,13 +41,13 @@
             $("input[type='radio']").change(function () {
 
                 if ($(this).val() == "Yes") {
-                    //$("#UserControlType").show();
+                    
                     $("#UserControlType").val('');
                     $("#UserControlType").attr("disabled", false);
 
                 }
                 else {
-                    //$("#UserControlType").hide();
+                    
                     $("#UserControlType").attr("disabled", true);
                 }
 
@@ -63,10 +58,9 @@
         <label class="col-form-label" for="IsSetValue">Set Value?*</label>
         <div class="custom-control custom-radio">
             @Html.RadioButton("IsSetValue", "Yes", new { @class = "custom-control", @checked = true, @id = "IsSetValue" }) Yes
-            @*@Html.Label("Yes", "Yes")*@
+           
             @Html.RadioButton("IsSetValue", "No", new { @class = "custom-control", @id = "IsSetValue" }) No
-            @*@Html.Label("No", "No")*@
-            @*@Html.TextBox("IsSetValue", null, new { @class = "form-control valid", @data_val = "true", @data_val_required = "IsSetValue is required" })*@
+           
         </div>
         <label class="col-form-label" for="DefaultValue">Default Value*</label>
         @Html.TextBox("DefaultValue", null, new { @class = "form-control valid", @data_val = "true", @data_val_required = "DefaultValue is required" })
@@ -75,11 +69,11 @@
             $("input[name='IsSetValue']").change(function () {
 
                 if ($(this).val() == "Yes") {
-                    //$("#UserControlType").show();
+                    
                     $("#DefaultValue").attr("disabled", false);
                 }
                 else {
-                    //$("#UserControlType").hide();
+                    
                     $("#DefaultValue").attr("disabled", true);
                 }
 
@@ -90,10 +84,7 @@
         @Html.TextBox("AdditionalInfo", null, new { @class = "form-control" })
 
         @Html.Action("_EndUserNamesList", "MainConsole")
-        @*<label class="col-form-label" for="CreatedEndUser">CCreatedEndUser*</label>
-        @Html.DropDownList("CreatedEndUser", new SelectList(Model.names2), null, new { @class = "form-control" })*@
-        @*@Html.TextBox("CreateEndUserId", null, new { @class = "form-control" })*@
-
+       
         <input type="submit" value="submit" class="btn btn-primary" />
     </fieldset>
     }

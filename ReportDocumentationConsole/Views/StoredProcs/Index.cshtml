@@ -4,7 +4,7 @@
 @{
     ViewBag.Title = "StoredProcs";
 }
-@*<h2>ChangeHistory</h2>*@
+
 @{
 
     Html.RenderAction("_DropDownList", "Home", new { selectedReportName = ViewData["selectedReportName"] });
@@ -59,7 +59,7 @@
             <tr>
                 <th></th>
                 <th scope="col">@Html.DisplayNameFor(m => m[0].SPName)</th>
-                @*<th scope="col">SSRSReportId</th>*@
+                
                 <th scope="col">@Html.DisplayNameFor(m => m[0].IsRDLDropdown)</th>
                 <th scope="col">
                     @Html.DisplayNameFor(m => m[0].PermissionNotes)</th>
@@ -74,10 +74,10 @@
             @for (var i = 0; i < Model.Count; i++)
             {
                 <tr class="table-primary">
-                    @*<th scope="row">Primary</th>*@
+                    
                     <td>@Html.HiddenFor(modelItem => @Model[i].ID, new { id = "key" })</td>
                     <td>@Model[i].SPName</td>
-                    @*<td>@sp.SSRSReportId</td>*@
+                    
                     <td>@Model[i].IsRDLDropdown</td>
                     <td>@Model[i].PermissionNotes</td>
                     <td>@Model[i].RowCreateDate.ToShortDateString()</td>
@@ -92,14 +92,7 @@
                     </table>
 
 </div>
-                @*@using (Html.BeginForm("AddStoredProcs", "StoredProcs", FormMethod.Post))
-
-    {
-        @Html.Hidden("selectedReportId", @ViewData["selectedReportId"])
-        @Html.Hidden("selectedReportName", @ViewData["selectedReportName"])
-        <input type="submit" value="ADD" class="btn btn-primary" />
-    }*@
 
 @Html.Partial("_AddStoredProcs")
 
-                @*<input type="button" class="btn btn-primary btn-lg btn-block" value="ADD" onclick="location.href='@Url.Action("AddChangeHistory", "MainConsole")'" />*@
+              

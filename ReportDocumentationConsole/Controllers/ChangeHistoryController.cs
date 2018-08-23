@@ -18,29 +18,7 @@ namespace ReportDocumentationConsole.Controllers
             int selectedReport = id;
             string selectedReportName = name;
             
-            //if (Request.Form["selectedReportName"] != null && Request.Form["selectedReportName"] != "select report" && Request.Form["selectedReportName"] != "")
-            //{
-            //    string SelectedReportName = Request.Form["selectedReportName"];
-            //    selectedReport = DB_MSBDW.SsrsReports.FirstOrDefault(r => r.rpt_name == SelectedReportName).id;
-
-            //}
-            //else
-            //{
-            //    //selectedReport = Convert.ToInt32(Request.Form["selectedReportId"]);
-            //    return RedirectToAction("Index", "Home");
-            //}
-
-            //if (Request.Form["ReportDescription"] != null && Request.Form["ReportDescription"] != "")
-            //{
-            //    DB.SsrsReport report = DB_MSBDW.SsrsReports.FirstOrDefault(re => re.id == selectedReport);
-            //    report.rpt_desc = Request.Form["ReportDescription"];
-            //    DB_MSBDW.SaveChanges();
-
-            //}
-
-
-
-            //buttonName = Request.Form["buttonName"];
+            
             List<DB.ReportChangeLog> reportChange;
             reportChange = DB_MSBDW.ReportChangeLogs.Where(sp => sp.SSRSReportId == selectedReport).OrderByDescending(sp => sp.RowCreateDate).ToList();
             ChangeHistoryViewModel changeHistoryViewModel = new ChangeHistoryViewModel(reportChange);
@@ -75,11 +53,11 @@ namespace ReportDocumentationConsole.Controllers
             DB_MSBDW.SaveChanges();
 
 
-            //List<DB.ReportSP> reportSP = DB_MSBDW.ReportSPs.Where(sp => sp.SSRSReportId == selectedReport).ToList();
+            
             List<DB.ReportChangeLog> reportChange = DB_MSBDW.ReportChangeLogs.Where(sp => sp.SSRSReportId == SSRSReportId).OrderByDescending(sp => sp.RowCreateDate).ToList();
             ChangeHistoryViewModel changeHistoryViewModel = new ChangeHistoryViewModel(reportChange);
 
-            //ViewData["selectedReportId"] = selectedReport;
+           
             ViewData["selectedReportId"] = SSRSReportId;
             ViewData["buttonName"] = "CH";
             ViewData["selectedReportName"] = Request.Form["selectedReportName"];

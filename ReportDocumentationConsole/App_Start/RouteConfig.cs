@@ -26,29 +26,7 @@ namespace ReportDocumentationConsole
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "ChangeHistory", action = "Index", id = UrlParameter.Optional }
             );
-            //routes.MapRoute(
-            //     name: "ChangeHistoryDelete",
-            //     url: "{controller}/{action}/{id}",
-            //     defaults: new { controller = "ChangeHistory", action = "DeleteCH", id = UrlParameter.Optional }
-            // );
-            //routes.MapRoute(
-            //    name: "ParameterDefault",
-            //    url: "{controller}/{action}/{id}",
-            //    defaults: new { controller = "Parameter", action = "Index", id = UrlParameter.Optional }
-            //);
-            //routes.MapRoute(
-            //    name: "ParameterReload",
-            //    url: "{controller}/{action}/{isRefresh}",
-            //    defaults: new { controller = "Parameter", action = "Index", isRefresh = "true" }
-            //);
-
-
-            //routes.MapRoute(
-            //    name: "MainConsoleHome",
-            //    url: "{controller}/{action}/{id}",
-            //    defaults: new { controller = "MainConsole", action = "ChangeHistory", id = UrlParameter.Optional }
-            //);
-
+            
 
         }
     }

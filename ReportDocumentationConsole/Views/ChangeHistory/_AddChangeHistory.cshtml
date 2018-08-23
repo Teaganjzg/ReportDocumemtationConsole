@@ -11,9 +11,7 @@
         @Html.ValidationSummary()
 
     <fieldset>
-        @*<label class="col-form-label" for="SSRSReportId">SSRSReportId</label>
-        @Html.TextBox("SSRSReportId", null, new { @class = "form-control" })*@
-        @*<input class="form-control" id="SSRSReportId" placeholder="SSRSReportId here…" type="text">*@
+        
         @Html.Hidden("selectedReportId", @ViewData["selectedReportId"])
         @Html.Hidden("selectedReportName", @ViewData["selectedReportName"])
         @Html.Hidden("isAdd", "true")
@@ -23,11 +21,7 @@
         @Html.Action("_SPNamesList", "MainConsole", new { selectedReportId = @ViewData["selectedReportId"].ToString() })
 
 
-        @*@Html.ValidationSummary()*@
-        @*<label class="col-form-label" for="ReportSPName">ReportSP*</label>
-        @Html.DropDownList("ReportSPName", new SelectList(Model.names), null, new { @class = "form-control valid", @data_val = "true", @data_val_required = "ReportSPName is required" })*@
-
-
+       
         <label class="col-form-label" for="ITComment">Internal Comment*</label>
         @Html.TextBox("ITComment", null, new { @class = "form-control valid", @data_val = "true", @data_val_required = "ITComment is required" })
 
@@ -40,24 +34,12 @@
             @Html.Label("Yes", "Yes")
             @Html.RadioButton("IsRDLChange", "No", new { @class = "custom-control", id = "IsRDLChange" })
             @Html.Label("No", "No")
-            @*@Html.TextBox("IsUserControlled", null, new { @class = "form-control valid", @data_val = "true", @data_val_required = "IIsUserControlled is required" })*@
+            
         </div>
         <input type="submit" value="ADD" class="btn btn-primary" />
     </fieldset>
     }
 </div>
-
-@*<div class="form-group has-success">
-        <label class="form-control-label" for="inputSuccess1">Valid input</label>
-        <input value="correct value" class="form-control is-valid" id="inputValid" type="text">
-        <div class="valid-feedback">Success! You've done it.</div>
-    </div>
-
-    <div class="form-group has-danger">
-        <label class="form-control-label" for="inputDanger1">Invalid input</label>
-        <input value="wrong value" class="form-control is-invalid" id="inputInvalid" type="text">
-        <div class="invalid-feedback">Sorry, that username's taken. Try another?</div>
-    </div>*@
 
 
 

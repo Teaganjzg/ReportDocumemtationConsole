@@ -18,7 +18,7 @@ namespace ReportDocumentationConsole.Controllers
             int selectedReport = id;
             string selectedReportName = name;
 
-            //int selectedReport = Convert.ToInt32(Request.Form["selectedReportId"]);
+           
 
             List<DB.ReportSPParameter> reportPara = DB_MSBDW.ReportSPParameters.Where(sp => sp.SSRSReportId == selectedReport).OrderByDescending(sp => sp.RowCreateDate).ToList();
             ParametersViewModel parametersViewModel = new ParametersViewModel(reportPara);
@@ -53,13 +53,11 @@ namespace ReportDocumentationConsole.Controllers
             temp.RowCreateDate = DateTime.Now;
             temp.CreateEnduserId = DB_MSBDW.endusers.FirstOrDefault(eu => eu.full_name == selectedEuName).id;
 
-            //if(!(DB_MSBDW.ReportSPParameters.Any(pa => pa.ReportSPId == temp.ReportSPId)))
+           
             DB_MSBDW.ReportSPParameters.Add(temp);
             DB_MSBDW.SaveChanges();
 
-            //return RedirectToAction("RerenderIndex", new { reportId = SSRSReportId });
-
-            //return RedirectToAction("Index");
+          
             ViewData["selectedReportId"] = SSRSReportId;
             ViewData["buttonName"] = "PA";
             ViewData["selectedReportName"] = Request.Form["selectedReportName"];
@@ -71,7 +69,7 @@ namespace ReportDocumentationConsole.Controllers
         {
             List<DB.ReportSPParameter> reportPara = DB_MSBDW.ReportSPParameters.Where(sp => sp.SSRSReportId == ReportId).OrderByDescending(sp => sp.RowCreateDate).ToList();
             ParametersViewModel parametersViewModel = new ParametersViewModel(reportPara);
-            //ViewData["selectedReportId"] = selectedReport;
+           
             ViewData["selectedReportId"] = ReportId;
             ViewData["buttonName"] = "PA";
             ViewData["selectedReportName"] = DB_MSBDW.SsrsReports.FirstOrDefault(re => re.id == ReportId).rpt_name;
@@ -124,7 +122,7 @@ namespace ReportDocumentationConsole.Controllers
                 default:
                     break;
             }
-            //db.UpdateCustomers(upd.CustomerID, upd.CustomerFirstName, upd.CustomerLastName);
+            
             if (input_isUserControlled == false || input_isSetValue == false)
             {
                 return 0;

@@ -1,15 +1,4 @@
-﻿@*@model ReportDocumentationConsole.ViewModels.ReportsViewModel
-@{
-    ViewBag.Title = "AddStoredProcs";
-}
-
-@{
-
-    Html.RenderAction("_DropDownList", "Home", @ViewData["selectedReportName"].ToString());
-}
-
-@Html.Partial("_MainButtons")*@
-
+﻿
 <h3>AddStoreProcs</h3>
 <div class="form-group">
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
@@ -20,9 +9,7 @@
         @Html.AntiForgeryToken()
         @Html.ValidationSummary()
     <fieldset>
-        @*<label class="col-form-label" for="SSRSReportId">SSRSReportId</label>
-        @Html.TextBox("SSRSReportId", null, new { @class = "form-control" })*@
-        @*<input class="form-control" id="SSRSReportId" placeholder="SSRSReportId here…" type="text">*@
+       
         @Html.Hidden("selectedReportId", @ViewData["selectedReportId"])
         @Html.Hidden("selectedReportName", @ViewData["selectedReportName"])
         <label class="col-form-label" for="SPName">SPName*</label>
@@ -33,26 +20,13 @@
         @Html.TextBox("PermissionNotes", null, new { @class = "form-control" })
 
         @Html.Action("_EndUserNamesList", "MainConsole")
-        @*<label class="col-form-label" for="CreatedEndUser">CreatedEndUser*</label>
-        @Html.DropDownList("CreatedEndUser", new SelectList(Model.names), null, new { @class = "form-control" })*@
-        @*@Html.TextBox("CreatedEndUserId", null, new { @class = "form-control" })*@
+        
 
         <input type="submit" value="submit" class="btn btn-primary" />
     </fieldset>
     }
 </div>
 
-@*<div class="form-group has-success">
-        <label class="form-control-label" for="inputSuccess1">Valid input</label>
-        <input value="correct value" class="form-control is-valid" id="inputValid" type="text">
-        <div class="valid-feedback">Success! You've done it.</div>
-    </div>
-
-    <div class="form-group has-danger">
-        <label class="form-control-label" for="inputDanger1">Invalid input</label>
-        <input value="wrong value" class="form-control is-invalid" id="inputInvalid" type="text">
-        <div class="invalid-feedback">Sorry, that username's taken. Try another?</div>
-    </div>*@
 
 
 
