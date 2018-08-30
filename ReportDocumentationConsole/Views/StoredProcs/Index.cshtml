@@ -27,14 +27,15 @@
                 var value = $(this).html();
                 var row = $(e.target).closest('tr');
                 var SPID = row.find($("[id*=key]")).val();
-                DeleteRow(SPID);
+                DeleteRow(SPID, confirm("Do you also want to delete this SP and all of its ralated information?"));
             });
 
         });
-        function DeleteRow(SPID) {
+        function DeleteRow(SPID, con) {
             var sp = {};
-
             sp.ID = SPID;
+            sp.report = @Html.Raw(Json.Encode(ViewData["selectedReportId"]));
+            sp.deleteAll = con;
             $.ajax({
                 type: "POST",
                 url: '@Url.Action("DeleteSP", "StoredProcs")',

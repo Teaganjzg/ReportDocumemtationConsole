@@ -6,24 +6,53 @@
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     @using (Html.BeginForm("AddStoredProcsResult", "StoredProcs", FormMethod.Post))
     {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary()
-    <fieldset>
-       
-        @Html.Hidden("selectedReportId", @ViewData["selectedReportId"])
-        @Html.Hidden("selectedReportName", @ViewData["selectedReportName"])
-        <label class="col-form-label" for="SPName">SPName*</label>
-        @Html.TextBox("SPName", null, new { @class = "form-control valid", @data_val = "true", @data_val_required = "SPName is required" })
-        @Html.Hidden("isAdd", "true")
+        <label class="col-form-label" for="UseExisting">Add From Existing StoredProcs?*</label>
+        <div class="custom-control custom-radio">
+            @Html.RadioButton("UseExisting", "Yes", new { @class = "custom-control", @checked = true, id = "UseExisting" })
+            @Html.Label("Yes", "Yes")
+            @Html.RadioButton("UseExisting", "No", new { @class = "custom-control", id = "UseExisting" })
+            @Html.Label("No", "No")
 
-        <label class="col-form-label" for="PermissionNotes">Permission Notes</label>
-        @Html.TextBox("PermissionNotes", null, new { @class = "form-control" })
+        </div>
+        <script type="text/javascript">
+            $("input[name='UseExisting']").change(function () {
 
-        @Html.Action("_EndUserNamesList", "MainConsole")
-        
+                if ($(this).val() == "Yes") {
 
-        <input type="submit" value="submit" class="btn btn-primary" />
-    </fieldset>
+                    document.getElementById('CreateNew').style.display = 'none';
+                    document.getElementById('SelectExisting').style.display = 'block';
+                }
+                else {
+                    document.getElementById('CreateNew').style.display = 'block';
+                    document.getElementById('SelectExisting').style.display = 'none';
+                }
+
+            });
+        </script>
+        <div id="SelectExisting" >
+            @Html.Action("_AllSPNames", "MainConsole")
+            <input type="submit" value="submit" class="btn btn-primary" />
+        </div>
+        <div id="CreateNew" style="display:none;">
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary()
+            <fieldset>
+
+                @Html.Hidden("selectedReportId", @ViewData["selectedReportId"])
+                @Html.Hidden("selectedReportName", @ViewData["selectedReportName"])
+                <label class="col-form-label" for="SPName">SPName*</label>
+                @Html.TextBox("SPName", null, new { @class = "form-control valid", @data_val = "true", @data_val_required = "SPName is required" })
+                @Html.Hidden("isAdd", "true")
+
+                <label class="col-form-label" for="PermissionNotes">Permission Notes</label>
+                @Html.TextBox("PermissionNotes", null, new { @class = "form-control" })
+
+                @Html.Action("_EndUserNamesList", "MainConsole")
+
+
+                <input type="submit" value="submit" class="btn btn-primary" />
+            </fieldset>
+        </div>
     }
 </div>
 

@@ -187,6 +187,9 @@
     <Compile Include="DB\ReportSPParameter.cs">
       <DependentUpon>MSBDW.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\Report_ReportSP.cs">
+      <DependentUpon>MSBDW.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\SsrsReport.cs">
       <DependentUpon>MSBDW.tt</DependentUpon>
     </Compile>
@@ -282,6 +285,7 @@
     <Content Include="Views\Shared\Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Views\MainConsole\_AllSPNames.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

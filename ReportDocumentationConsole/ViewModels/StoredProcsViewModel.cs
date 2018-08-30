@@ -10,8 +10,11 @@ namespace ReportDocumentationConsole.ViewModels
     {
          
         public List<ReportSP> reportSPs { get; set; }
-        public StoredProcsViewModel(List<DB.ReportSP> sPs)
+        public int reportId { get; set; }
+        public StoredProcsViewModel(List<DB.ReportSP> sPs, int id)
         {
+            reportId = id;
+
             reportSPs = new List<ReportSP>();
             DB.MSBDWEntities DB_MSBDW = new DB.MSBDWEntities();
             

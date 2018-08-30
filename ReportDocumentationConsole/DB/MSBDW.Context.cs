@@ -27,9 +27,10 @@ namespace ReportDocumentationConsole.DB
     
         public virtual DbSet<ReportChangeLog> ReportChangeLogs { get; set; }
         public virtual DbSet<ReportLinkage> ReportLinkages { get; set; }
-        public virtual DbSet<ReportSP> ReportSPs { get; set; }
         public virtual DbSet<ReportSPParameter> ReportSPParameters { get; set; }
         public virtual DbSet<SsrsReport> SsrsReports { get; set; }
         public virtual DbSet<enduser> endusers { get; set; }
+        public virtual DbSet<ReportSP> ReportSPs { get; set; }
+        public virtual DbSet<Report_ReportSP> Report_ReportSP { get; set; }
     }
 }

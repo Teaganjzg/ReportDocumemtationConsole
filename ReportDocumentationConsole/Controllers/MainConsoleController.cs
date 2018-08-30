@@ -70,8 +70,18 @@ namespace ReportDocumentationConsole.Controllers
         public ActionResult _SPNamesList(string selectedReportId)
         {
             int sReportId = Convert.ToInt32(selectedReportId);
-            
-            var spNames = DB_MSBDW.ReportSPs.Where(sp => sp.SSRSReportId == sReportId).Select(sp => sp.SPName).ToList();
+            var spIds = DB_MSBDW.Report_ReportSP.Where(rsp => rsp.SSRSReportId == sReportId).Select(rsp => rsp.ReportSPId);
+            //var spNames = DB_MSBDW.ReportSPs.Where(sp => sp.SSRSReportId == sReportId).Select(sp => sp.SPName).ToList();
+            var spNames = DB_MSBDW.ReportSPs.Where(sp => spIds.Contains(sp.ID)).Select(sp => sp.SPName).ToList();
+            ViewModels.ReportsViewModel spnames = new ReportsViewModel() { names = spNames };
+            return PartialView(spnames);
+        }
+
+        [ChildActionOnly]
+        public ActionResult _AllSPNames()
+        {
+           
+            var spNames = DB_MSBDW.ReportSPs.Where(sp => sp.SPName != null).OrderBy(sp => sp.SPName).Select(sp => sp.SPName).ToList();
             ViewModels.ReportsViewModel spnames = new ReportsViewModel() { names = spNames };
             return PartialView(spnames);
         }

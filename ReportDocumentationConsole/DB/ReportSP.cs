@@ -14,8 +14,13 @@ namespace ReportDocumentationConsole.DB
     
     public partial class ReportSP
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ReportSP()
+        {
+            this.Report_ReportSP = new HashSet<Report_ReportSP>();
+        }
+    
         public int ID { get; set; }
-        public Nullable<int> SSRSReportId { get; set; }
         public string SPName { get; set; }
         public Nullable<bool> IsRDLDropdown { get; set; }
         public string PermissionsNotes { get; set; }
@@ -23,5 +28,8 @@ namespace ReportDocumentationConsole.DB
         public Nullable<int> CreateEnduserId { get; set; }
         public Nullable<System.DateTime> RowModifyDate { get; set; }
         public Nullable<int> ModifyEnduserId { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Report_ReportSP> Report_ReportSP { get; set; }
     }
 }
