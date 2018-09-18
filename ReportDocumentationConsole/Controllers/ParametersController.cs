@@ -38,7 +38,7 @@ namespace ReportDocumentationConsole.Controllers
             int SSRSReportId = Convert.ToInt32(Request.Form["selectedReportId"]);
             
             string selectedEuName = Request.Form["CreatedEndUser"];
-            string selectedSPName = Request.Form["ReportSPName"];
+            string selectedSPName = Request.Form["ReportSPNameValidated"];
             DB.ReportSPParameter temp = new DB.ReportSPParameter();
 
             temp.ReportSPId = DB_MSBDW.ReportSPs.FirstOrDefault(sp => sp.SPName == selectedSPName).ID;

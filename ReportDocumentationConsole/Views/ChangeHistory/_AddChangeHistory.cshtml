@@ -18,30 +18,37 @@
 
         <label class="col-form-label" for="IsRDLChange">RDL Change?</label>
         <div class="custom-control custom-radio">
-            @Html.RadioButton("IsRDLChange", "Yes", new { @class = "custom-control", id = "IsRDLChange" })
+            @Html.RadioButton("IsRDLChange", "Yes", new { @class = "custom-control" ,id = "IsRDLChange" })
             @Html.Label("Yes", "Yes")
             @Html.RadioButton("IsRDLChange", "No", new { @class = "custom-control", @checked = true, id = "IsRDLChange" })
             @Html.Label("No", "No")
 
         </div>
 
-       <div> <label class="col-form-label" for="ReportSPName">ReportSP</label> <small float ="left" id="tips" class="form-text text-muted">SP can't be null</small>
-        @Html.Action("_SPNamesList", "MainConsole", new { selectedReportId = @ViewData["selectedReportId"].ToString() })
-        
-        <small float ="left" id="tips" class="form-text text-muted"><a href="#" for="ReportSPName" onclick="javascript:popup();return false;">Show related reports</a></small>
+        <div>
+            <label id="label" class="col-form-label" for="ReportSPName"  style="display:none">ReportSP</label>
+            <label id="labelV" class="col-form-label" for="ReportSPNameValidated" >ReportSP*</label>
+            
+            @Html.Action("_SPNamesList", "MainConsole", new { selectedReportId = @ViewData["selectedReportId"].ToString() })
+
+            <small float="left" id="tips" class="form-text text-muted"><a href="#" for="ReportSPName" onclick="javascript:popup();return false;">Show related reports</a></small>
         </div>
         <script type="text/javascript">
             $("input[name='IsRDLChange']").change(function () {
 
                 if ($(this).val() == "Yes") {
 
-                    $("#tips").hide();
+                   
+                    $("#labelV").hide();
+                    $("#label").show();
                     $("#ReportSPNameValidated").hide();
                     $("#ReportSPName").show();
 
                 }
                 else {
-                    $("#tips").show();
+                   
+                    $("#label").hide();
+                    $("#labelV").show();
                     $("#ReportSPNameValidated").show();
                     $("#ReportSPName").hide();
                 }
@@ -49,9 +56,9 @@
             });
 
             function popup() {
-
-                var s = $('#ReportSPName').val().toString();
-                window.open("/ReportDocumentationConsole/Mainconsole/RelatedReports?SPName=" + s, null, "scrollbars=no,resizable=no,width=400,height=480");
+                var x = $('#IsRDLChange').val().toString() == "No" ? $('#ReportSPNameValidated').val().toString() : $('#ReportSPName').val().toString();
+                if (x != "")
+                window.open("/ReportDocumentationConsole/Mainconsole/RelatedReports?SPName=" + x, null, "scrollbars=no,resizable=no,width=400,height=480");
             }
 
         </script>

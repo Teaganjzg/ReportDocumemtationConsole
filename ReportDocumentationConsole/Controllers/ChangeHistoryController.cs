@@ -39,7 +39,7 @@ namespace ReportDocumentationConsole.Controllers
         {
 
             int SSRSReportId = Convert.ToInt32(Request.Form["selectedReportId"]);
-            string selectedSPName = Request.Form["ReportSPName"] == ""?Request.Form["ReportSPNameValidated"]: Request.Form["ReportSPName"];
+            string selectedSPName = Request.Form["IsRDLChange"] == "No" ? Request.Form["ReportSPNameValidated"]: Request.Form["ReportSPName"];
             int selectedSPId = selectedSPName == ""?-1:DB_MSBDW.ReportSPs.FirstOrDefault(s => s.SPName == selectedSPName).ID;
             string selectedEuName = Request.Form["CreatedEndUser"];
             

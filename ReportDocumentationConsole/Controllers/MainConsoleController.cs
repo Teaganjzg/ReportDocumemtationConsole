@@ -123,11 +123,23 @@ namespace ReportDocumentationConsole.Controllers
         
         public ActionResult RelatedReports(string SPName)
         {
-            int SPId = DB_MSBDW.ReportSPs.FirstOrDefault(sp => sp.SPName == SPName).ID;
-            var relatedReports = DB_MSBDW.Report_ReportSP.Where(re => re.ReportSPId == SPId).Select(re => re.SSRSReportId).ToList();
-            var relatedReportNames = DB_MSBDW.SsrsReports.Where(r => relatedReports.Contains(r.id)).Select(r => r.rpt_name).ToList();
-            ViewModels.ReportsViewModel reportNames = new ReportsViewModel() { names = relatedReportNames };
-            return View(reportNames);
+            if (DB_MSBDW.ReportSPs.Any(s => s.SPName == SPName))
+            {
+                int SPId = DB_MSBDW.ReportSPs.FirstOrDefault(sp => sp.SPName == SPName).ID;
+                var relatedReports = DB_MSBDW.Report_ReportSP.Where(re => re.ReportSPId == SPId).Select(re => re.SSRSReportId).ToList();
+                var relatedReportNames = DB_MSBDW.SsrsReports.Where(r => relatedReports.Contains(r.id)).Select(r => r.rpt_name).ToList();
+                ViewModels.ReportsViewModel reportNames = new ReportsViewModel() { names = relatedReportNames };
+                return View(reportNames);
+            }
+            else
+            {
+                List<string> noI = new List<string>{ "one", "two"};
+                
+                ViewModels.ReportsViewModel noInput = new ReportsViewModel() { names = noI };
+                return View(noInput);
+
+            }
+            
         }
 
 
