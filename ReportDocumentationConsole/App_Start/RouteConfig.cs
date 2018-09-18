@@ -26,7 +26,13 @@ namespace ReportDocumentationConsole
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "ChangeHistory", action = "Index", id = UrlParameter.Optional }
             );
-            
+
+            routes.MapRoute(
+                name: "RelatedReports",
+                url: "{controller}/{action}/{SPName}",
+                defaults: new { controller = "MainConsole", action = "RelatedReports", SPName = UrlParameter.Optional }
+            );
+
 
         }
     }

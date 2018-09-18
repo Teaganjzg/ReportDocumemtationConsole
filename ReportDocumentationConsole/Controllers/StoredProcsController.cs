@@ -19,9 +19,8 @@ namespace ReportDocumentationConsole.Controllers
             string selectedReportName = name;
 
             var spIds = DB_MSBDW.Report_ReportSP.Where(rsp => rsp.SSRSReportId == selectedReport).Select(rsp => rsp.ReportSPId);
-            //var spNames = DB_MSBDW.ReportSPs.Where(sp => sp.SSRSReportId == sReportId).Select(sp => sp.SPName).ToList();
             List<DB.ReportSP> reportSP = DB_MSBDW.ReportSPs.Where(sp => spIds.Contains(sp.ID)).OrderByDescending(sp => sp.RowCreateDate).ToList();
-            StoredProcsViewModel reportsViewModel = new StoredProcsViewModel(reportSP, selectedReport);
+            StoredProcsViewModel reportsViewModel = new StoredProcsViewModel(reportSP);
             ViewData["selectedReportId"] = selectedReport;
             ViewData["buttonName"] = "SP";
             ViewData["selectedReportName"] = selectedReportName;
@@ -55,7 +54,6 @@ namespace ReportDocumentationConsole.Controllers
             {
                 
                 DB.ReportSP temp = new DB.ReportSP();
-                //temp.SSRSReportId = SSRSReportId;
                 temp.SPName = Request.Form["SPName"];
                 temp.PermissionsNotes = Request.Form["PermissionNotes"];
                 temp.CreateEnduserId = DB_MSBDW.endusers.FirstOrDefault(eu => eu.full_name == selectedEuName).id;

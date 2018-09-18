@@ -83,6 +83,7 @@
         <label class="col-form-label" for="AdditionalInfo">Info</label>
         @Html.TextBox("AdditionalInfo", null, new { @class = "form-control" })
 
+        <label class="col-form-label" for="CreatedEndUser">Creat EndUser*</label>
         @Html.Action("_EndUserNamesList", "MainConsole")
        
         <input type="submit" value="submit" class="btn btn-primary" />

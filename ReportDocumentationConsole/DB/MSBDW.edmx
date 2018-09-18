@@ -82,6 +82,8 @@
           <Property Name="ITComment" Type="varchar(max)" />
           <Property Name="PublicComment" Type="varchar(max)" />
           <Property Name="IsRDLChange" Type="bit" />
+          <Property Name="ChangeEnduserId" Type="int" />
+          <Property Name="ChangeReason" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="ReportLinkages">
           <Key>
@@ -99,6 +101,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SSRSReportId" Type="int" />
           <Property Name="SPName" Type="varchar" MaxLength="500" />
           <Property Name="IsRDLDropdown" Type="bit" />
           <Property Name="PermissionsNotes" Type="varchar(max)" />
@@ -137,7 +140,7 @@
           <Property Name="RdlName" Type="varchar" MaxLength="50" />
           <Property Name="OwnerEnduserId" Type="int" />
         </EntityType>
-        <Association Name="FK__Report_Re__Repor__4540CF6A">
+        <Association Name="FK__Report_Re__Repor__435886F8">
           <End Role="ReportSP" Type="Self.ReportSP" Multiplicity="0..1" />
           <End Role="Report_ReportSP" Type="Self.Report_ReportSP" Multiplicity="*" />
           <ReferentialConstraint>
@@ -149,7 +152,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Report_Re__SSRSR__444CAB31">
+        <Association Name="FK__Report_Re__SSRSR__426462BF">
           <End Role="SsrsReports" Type="Self.SsrsReports" Multiplicity="0..1" />
           <End Role="Report_ReportSP" Type="Self.Report_ReportSP" Multiplicity="*" />
           <ReferentialConstraint>
@@ -169,11 +172,11 @@
           <EntitySet Name="ReportSP" EntityType="Self.ReportSP" Schema="dw" store:Type="Tables" />
           <EntitySet Name="ReportSPParameters" EntityType="Self.ReportSPParameters" Schema="dw" store:Type="Tables" />
           <EntitySet Name="SsrsReports" EntityType="Self.SsrsReports" Schema="dw" store:Type="Tables" />
-          <AssociationSet Name="FK__Report_Re__Repor__4540CF6A" Association="Self.FK__Report_Re__Repor__4540CF6A">
+          <AssociationSet Name="FK__Report_Re__Repor__435886F8" Association="Self.FK__Report_Re__Repor__435886F8">
             <End Role="ReportSP" EntitySet="ReportSP" />
             <End Role="Report_ReportSP" EntitySet="Report_ReportSP" />
           </AssociationSet>
-          <AssociationSet Name="FK__Report_Re__SSRSR__444CAB31" Association="Self.FK__Report_Re__SSRSR__444CAB31">
+          <AssociationSet Name="FK__Report_Re__SSRSR__426462BF" Association="Self.FK__Report_Re__SSRSR__426462BF">
             <End Role="SsrsReports" EntitySet="SsrsReports" />
             <End Role="Report_ReportSP" EntitySet="Report_ReportSP" />
           </AssociationSet>
@@ -193,6 +196,8 @@
           <Property Name="ITComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="PublicComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="IsRDLChange" Type="Boolean" />
+          <Property Name="ChangeEnduserId" Type="Int32" />
+          <Property Name="ChangeReason" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="ReportLinkage">
           <Key>
@@ -324,6 +329,7 @@
           <Property Name="RowModifyDate" Type="DateTime" Precision="3" />
           <Property Name="ModifyEnduserId" Type="Int32" />
           <NavigationProperty Name="Report_ReportSP" Relationship="MSBDWModel.FK__Report_Re__Repor__4540CF6A" FromRole="ReportSP" ToRole="Report_ReportSP" />
+          <Property Name="SSRSReportId" Type="Int32" />
         </EntityType>
         <EntityType Name="Report_ReportSP">
           <Key>
@@ -368,6 +374,8 @@
           <EntitySetMapping Name="ReportChangeLogs">
             <EntityTypeMapping TypeName="MSBDWModel.ReportChangeLog">
               <MappingFragment StoreEntitySet="ReportChangeLog">
+                <ScalarProperty Name="ChangeReason" ColumnName="ChangeReason" />
+                <ScalarProperty Name="ChangeEnduserId" ColumnName="ChangeEnduserId" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="SSRSReportId" ColumnName="SSRSReportId" />
                 <ScalarProperty Name="ReportSPId" ColumnName="ReportSPId" />
@@ -484,6 +492,7 @@
           <EntitySetMapping Name="ReportSPs">
             <EntityTypeMapping TypeName="MSBDWModel.ReportSP">
               <MappingFragment StoreEntitySet="ReportSP">
+                <ScalarProperty Name="SSRSReportId" ColumnName="SSRSReportId" />
                 <ScalarProperty Name="ModifyEnduserId" ColumnName="ModifyEnduserId" />
                 <ScalarProperty Name="RowModifyDate" ColumnName="RowModifyDate" />
                 <ScalarProperty Name="CreateEnduserId" ColumnName="CreateEnduserId" />

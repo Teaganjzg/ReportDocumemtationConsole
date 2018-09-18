@@ -23,6 +23,8 @@ namespace ReportDocumentationConsole.ViewModels
                 temp.PublicComment = re.PublicComment;
                 temp.RowCreateDate = Convert.ToDateTime(re.RowCreateDate);
                 temp.IsRDLChange = Convert.ToBoolean(re.IsRDLChange);
+                temp.ChangeEndUserName = re.ChangeEnduserId == null ? "" : DB_MSBDW.endusers.FirstOrDefault(eu => eu.id == re.ChangeEnduserId).full_name;
+                temp.ChangeReason = re.ChangeReason;
                 try { temp.ReportSPName = DB_MSBDW.ReportSPs.FirstOrDefault(sp => sp.ID == re.ReportSPId).SPName; }
                 catch (Exception e)
                 {
@@ -51,6 +53,10 @@ namespace ReportDocumentationConsole.ViewModels
         public string PublicComment { get; set; }
         [DisplayName("RDL Changed? ")]
         public bool IsRDLChange { get; set; }
+        [DisplayName("Change EndUser")]
+        public string ChangeEndUserName { get; set; }
+        [DisplayName("Change Reason")]
+        public string  ChangeReason { get; set; }
     }
 
 }

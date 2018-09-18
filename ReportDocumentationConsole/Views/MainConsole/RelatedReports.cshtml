@@ -1,0 +1,12 @@
+﻿@model ReportDocumentationConsole.ViewModels.ReportsViewModel
+
+@{ Layout = null;}
+
+<title>Reports related to this SP</title>
+<div align="center">
+    @for (var i = 0; i < Model.names.Count; i++)
+    {
+        <p>@Model.names[i]</p>
+
+    }
+</div>

@@ -37,7 +37,7 @@ namespace ReportDocumentationConsole.ViewModels
         public string LinkageLocation { get; set; }
         [DisplayName("Create Date")]
         public DateTime RowCreateDate { get; set; }
-        [DisplayName("Create EndUser Name")]
+        [DisplayName("Create EndUser")]
         public string CreateEndUserName { get; set; }
         
     }

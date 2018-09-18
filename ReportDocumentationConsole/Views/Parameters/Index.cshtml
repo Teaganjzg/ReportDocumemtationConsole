@@ -167,8 +167,8 @@
             <tr>
                 @*<th scope="col">ID</th>
                     <th scope="col">SSRSReportId</th>*@
-                <th></th>
-                <th scope="col">@Html.DisplayNameFor(m => m[0].SPName)</th>
+                <th width="1px"></th>
+                @*<th scope="col">@Html.DisplayNameFor(m => m[0].SPName)</th>*@
                 <th scope="col">@Html.DisplayNameFor(m => m[0].RDLParamName)</th>
                 <th scope="col">@Html.DisplayNameFor(m => m[0].ParameterDesc)</th>
                 <th scope="col">@Html.DisplayNameFor(m => m[0].IsUserControlled)</th>
@@ -189,15 +189,15 @@
                     @*<td>@sp.ID</td>
                 <td>@sp.SSRSReportId</td>*@
                     <td>@Html.HiddenFor(modelItem => @Model[i].ID, new { id = "key" })</td>
-                    <td>@Model[i].SPName</td>
-                    <td><div class="RDLParamName">@Html.DisplayFor(modelItem => @Model[i].RDLParamName)</td>
-                    <td><div class="ParameterDesc">@Html.DisplayFor(modelItem => @Model[i].ParameterDesc)</td>
-                    <td><div class="IsUserControlled">@Html.DisplayFor(modelItem => @Model[i].IsUserControlled)</td>
-                    <td><div class="UserControlType">@Html.DisplayFor(modelItem => @Model[i].UserControlType)</td>
-                    <td><div class="IsSetvalue">@Html.DisplayFor(modelItem => @Model[i].IsSetvalue)</td>
-                    <td><div class="AdditionalInfo">@Html.DisplayFor(modelItem => @Model[i].AdditionalInfo)</td>
-                    <td>@Model[i].RowCreateDate.ToShortDateString()</td>
-                    <td>@Model[i].CreateEndUserName</td>
+                    @*<td>@Model[i].SPName</td>*@
+                    <td width="140px"><div class="RDLParamName">@Html.DisplayFor(modelItem => @Model[i].RDLParamName)</td>
+                    <td ><div class="ParameterDesc">@Html.DisplayFor(modelItem => @Model[i].ParameterDesc)</td>
+                    <td width="140px"><div class="IsUserControlled">@Html.DisplayFor(modelItem => @Model[i].IsUserControlled)</td>
+                    <td width="160px"><div class="UserControlType">@Html.DisplayFor(modelItem => @Model[i].UserControlType)</td>
+                    <td width="90px"><div class="IsSetvalue">@Html.DisplayFor(modelItem => @Model[i].IsSetvalue)</td>
+                    <td width="80px"><div class="AdditionalInfo">@Html.DisplayFor(modelItem => @Model[i].AdditionalInfo)</td>
+                    <td width="120px">@Model[i].RowCreateDate.ToShortDateString()</td>
+                    <td width="160px">@Model[i].CreateEndUserName</td>
                     <td width="40px"><div class="delete"><button class="btn btn-outline-secondary">Delete</button></div></td>
                 </tr>
             }

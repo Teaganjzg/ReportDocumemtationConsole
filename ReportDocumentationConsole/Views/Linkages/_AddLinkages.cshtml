@@ -11,7 +11,7 @@
         @Html.AntiForgeryToken()
         @Html.ValidationSummary()
     <fieldset>
-     
+
         @Html.Hidden("selectedReportId", @ViewData["selectedReportId"])
         @Html.Hidden("selectedReportName", @ViewData["selectedReportName"])
         @Html.Hidden("isAdd", "true")
@@ -24,6 +24,7 @@
         <label class="col-form-label" for="LinkLocation">Linkage Location*</label>
         @Html.TextBox("LinkLocation", null, new { @class = "form-control valid", @data_val = "true", @data_val_required = "LinkLocation is required" })
 
+        <label class="col-form-label" for="CreatedEndUser">Creat EndUser*</label>
         @Html.Action("_EndUserNamesList", "MainConsole")
 
 

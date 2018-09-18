@@ -21,5 +21,7 @@ namespace ReportDocumentationConsole.DB
         public string ITComment { get; set; }
         public string PublicComment { get; set; }
         public Nullable<bool> IsRDLChange { get; set; }
+        public Nullable<int> ChangeEnduserId { get; set; }
+        public string ChangeReason { get; set; }
     }
 }

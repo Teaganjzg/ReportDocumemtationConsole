@@ -11,35 +11,71 @@
         @Html.ValidationSummary()
 
     <fieldset>
-        
+
         @Html.Hidden("selectedReportId", @ViewData["selectedReportId"])
         @Html.Hidden("selectedReportName", @ViewData["selectedReportName"])
         @Html.Hidden("isAdd", "true")
 
+        <label class="col-form-label" for="IsRDLChange">RDL Change?</label>
+        <div class="custom-control custom-radio">
+            @Html.RadioButton("IsRDLChange", "Yes", new { @class = "custom-control", id = "IsRDLChange" })
+            @Html.Label("Yes", "Yes")
+            @Html.RadioButton("IsRDLChange", "No", new { @class = "custom-control", @checked = true, id = "IsRDLChange" })
+            @Html.Label("No", "No")
 
+        </div>
 
+       <div> <label class="col-form-label" for="ReportSPName">ReportSP</label> <small float ="left" id="tips" class="form-text text-muted">SP can't be null</small>
         @Html.Action("_SPNamesList", "MainConsole", new { selectedReportId = @ViewData["selectedReportId"].ToString() })
+        
+        <small float ="left" id="tips" class="form-text text-muted"><a href="#" for="ReportSPName" onclick="javascript:popup();return false;">Show related reports</a></small>
+        </div>
+        <script type="text/javascript">
+            $("input[name='IsRDLChange']").change(function () {
+
+                if ($(this).val() == "Yes") {
+
+                    $("#tips").hide();
+                    $("#ReportSPNameValidated").hide();
+                    $("#ReportSPName").show();
+
+                }
+                else {
+                    $("#tips").show();
+                    $("#ReportSPNameValidated").show();
+                    $("#ReportSPName").hide();
+                }
+
+            });
+
+            function popup() {
+
+                var s = $('#ReportSPName').val().toString();
+                window.open("/ReportDocumentationConsole/Mainconsole/RelatedReports?SPName=" + s, null, "scrollbars=no,resizable=no,width=400,height=480");
+            }
+
+        </script>
 
 
-       
         <label class="col-form-label" for="ITComment">Internal Comment*</label>
         @Html.TextBox("ITComment", null, new { @class = "form-control valid", @data_val = "true", @data_val_required = "ITComment is required" })
 
         <label class="col-form-label" for="PublicComment">Public Comment</label>
         @Html.TextBox("PublicComment", null, new { @class = "form-control" })
 
-        <label class="col-form-label" for="IsRDLChange">RDL Change?</label>
-        <div class="custom-control custom-radio">
-            @Html.RadioButton("IsRDLChange", "Yes", new { @class = "custom-control", @checked = true, id = "IsRDLChange" })
-            @Html.Label("Yes", "Yes")
-            @Html.RadioButton("IsRDLChange", "No", new { @class = "custom-control", id = "IsRDLChange" })
-            @Html.Label("No", "No")
-            
-        </div>
+
+
+
+        <label class="col-form-label" for="CreatedEndUser">Change EndUser*</label>
+        @Html.Action("_EndUserNamesList", "MainConsole")
+
+        <label class="col-form-label" for="ChangeReason">Change Reason</label>
+        @Html.TextBox("ChangeReason", null, new { @class = "form-control" })
+
         <input type="submit" value="ADD" class="btn btn-primary" />
     </fieldset>
-    }
-</div>
+            }
+        </div>
 
 
 

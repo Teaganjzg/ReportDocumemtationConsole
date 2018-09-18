@@ -119,7 +119,16 @@ namespace ReportDocumentationConsole.Controllers
             ViewData["selectedReportName"] = Request.Form["selectedReportName"];
             return PartialView("_ReportDescription");
         }
+
         
+        public ActionResult RelatedReports(string SPName)
+        {
+            int SPId = DB_MSBDW.ReportSPs.FirstOrDefault(sp => sp.SPName == SPName).ID;
+            var relatedReports = DB_MSBDW.Report_ReportSP.Where(re => re.ReportSPId == SPId).Select(re => re.SSRSReportId).ToList();
+            var relatedReportNames = DB_MSBDW.SsrsReports.Where(r => relatedReports.Contains(r.id)).Select(r => r.rpt_name).ToList();
+            ViewModels.ReportsViewModel reportNames = new ReportsViewModel() { names = relatedReportNames };
+            return View(reportNames);
+        }
 
 
 

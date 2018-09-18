@@ -16,9 +16,7 @@ namespace ReportDocumentationConsole.Controllers
         {
             int selectedReport = id;
             string selectedReportName = name;
-
             
-           
             
             List<DB.ReportLinkage> reportLink = DB_MSBDW.ReportLinkages.Where(sp => sp.SSRSReportId == selectedReport).OrderByDescending(sp => sp.RowCreateDate).ToList();
             LinkagesViewModel storedProcsViewModel = new LinkagesViewModel(reportLink);

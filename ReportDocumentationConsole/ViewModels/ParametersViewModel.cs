@@ -40,7 +40,7 @@ namespace ReportDocumentationConsole.ViewModels
         public int ID { get; set; }
         [DisplayName("Name")]
         public string SPName { get; set; }
-        [DisplayName("RDLName")]
+        [DisplayName("Parameter Name")]
         public string RDLParamName { get; set; }
         [DisplayName("Description")]
         public string ParameterDesc { get; set; }
@@ -56,7 +56,7 @@ namespace ReportDocumentationConsole.ViewModels
         public string AdditionalInfo { get; set; }
         [DisplayName("Create Date")]
         public DateTime RowCreateDate { get; set; }
-        [DisplayName("Create EndUser Name")]
+        [DisplayName("Create EndUser")]
         public string CreateEndUserName { get; set; }
 
     }

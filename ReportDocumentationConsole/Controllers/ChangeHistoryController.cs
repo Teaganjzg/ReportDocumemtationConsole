@@ -39,25 +39,46 @@ namespace ReportDocumentationConsole.Controllers
         {
 
             int SSRSReportId = Convert.ToInt32(Request.Form["selectedReportId"]);
-            string selectedSPName = Request.Form["ReportSPName"];
-
-            DB.ReportChangeLog temp = new DB.ReportChangeLog();
-            temp.SSRSReportId = SSRSReportId;
-            temp.ReportSPId = DB_MSBDW.ReportSPs.FirstOrDefault(sp => sp.SPName == selectedSPName).ID;
-            temp.ITComment = Request.Unvalidated.Form["ITComment"];
-            temp.PublicComment = Request.Form["PublicComment"];
-            temp.RowCreateDate = DateTime.Now;
-            temp.IsRDLChange = Request.Form["IsRDLChange"] == "Yes" ? true : false; 
-
-            DB_MSBDW.ReportChangeLogs.Add(temp);
-            DB_MSBDW.SaveChanges();
-
-
+            string selectedSPName = Request.Form["ReportSPName"] == ""?Request.Form["ReportSPNameValidated"]: Request.Form["ReportSPName"];
+            int selectedSPId = selectedSPName == ""?-1:DB_MSBDW.ReportSPs.FirstOrDefault(s => s.SPName == selectedSPName).ID;
+            string selectedEuName = Request.Form["CreatedEndUser"];
             
+            List<DB.Report_ReportSP> relatedRpts = DB_MSBDW.Report_ReportSP.Where(sp => sp.ReportSPId == selectedSPId).ToList();
+            for (int i = 0; i < relatedRpts.Count || Request.Form["IsRDLChange"] == "Yes"; i++)
+            {
+                DB.ReportChangeLog temp = new DB.ReportChangeLog();
+                temp.ITComment = Request.Unvalidated.Form["ITComment"];
+                temp.PublicComment = Request.Form["PublicComment"];
+                temp.RowCreateDate = DateTime.Now;
+                temp.ChangeEnduserId = DB_MSBDW.endusers.FirstOrDefault(eu => eu.full_name == selectedEuName).id;
+                temp.ChangeReason = Request["ChangeReason"];
+                
+                if (Request.Form["IsRDLChange"] == "Yes")
+                {
+                    temp.SSRSReportId = SSRSReportId;
+                    temp.IsRDLChange = true;
+                    if (selectedSPName != "" && selectedSPName != null)
+                    {
+                        temp.ReportSPId = selectedSPId;
+                    }
+                    DB_MSBDW.ReportChangeLogs.Add(temp);
+                    break;
+                }
+                temp.SSRSReportId = relatedRpts[i].SSRSReportId;
+                temp.ReportSPId = selectedSPId;
+                temp.IsRDLChange = false;
+                DB_MSBDW.ReportChangeLogs.Add(temp);
+                DB_MSBDW.SaveChanges();
+            }
+            
+            
+            DB_MSBDW.SaveChanges();
+            
+
             List<DB.ReportChangeLog> reportChange = DB_MSBDW.ReportChangeLogs.Where(sp => sp.SSRSReportId == SSRSReportId).OrderByDescending(sp => sp.RowCreateDate).ToList();
             ChangeHistoryViewModel changeHistoryViewModel = new ChangeHistoryViewModel(reportChange);
+            
 
-           
             ViewData["selectedReportId"] = SSRSReportId;
             ViewData["buttonName"] = "CH";
             ViewData["selectedReportName"] = Request.Form["selectedReportName"];

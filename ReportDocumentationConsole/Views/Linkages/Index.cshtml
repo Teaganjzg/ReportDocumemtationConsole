@@ -121,7 +121,7 @@
         <thead>
             <tr>
                 
-                <th></th>
+                <th width="1px"></th>
                 <th scope="col">@Html.DisplayNameFor(m => m[0].LinkageType)</th>
                 
                 <th>@Html.DisplayNameFor(m => m[0].LinkageLocation)</th>
@@ -142,8 +142,8 @@
                     
                     <td><div class="LinkageLocation">@Model[i].LinkageLocation</div></td>
 
-                    <td>@Model[i].RowCreateDate.ToShortDateString()</td>
-                    <td>@Model[i].CreateEndUserName</td>
+                    <td width="120px">@Model[i].RowCreateDate.ToShortDateString()</td>
+                    <td width="160px">@Model[i].CreateEndUserName</td>
                     <td width="40px"><div class="delete"><button class="btn btn-outline-secondary">Delete</button></div></td>
                 </tr>
             }

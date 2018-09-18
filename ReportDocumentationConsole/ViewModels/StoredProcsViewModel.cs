@@ -10,11 +10,10 @@ namespace ReportDocumentationConsole.ViewModels
     {
          
         public List<ReportSP> reportSPs { get; set; }
-        public int reportId { get; set; }
-        public StoredProcsViewModel(List<DB.ReportSP> sPs, int id)
+       
+        public StoredProcsViewModel(List<DB.ReportSP> sPs)
         {
-            reportId = id;
-
+            
             reportSPs = new List<ReportSP>();
             DB.MSBDWEntities DB_MSBDW = new DB.MSBDWEntities();
             
@@ -46,11 +45,11 @@ namespace ReportDocumentationConsole.ViewModels
         public string PermissionNotes { get; set; }
         [DisplayName("Create Date")]
         public DateTime RowCreateDate { get; set; }
-        [DisplayName("Create EndUser Name")]
+        [DisplayName("Create EndUser")]
         public string CreateEndUserName { get; set; }
         [DisplayName("Modify Date")]
         public DateTime RowModifyDate { get; set; }
-        [DisplayName("Modify EndUser Name")]
+        [DisplayName("Modify EndUser")]
         public string ModifyEndUserName { get; set; }
     }
 }
