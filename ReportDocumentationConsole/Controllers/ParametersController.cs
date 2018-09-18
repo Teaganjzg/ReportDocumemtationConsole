@@ -72,7 +72,7 @@ namespace ReportDocumentationConsole.Controllers
            
             ViewData["selectedReportId"] = ReportId;
             ViewData["buttonName"] = "PA";
-            ViewData["selectedReportName"] = DB_MSBDW.SsrsReports.FirstOrDefault(re => re.id == ReportId).rpt_name;
+            ViewData["selectedReportName"] = DB_MSBDW.SSRSReport1.FirstOrDefault(re => re.id == ReportId).rpt_name;
             return View(parametersViewModel.reportSPParameters);
 
         }

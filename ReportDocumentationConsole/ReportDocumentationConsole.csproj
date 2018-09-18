@@ -190,7 +190,7 @@
     <Compile Include="DB\Report_ReportSP.cs">
       <DependentUpon>MSBDW.tt</DependentUpon>
     </Compile>
-    <Compile Include="DB\SsrsReport.cs">
+    <Compile Include="DB\SSRSReport1.cs">
       <DependentUpon>MSBDW.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">

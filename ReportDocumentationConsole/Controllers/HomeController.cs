@@ -23,7 +23,7 @@ namespace ReportDocumentationConsole.Controllers
         public ActionResult _DropDownList(string selectedReportName)
         {
             DB.MSBDWEntities DB_MSDBW = new DB.MSBDWEntities();
-            var re = DB_MSDBW.SsrsReports.Where(r => r.rpt_name != null).OrderBy(r => r.rpt_name).Select(r => r.rpt_name).ToList();
+            var re = DB_MSDBW.SSRSReport1.Where(r => r.rpt_name != null).OrderBy(r => r.rpt_name).Select(r => r.rpt_name).ToList();
             
             ReportsViewModel reports = new ReportsViewModel() { names = re };
             ViewData["selectedReportName"] = selectedReportName;

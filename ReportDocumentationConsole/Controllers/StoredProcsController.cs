@@ -67,7 +67,7 @@ namespace ReportDocumentationConsole.Controllers
 
                 DB.Report_ReportSP r_sp_temp = new DB.Report_ReportSP();
                 r_sp_temp.ReportSP = temp;
-                r_sp_temp.SsrsReport = DB_MSBDW.SsrsReports.FirstOrDefault(r => r.id == SSRSReportId);
+                r_sp_temp.SSRSReport = DB_MSBDW.SSRSReport1.FirstOrDefault(r => r.id == SSRSReportId);
 
                 DB_MSBDW.Report_ReportSP.Add(r_sp_temp);
                 DB_MSBDW.SaveChanges();

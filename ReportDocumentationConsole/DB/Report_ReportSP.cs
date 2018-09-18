@@ -17,8 +17,9 @@ namespace ReportDocumentationConsole.DB
         public int Id { get; set; }
         public Nullable<int> SSRSReportId { get; set; }
         public Nullable<int> ReportSPId { get; set; }
+        public Nullable<System.DateTime> RowCreateDate { get; set; }
     
+        public virtual SSRSReport1 SSRSReport { get; set; }
         public virtual ReportSP ReportSP { get; set; }
-        public virtual SsrsReport SsrsReport { get; set; }
     }
 }

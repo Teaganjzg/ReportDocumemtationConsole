@@ -31,7 +31,7 @@
             
             @Html.Action("_SPNamesList", "MainConsole", new { selectedReportId = @ViewData["selectedReportId"].ToString() })
 
-            <small float="left" id="tips" class="form-text text-muted"><a href="#" for="ReportSPName" onclick="javascript:popup();return false;">Show related reports</a></small>
+            <small class="form-text text-muted"><a href="#" onclick="javascript:popup();return false;">Show related reports</a></small>
         </div>
         <script type="text/javascript">
             $("input[name='IsRDLChange']").change(function () {
@@ -56,7 +56,9 @@
             });
 
             function popup() {
-                var x = $('#IsRDLChange').val().toString() == "No" ? $('#ReportSPNameValidated').val().toString() : $('#ReportSPName').val().toString();
+                var x = "";
+                if ($("input[name='IsRDLChange']:checked").val() == "No") { x = $('#ReportSPNameValidated').val().toString();}
+                else { x = $('#ReportSPName').val().toString();}
                 if (x != "")
                 window.open("/ReportDocumentationConsole/Mainconsole/RelatedReports?SPName=" + x, null, "scrollbars=no,resizable=no,width=400,height=480");
             }

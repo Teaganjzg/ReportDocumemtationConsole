@@ -70,6 +70,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SSRSReportId" Type="int" />
           <Property Name="ReportSPId" Type="int" />
+          <Property Name="RowCreateDate" Type="datetime" />
         </EntityType>
         <EntityType Name="ReportChangeLog">
           <Key>
@@ -101,7 +102,6 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SSRSReportId" Type="int" />
           <Property Name="SPName" Type="varchar" MaxLength="500" />
           <Property Name="IsRDLDropdown" Type="bit" />
           <Property Name="PermissionsNotes" Type="varchar(max)" />
@@ -127,11 +127,11 @@
           <Property Name="CreateEnduserId" Type="int" />
           <Property Name="SSRSReportId" Type="int" />
         </EntityType>
-        <EntityType Name="SsrsReports">
+        <EntityType Name="SSRSReports">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="reportcat_id" Type="int" />
           <Property Name="rpt_name" Type="varchar" MaxLength="100" />
           <Property Name="rpt_desc" Type="varchar" MaxLength="200" />
@@ -139,8 +139,9 @@
           <Property Name="sp_name" Type="varchar" MaxLength="100" />
           <Property Name="RdlName" Type="varchar" MaxLength="50" />
           <Property Name="OwnerEnduserId" Type="int" />
+          <Property Name="ReportLogId" Type="int" />
         </EntityType>
-        <Association Name="FK__Report_Re__Repor__435886F8">
+        <Association Name="FK__Report_Re__Repor__55773733">
           <End Role="ReportSP" Type="Self.ReportSP" Multiplicity="0..1" />
           <End Role="Report_ReportSP" Type="Self.Report_ReportSP" Multiplicity="*" />
           <ReferentialConstraint>
@@ -152,11 +153,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Report_Re__SSRSR__426462BF">
-          <End Role="SsrsReports" Type="Self.SsrsReports" Multiplicity="0..1" />
+        <Association Name="FK__Report_Re__SSRSR__548312FA">
+          <End Role="SSRSReports" Type="Self.SSRSReports" Multiplicity="0..1" />
           <End Role="Report_ReportSP" Type="Self.Report_ReportSP" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="SsrsReports">
+            <Principal Role="SSRSReports">
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="Report_ReportSP">
@@ -171,13 +172,13 @@
           <EntitySet Name="ReportLinkages" EntityType="Self.ReportLinkages" Schema="dw" store:Type="Tables" />
           <EntitySet Name="ReportSP" EntityType="Self.ReportSP" Schema="dw" store:Type="Tables" />
           <EntitySet Name="ReportSPParameters" EntityType="Self.ReportSPParameters" Schema="dw" store:Type="Tables" />
-          <EntitySet Name="SsrsReports" EntityType="Self.SsrsReports" Schema="dw" store:Type="Tables" />
-          <AssociationSet Name="FK__Report_Re__Repor__435886F8" Association="Self.FK__Report_Re__Repor__435886F8">
+          <EntitySet Name="SSRSReports" EntityType="Self.SSRSReports" Schema="dw" store:Type="Tables" />
+          <AssociationSet Name="FK__Report_Re__Repor__55773733" Association="Self.FK__Report_Re__Repor__55773733">
             <End Role="ReportSP" EntitySet="ReportSP" />
             <End Role="Report_ReportSP" EntitySet="Report_ReportSP" />
           </AssociationSet>
-          <AssociationSet Name="FK__Report_Re__SSRSR__426462BF" Association="Self.FK__Report_Re__SSRSR__426462BF">
-            <End Role="SsrsReports" EntitySet="SsrsReports" />
+          <AssociationSet Name="FK__Report_Re__SSRSR__548312FA" Association="Self.FK__Report_Re__SSRSR__548312FA">
+            <End Role="SSRSReports" EntitySet="SSRSReports" />
             <End Role="Report_ReportSP" EntitySet="Report_ReportSP" />
           </AssociationSet>
         </EntityContainer>
@@ -231,33 +232,19 @@
           <EntitySet Name="ReportChangeLogs" EntityType="Self.ReportChangeLog" />
           <EntitySet Name="ReportLinkages" EntityType="Self.ReportLinkage" />
           <EntitySet Name="ReportSPParameters" EntityType="Self.ReportSPParameter" />
-          <EntitySet Name="SsrsReports" EntityType="MSBDWModel.SsrsReport" />
           <EntitySet Name="endusers" EntityType="MSBDWModel.enduser" />
-          <EntitySet Name="ReportSPs" EntityType="MSBDWModel.ReportSP" />
           <EntitySet Name="Report_ReportSP" EntityType="MSBDWModel.Report_ReportSP" />
-          <AssociationSet Name="FK__Report_Re__Repor__4540CF6A" Association="MSBDWModel.FK__Report_Re__Repor__4540CF6A">
+          <EntitySet Name="SSRSReport1" EntityType="MSBDWModel.SSRSReport1" />
+          <AssociationSet Name="FK__Report_Re__SSRSR__548312FA" Association="MSBDWModel.FK__Report_Re__SSRSR__548312FA">
+            <End Role="SSRSReport1" EntitySet="SSRSReport1" />
+            <End Role="Report_ReportSP" EntitySet="Report_ReportSP" />
+          </AssociationSet>
+          <EntitySet Name="ReportSPs" EntityType="MSBDWModel.ReportSP" />
+          <AssociationSet Name="FK__Report_Re__Repor__55773733" Association="MSBDWModel.FK__Report_Re__Repor__55773733">
             <End Role="ReportSP" EntitySet="ReportSPs" />
             <End Role="Report_ReportSP" EntitySet="Report_ReportSP" />
           </AssociationSet>
-          <AssociationSet Name="FK__Report_Re__SSRSR__444CAB31" Association="MSBDWModel.FK__Report_Re__SSRSR__444CAB31">
-            <End Role="SsrsReport" EntitySet="SsrsReports" />
-            <End Role="Report_ReportSP" EntitySet="Report_ReportSP" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="SsrsReport">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="reportcat_id" Type="Int32" />
-          <Property Name="rpt_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="rpt_desc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="create_date" Type="DateTime" Precision="3" />
-          <Property Name="sp_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="RdlName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="OwnerEnduserId" Type="Int32" />
-          <NavigationProperty Name="Report_ReportSP" Relationship="MSBDWModel.FK__Report_Re__SSRSR__444CAB31" FromRole="SsrsReport" ToRole="Report_ReportSP" />
-        </EntityType>
         <EntityType Name="enduser">
           <Key>
             <PropertyRef Name="id" />
@@ -316,6 +303,44 @@
           <Property Name="notification_emails" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="DST_Flag" Type="Boolean" />
         </EntityType>
+        <EntityType Name="Report_ReportSP">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="SSRSReportId" Type="Int32" Nullable="true" />
+          <Property Name="ReportSPId" Type="Int32" Nullable="true" />
+          <Property Name="RowCreateDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="SSRSReport" Relationship="MSBDWModel.FK__Report_Re__SSRSR__548312FA" FromRole="Report_ReportSP" ToRole="SSRSReport1" />
+          <NavigationProperty Name="ReportSP" Relationship="MSBDWModel.FK__Report_Re__Repor__55773733" FromRole="Report_ReportSP" ToRole="ReportSP" />
+        </EntityType>
+        <EntityType Name="SSRSReport1">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="reportcat_id" Type="Int32" />
+          <Property Name="rpt_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="rpt_desc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="create_date" Type="DateTime" Precision="3" />
+          <Property Name="sp_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="RdlName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OwnerEnduserId" Type="Int32" />
+          <Property Name="ReportLogId" Type="Int32" />
+          <NavigationProperty Name="Report_ReportSP" Relationship="MSBDWModel.FK__Report_Re__SSRSR__548312FA" FromRole="SSRSReport1" ToRole="Report_ReportSP" />
+        </EntityType>
+        <Association Name="FK__Report_Re__SSRSR__548312FA">
+          <End Type="MSBDWModel.SSRSReport1" Role="SSRSReport1" Multiplicity="0..1" />
+          <End Type="MSBDWModel.Report_ReportSP" Role="Report_ReportSP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SSRSReport1">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Report_ReportSP">
+              <PropertyRef Name="SSRSReportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="ReportSP">
           <Key>
             <PropertyRef Name="ID" />
@@ -328,20 +353,9 @@
           <Property Name="CreateEnduserId" Type="Int32" />
           <Property Name="RowModifyDate" Type="DateTime" Precision="3" />
           <Property Name="ModifyEnduserId" Type="Int32" />
-          <NavigationProperty Name="Report_ReportSP" Relationship="MSBDWModel.FK__Report_Re__Repor__4540CF6A" FromRole="ReportSP" ToRole="Report_ReportSP" />
-          <Property Name="SSRSReportId" Type="Int32" />
+          <NavigationProperty Name="Report_ReportSP" Relationship="MSBDWModel.FK__Report_Re__Repor__55773733" FromRole="ReportSP" ToRole="Report_ReportSP" />
         </EntityType>
-        <EntityType Name="Report_ReportSP">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="SSRSReportId" Type="Int32" Nullable="true" />
-          <Property Name="ReportSPId" Type="Int32" Nullable="true" />
-          <NavigationProperty Name="ReportSP" Relationship="MSBDWModel.FK__Report_Re__Repor__4540CF6A" FromRole="Report_ReportSP" ToRole="ReportSP" />
-          <NavigationProperty Name="SsrsReport" Relationship="MSBDWModel.FK__Report_Re__SSRSR__444CAB31" FromRole="Report_ReportSP" ToRole="SsrsReport" />
-        </EntityType>
-        <Association Name="FK__Report_Re__Repor__4540CF6A">
+        <Association Name="FK__Report_Re__Repor__55773733">
           <End Type="MSBDWModel.ReportSP" Role="ReportSP" Multiplicity="0..1" />
           <End Type="MSBDWModel.Report_ReportSP" Role="Report_ReportSP" Multiplicity="*" />
           <ReferentialConstraint>
@@ -350,18 +364,6 @@
             </Principal>
             <Dependent Role="Report_ReportSP">
               <PropertyRef Name="ReportSPId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Report_Re__SSRSR__444CAB31">
-          <End Type="MSBDWModel.SsrsReport" Role="SsrsReport" Multiplicity="0..1" />
-          <End Type="MSBDWModel.Report_ReportSP" Role="Report_ReportSP" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SsrsReport">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Report_ReportSP">
-              <PropertyRef Name="SSRSReportId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -413,20 +415,6 @@
                 <ScalarProperty Name="AdditionalInfo" ColumnName="AdditionalInfo" />
                 <ScalarProperty Name="RowCreateDate" ColumnName="RowCreateDate" />
                 <ScalarProperty Name="CreateEnduserId" ColumnName="CreateEnduserId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SsrsReports">
-            <EntityTypeMapping TypeName="MSBDWModel.SsrsReport">
-              <MappingFragment StoreEntitySet="SsrsReports">
-                <ScalarProperty Name="OwnerEnduserId" ColumnName="OwnerEnduserId" />
-                <ScalarProperty Name="RdlName" ColumnName="RdlName" />
-                <ScalarProperty Name="sp_name" ColumnName="sp_name" />
-                <ScalarProperty Name="create_date" ColumnName="create_date" />
-                <ScalarProperty Name="rpt_desc" ColumnName="rpt_desc" />
-                <ScalarProperty Name="rpt_name" ColumnName="rpt_name" />
-                <ScalarProperty Name="reportcat_id" ColumnName="reportcat_id" />
-                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -489,10 +477,34 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Report_ReportSP">
+            <EntityTypeMapping TypeName="MSBDWModel.Report_ReportSP">
+              <MappingFragment StoreEntitySet="Report_ReportSP">
+                <ScalarProperty Name="RowCreateDate" ColumnName="RowCreateDate" />
+                <ScalarProperty Name="ReportSPId" ColumnName="ReportSPId" />
+                <ScalarProperty Name="SSRSReportId" ColumnName="SSRSReportId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SSRSReport1">
+            <EntityTypeMapping TypeName="MSBDWModel.SSRSReport1">
+              <MappingFragment StoreEntitySet="SSRSReports">
+                <ScalarProperty Name="ReportLogId" ColumnName="ReportLogId" />
+                <ScalarProperty Name="OwnerEnduserId" ColumnName="OwnerEnduserId" />
+                <ScalarProperty Name="RdlName" ColumnName="RdlName" />
+                <ScalarProperty Name="sp_name" ColumnName="sp_name" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="rpt_desc" ColumnName="rpt_desc" />
+                <ScalarProperty Name="rpt_name" ColumnName="rpt_name" />
+                <ScalarProperty Name="reportcat_id" ColumnName="reportcat_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ReportSPs">
             <EntityTypeMapping TypeName="MSBDWModel.ReportSP">
               <MappingFragment StoreEntitySet="ReportSP">
-                <ScalarProperty Name="SSRSReportId" ColumnName="SSRSReportId" />
                 <ScalarProperty Name="ModifyEnduserId" ColumnName="ModifyEnduserId" />
                 <ScalarProperty Name="RowModifyDate" ColumnName="RowModifyDate" />
                 <ScalarProperty Name="CreateEnduserId" ColumnName="CreateEnduserId" />
@@ -501,15 +513,6 @@
                 <ScalarProperty Name="IsRDLDropdown" ColumnName="IsRDLDropdown" />
                 <ScalarProperty Name="SPName" ColumnName="SPName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Report_ReportSP">
-            <EntityTypeMapping TypeName="MSBDWModel.Report_ReportSP">
-              <MappingFragment StoreEntitySet="Report_ReportSP">
-                <ScalarProperty Name="ReportSPId" ColumnName="ReportSPId" />
-                <ScalarProperty Name="SSRSReportId" ColumnName="SSRSReportId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -52,7 +52,7 @@ namespace ReportDocumentationConsole.ViewModels
         public string IsSetvalue { get; set; }
         [DisplayName("Default Value")]
         public string DefaultValue { get; set; }
-        [DisplayName("Info")]
+        [DisplayName("Additional Info")]
         public string AdditionalInfo { get; set; }
         [DisplayName("Create Date")]
         public DateTime RowCreateDate { get; set; }

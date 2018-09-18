@@ -18,7 +18,7 @@
         @Html.Action("_SPNamesList", "MainConsole", new { selectedReportId = @ViewData["selectedReportId"].ToString() })
 
 
-        <label class="col-form-label" for="RDLParameterName">RDLName</label>
+        <label class="col-form-label" for="RDLParameterName">Parameter Name</label>
         @Html.TextBox("RDLParameterName", null, new { @class = "form-control" })
 
         <label class="col-form-label" for="ParameterName">Description*</label>
@@ -81,7 +81,7 @@
             });
         </script>
 
-        <label class="col-form-label" for="AdditionalInfo">Info</label>
+        <label class="col-form-label" for="AdditionalInfo">Additional Info</label>
         @Html.TextBox("AdditionalInfo", null, new { @class = "form-control" })
 
         <label class="col-form-label" for="CreatedEndUser">Creat EndUser*</label>

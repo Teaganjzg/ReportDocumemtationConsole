@@ -26,7 +26,7 @@ namespace ReportDocumentationConsole.Controllers
             if (Request.Form["selectedReportName"] != null && Request.Form["selectedReportName"] != "select report" && Request.Form["selectedReportName"] != "")
             {
                 SelectedReportName = Request.Form["selectedReportName"];
-                selectedReport = DB_MSBDW.SsrsReports.FirstOrDefault(r => r.rpt_name == SelectedReportName).id;
+                selectedReport = DB_MSBDW.SSRSReport1.FirstOrDefault(r => r.rpt_name == SelectedReportName).id;
 
             }
             else
@@ -37,7 +37,7 @@ namespace ReportDocumentationConsole.Controllers
 
             if (Request.Form["ReportDescription"] != null)
             {
-                DB.SsrsReport report = DB_MSBDW.SsrsReports.FirstOrDefault(re => re.id == selectedReport);
+                DB.SSRSReport1 report = DB_MSBDW.SSRSReport1.FirstOrDefault(re => re.id == selectedReport);
                 report.rpt_desc = Request.Form["ReportDescription"];
                 DB_MSBDW.SaveChanges();
 
@@ -101,9 +101,9 @@ namespace ReportDocumentationConsole.Controllers
         {
             int sReportId = Convert.ToInt32(selectedReportId);
             
-            string reportDesc = DB_MSBDW.SsrsReports.FirstOrDefault(re => re.id == sReportId).rpt_desc;
+            string reportDesc = DB_MSBDW.SSRSReport1.FirstOrDefault(re => re.id == sReportId).rpt_desc;
             ViewData["ReportDescription"]= reportDesc;
-            ViewData["selectedReportName"] = DB_MSBDW.SsrsReports.FirstOrDefault(re => re.id == sReportId).rpt_name;
+            ViewData["selectedReportName"] = DB_MSBDW.SSRSReport1.FirstOrDefault(re => re.id == sReportId).rpt_name;
             return PartialView();
         }
         [HttpPost]
@@ -111,7 +111,7 @@ namespace ReportDocumentationConsole.Controllers
         {
             string test = Request.Form["selectedReportName"];
             int reportId = Convert.ToInt32(Request.Form["selectedReportId"]);
-            DB.SsrsReport report = DB_MSBDW.SsrsReports.FirstOrDefault(re => re.id == reportId);
+            DB.SSRSReport1 report = DB_MSBDW.SSRSReport1.FirstOrDefault(re => re.id == reportId);
             report.rpt_desc = Request.Form["ReportDescription"];
             DB_MSBDW.SaveChanges();
             
@@ -127,7 +127,7 @@ namespace ReportDocumentationConsole.Controllers
             {
                 int SPId = DB_MSBDW.ReportSPs.FirstOrDefault(sp => sp.SPName == SPName).ID;
                 var relatedReports = DB_MSBDW.Report_ReportSP.Where(re => re.ReportSPId == SPId).Select(re => re.SSRSReportId).ToList();
-                var relatedReportNames = DB_MSBDW.SsrsReports.Where(r => relatedReports.Contains(r.id)).Select(r => r.rpt_name).ToList();
+                var relatedReportNames = DB_MSBDW.SSRSReport1.Where(r => relatedReports.Contains(r.id)).Select(r => r.rpt_name).ToList();
                 ViewModels.ReportsViewModel reportNames = new ReportsViewModel() { names = relatedReportNames };
                 return View(reportNames);
             }

@@ -8,12 +8,12 @@
         <EntityTypeShape EntityType="MSBDWModel.ReportChangeLog" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MSBDWModel.ReportLinkage" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MSBDWModel.ReportSPParameter" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MSBDWModel.SsrsReport" Width="1.5" PointX="5.375" PointY="4.75" />
         <EntityTypeShape EntityType="MSBDWModel.enduser" Width="1.5" PointX="7.375" PointY="0.75" />
-        <EntityTypeShape EntityType="MSBDWModel.ReportSP" Width="1.5" PointX="0.75" PointY="4.75" />
         <EntityTypeShape EntityType="MSBDWModel.Report_ReportSP" Width="1.5" PointX="3.125" PointY="5" />
-        <AssociationConnector Association="MSBDWModel.FK__Report_Re__Repor__4540CF6A" />
-        <AssociationConnector Association="MSBDWModel.FK__Report_Re__SSRSR__444CAB31" />
+        <EntityTypeShape EntityType="MSBDWModel.SSRSReport1" Width="1.5" PointX="5.25" PointY="5.125" />
+        <AssociationConnector Association="MSBDWModel.FK__Report_Re__SSRSR__548312FA" />
+        <EntityTypeShape EntityType="MSBDWModel.ReportSP" Width="1.5" PointX="0.875" PointY="5" />
+        <AssociationConnector Association="MSBDWModel.FK__Report_Re__Repor__55773733" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

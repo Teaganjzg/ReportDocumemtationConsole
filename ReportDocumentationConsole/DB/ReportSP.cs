@@ -28,7 +28,6 @@ namespace ReportDocumentationConsole.DB
         public Nullable<int> CreateEnduserId { get; set; }
         public Nullable<System.DateTime> RowModifyDate { get; set; }
         public Nullable<int> ModifyEnduserId { get; set; }
-        public Nullable<int> SSRSReportId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Report_ReportSP> Report_ReportSP { get; set; }
