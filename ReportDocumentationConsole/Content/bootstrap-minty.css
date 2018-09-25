@@ -1844,16 +1844,18 @@ pre {
         vertical-align: top;
         border-top: 1px solid rgba(0, 0, 0, 0.05);
         max-width: 100px;
-        word-wrap:hyphenate;
-        white-space: nowrap;
-        overflow: hidden;
+        word-wrap:break-word;
+        white-space:normal;
+        overflow:hidden;
+        word-wrap:break-word;
+        overflow-wrap:break-word;
        
     }
         .table th,
         .table td:hover {
             max-width: 100px;
             /*max-height: 400px;*/
-            text-wrap: normal;
+            text-wrap:none;
             word-wrap: break-word;
             text-overflow: ellipsis;
             overflow-wrap:break-word;
@@ -1912,17 +1914,28 @@ pre {
 .table-primary > th,
 .table-primary > td {
     background-color: #d9eee8;
-    overflow-wrap: inherit;
+    overflow-wrap: break-word;
+    word-wrap:break-word;
+    
 }
 
 .table-hover .table-primary:hover {
     background-color: #c7e6dd;
+    overflow-wrap:break-word;
+    word-wrap:break-word;
 }
 
     .table-hover .table-primary:hover > td,
     .table-hover .table-primary:hover > th {
         background-color: #c7e6dd;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        
     }
+
+.table-show2line > td {
+    max-height:5px;
+}
 
 .table-secondary,
 .table-secondary > th,

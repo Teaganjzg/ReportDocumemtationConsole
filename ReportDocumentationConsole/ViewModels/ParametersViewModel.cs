@@ -44,7 +44,7 @@ namespace ReportDocumentationConsole.ViewModels
         public string RDLParamName { get; set; }
         [DisplayName("Description")]
         public string ParameterDesc { get; set; }
-        [DisplayName("UserControlled?")]
+        [DisplayName("User Controlled?")]
         public string IsUserControlled { get; set; }
         [DisplayName("User Control Type")]
         public string UserControlType { get; set; }
