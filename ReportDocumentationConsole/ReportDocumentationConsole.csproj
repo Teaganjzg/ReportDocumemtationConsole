@@ -198,6 +198,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ChangeHistoryViewModel.cs" />
+    <Compile Include="ViewModels\CheckboxList.cs" />
     <Compile Include="ViewModels\LinkagesViewModel.cs" />
     <Compile Include="ViewModels\ParametersViewModel.cs" />
     <Compile Include="ViewModels\ReportsViewModel.cs" />
@@ -286,7 +287,10 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\MainConsole\_AllSPNames.cshtml" />
-    <Content Include="Views\MainConsole\RelatedReports.cshtml" />
+    <Content Include="Views\MainConsole\ShowRelatedReports.cshtml" />
+    <Content Include="Views\MainConsole\_RelatedReports.cshtml" />
+    <Content Include="Views\MainConsole\_AddReport.cshtml" />
+    <Content Include="Views\MainConsole\AddReportForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -30,27 +30,31 @@
                 var value = $(this).html();
                 var row = $(e.target).closest('tr');
                 var ChangeHisID = row.find($("[id*=key]")).val();
-                DeleteRow(ChangeHisID);
+                //DeleteRow(ChangeHisID);
+                DeleteRow(ChangeHisID, confirm("Are you sure?"));
             });
 
         });
-        function DeleteRow(ChangeHisID) {
+        function DeleteRow(ChangeHisID,con) {
             var para = {};
+            if (con == true)
+            {
+                para.ID = ChangeHisID;
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("DeleteCH", "ChangeHistory")',
+                    data: '{para: ' + JSON.stringify(para) + '}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        alert("done!! ");
+                        location.href = location.href;
+                        window.location.reload();
+                    }
 
-            para.ID = ChangeHisID;
-            $.ajax({
-                type: "POST",
-                url: '@Url.Action("DeleteCH", "ChangeHistory")',
-                data: '{para: ' + JSON.stringify(para) + '}',
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    alert("done!! ");
-                    location.href = location.href;
-                    window.location.reload();
-                }
-
-            });
+                    });
+            }
+            
         }
     </script>
 }
@@ -66,13 +70,14 @@
                 <th width="1px"></th>
 
                 <th scope="col"><center>@Html.DisplayNameFor(m => m[0].RowCreateDate)</center></th>
-                <th scope="col" ><div class="table-show2line"> @Html.DisplayNameFor(m => m[0].ItComment) </th>
+                <th scope="col"><div class="table-show2line"> @Html.DisplayNameFor(m => m[0].ItComment) </th>
 
                 @*<th scope="col"> @Html.DisplayNameFor(m => m[0].PublicComment) </th>*@
-                <th scope="col" ><center>@Html.DisplayNameFor(m => m[0].IsRDLChange)</center></th>
-                <th scope="col" ><center>@Html.DisplayNameFor(m => m[0].ChangeEndUserName)</center></th>
-                <th scope="col" ><center>@Html.DisplayNameFor(m => m[0].ChangeReason)</center></th>
-                <th scope="col" >@Html.DisplayNameFor(m => m[0].ReportSPName)</th>
+                <th scope="col"><center>@Html.DisplayNameFor(m => m[0].IsRDLChange)</center></th>
+                <th scope="col"><center>@Html.DisplayNameFor(m => m[0].SPChanged)</center></th>
+                <th scope="col"><center>@Html.DisplayNameFor(m => m[0].ChangeEndUserName)</center></th>
+                <th scope="col"><center>@Html.DisplayNameFor(m => m[0].ChangeReason)</center></th>
+                @*<th scope="col">@Html.DisplayNameFor(m => m[0].ReportSPName)</th>*@
                 <th></th>
             </tr>
         </thead>
@@ -87,9 +92,10 @@
                 <td style="word-wrap: break-word; overflow-wrap:break-word;"><div>@Model[i].ItComment</div></td>
                 @*<td>@Model[i].PublicComment</td>*@
                 <td width="80px" align="center">@Model[i].IsRDLChange</td>
+                <td width="80px" align="center">@Model[i].SPChanged</td>
                 <td width="160px" align="center">@Model[i].ChangeEndUserName</td>
                 <td width="150px" align="center">@Model[i].ChangeReason</td>
-                <td width="300px">@Model[i].ReportSPName</td>
+                @*<td width="300px">@Model[i].ReportSPName</td>*@
                 <td width="40px"><div class="delete"><button class="btn btn-outline-secondary">Delete</button></div></td>
             </tr>
             }

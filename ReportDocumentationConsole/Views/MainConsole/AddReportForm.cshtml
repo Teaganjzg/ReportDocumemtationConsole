@@ -1,0 +1,143 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddReportForm</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/Scripts/jquery-3.3.1.js")
+    @Scripts.Render("~/Scripts/jquery.validate.unobtrusive-ajax.js")
+</head>
+<body>
+
+
+    
+
+    <div class="container body-content">
+        <h3>AddReport</h3>
+        <div class="form-group">
+            <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+            <script src="~/Scripts/jquery.validate.min.js"></script>
+            <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+            @using (Html.BeginForm("AddReport", "MainConsole", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary()
+            <fieldset>
+
+
+
+
+
+                <label class="col-form-label" for="ReportName">Report Name*</label>
+                @Html.TextBox("ReportName", null, new { @class = "form-control valid", @name = "ReportName", @id = "ReportName", @data_val = "true", @data_val_required = "ITComment is required" })
+
+                <label class="col-form-label" for="ReportDescription">Report Description</label>
+                @Html.TextBox("ReportDescription", null, new { @class = "form-control" })
+
+                <div class="custom-control custom-radio">
+                    <label class="col-form-label" for="UseExisting">Add Main Stored Proc From Existing SP*</label>
+                    @Html.RadioButton("UseExisting", "Yes", new { @class = "custom-control", @checked = true, id = "UseExisting" })
+                    @Html.Label("Yes", "Yes")
+                    @Html.RadioButton("UseExisting", "No", new { @class = "custom-control", id = "UseExisting" })
+                    @Html.Label("No", "No")
+
+                </div>
+                <script type="text/javascript">
+                    $("input[name='UseExisting']").change(function () {
+
+                        if ($(this).val() == "Yes") {
+
+                            document.getElementById('CreateNew').style.display = 'none';
+                            document.getElementById('SelectExisting').style.display = 'block';
+                        }
+                        else {
+                            document.getElementById('CreateNew').style.display = 'block';
+                            document.getElementById('SelectExisting').style.display = 'none';
+                        }
+
+                    });
+
+
+                    
+
+
+                </script>
+
+                <script type="text/javascript">
+                    //$(document).ready(function () {
+
+                    //    $("input[name='ReportName']".val()).change(function () {
+                    //        alert("rtytr");
+                    //        $("input[name='RDLName']").val($(this).Val());
+
+                    //    });
+
+
+                    //});
+                    $("input[name='ReportName']").change(function () {
+                       
+                        
+                        //$("input[name='RDLName']").val($(this).Val());
+                        //var v = $("input[name='ReportName']").Val();
+                        //var v = document.getElementById("ReportName").val;
+                        var v = $(this).val() + "";
+                        $("input[name='RDLName']").val(v);
+                        
+                        //document.getElementById("RDLName").defaultValue = "Goofy";
+                        
+                    });
+                </script>
+                <div id="SelectExisting">
+                    @Html.Action("_AllSPNames", "MainConsole")
+
+                </div>
+                <div id="CreateNew" style="display:none;">
+
+                    <fieldset>
+
+
+                        <label class="col-form-label" for="SPName">SPName*</label>
+                        @Html.TextBox("SPName", null, new { @class = "form-control valid", @data_val = "true", @data_val_required = "SPName is required" })
+
+                        <label class="col-form-label" for="PermissionNotes">Permission Notes</label>
+                        @Html.TextBox("PermissionNotes", null, new { @class = "form-control" })
+
+
+
+                    </fieldset>
+                </div>
+
+                <label class="col-form-label" for="RDLName">RDLName*</label>
+                @Html.TextBox("RDLName", null, new { @class = "form-control valid", @data_val = "true", @data_val_required = "ITComment is required" })
+                
+
+                <label class="col-form-label" for="ReportLogId">ReportLogId*</label>
+                @Html.TextBox("ReportLogId", null, new { @class = "form-control valid", @data_val = "true", @data_val_required = "LinkLocation is required" })
+
+                <label class="col-form-label" for="CreatedEndUser">Create EndUser*</label>
+                @Html.Action("_EndUserNamesList", "MainConsole")
+
+
+                <input type="submit" value="submit" class="btn btn-primary" onsubmit="CloseSelf();" />
+            </fieldset>
+            }
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -2327,6 +2327,11 @@ textarea.form-control {
     display: block;
     margin-top: 0.25rem;
 }
+.form-text-info {
+    display: block;
+    margin-top: 0.25rem;
+    color:deepskyblue;
+}
 
 .form-row {
     display: -webkit-box;

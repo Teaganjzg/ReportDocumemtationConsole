@@ -29,7 +29,9 @@ namespace ReportDocumentationConsole.ViewModels
                 catch (Exception e)
                 {
                 }
-                
+                temp.SPChanged = re.ReportSPId != null ? true:false;
+
+
                 reportChangeLogs.Add(temp);
             }
             
@@ -57,6 +59,8 @@ namespace ReportDocumentationConsole.ViewModels
         public string ChangeEndUserName { get; set; }
         [DisplayName("Change Reason")]
         public string  ChangeReason { get; set; }
+        [DisplayName("SP Changed?")]
+        public bool SPChanged { get; set; }
     }
 
 }

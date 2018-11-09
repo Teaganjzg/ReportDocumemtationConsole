@@ -18,7 +18,7 @@
 
         <label class="col-form-label" for="IsRDLChange">RDL Change?</label>
         <div class="custom-control custom-radio">
-            @Html.RadioButton("IsRDLChange", "Yes", new { @class = "custom-control" ,id = "IsRDLChange" })
+            @Html.RadioButton("IsRDLChange", "Yes", new { @class = "custom-control", id = "IsRDLChange" })
             @Html.Label("Yes", "Yes")
             @Html.RadioButton("IsRDLChange", "No", new { @class = "custom-control", @checked = true, id = "IsRDLChange" })
             @Html.Label("No", "No")
@@ -26,45 +26,86 @@
         </div>
 
         <div>
-            <label id="label" class="col-form-label" for="ReportSPName"  style="display:none">ReportSP</label>
-            <label id="labelV" class="col-form-label" for="ReportSPNameValidated" >ReportSP*</label>
-            
+            <label id="label" class="col-form-label" for="ReportSPName" style="display:none">ReportSP</label>
+            <label id="labelV" class="col-form-label" for="ReportSPNameValidated">ReportSP*</label>
+
             @Html.Action("_SPNamesList", "MainConsole", new { selectedReportId = @ViewData["selectedReportId"].ToString() })
 
-            <small class="form-text text-muted"><a href="#" onclick="javascript:popup();return false;">Show related reports</a></small>
+
+            <small id="rrl" class="form-text text-muted"><a href="#" onclick="javascript: popup(); return false;">Show related reports</a></small>
         </div>
+        <div id="relatedReportsPlaceHolder"></div>
         <script type="text/javascript">
             $("input[name='IsRDLChange']").change(function () {
 
                 if ($(this).val() == "Yes") {
 
-                   
+
                     $("#labelV").hide();
                     $("#label").show();
                     $("#ReportSPNameValidated").hide();
                     $("#ReportSPName").show();
+                    $("#relatedReportsPlaceHolder").show();
+                    $("#rrl").hide();
 
                 }
                 else {
-                   
+
                     $("#label").hide();
                     $("#labelV").show();
                     $("#ReportSPNameValidated").show();
                     $("#ReportSPName").hide();
+                    $("#relatedReportsPlaceHolder").empty();
+                    $("#relatedReportsPlaceHolder").hide();
+                    $("#rrl").show();
                 }
 
             });
 
+
             function popup() {
+                
                 var x = "";
-                if ($("input[name='IsRDLChange']:checked").val() == "No") { x = $('#ReportSPNameValidated').val().toString();}
-                else { x = $('#ReportSPName').val().toString();}
+                if ($("input[name='IsRDLChange']:checked").val() == "No") { x = $('#ReportSPNameValidated').val().toString(); }
+                else { x = $('#ReportSPName').val().toString(); }
                 if (x != "")
-                window.open("/ReportDocumentationConsole/Mainconsole/RelatedReports?SPName=" + x, null, "scrollbars=no,resizable=no,width=400,height=480");
+                    window.open("/ReportDocumentationConsole/Mainconsole/ShowRelatedReports?SPName=" + x, null, "scrollbars=no,resizable=no,width=400,height=480");
+                    //$("#relatedReportsPlaceHolder").load("/MainConsole/_RelatedReports", { SPName = x });
+
             }
 
-        </script>
+            function OnchangeAction() {
+               
+                var x = "";
+                if ($("input[name='IsRDLChange']:checked").val() == "No") { x = $('#ReportSPNameValidated').val().toString(); $("#relatedReportsPlaceHolder").hide(); }
+                else { x = $('#ReportSPName').val().toString(); $("#relatedReportsPlaceHolder").show(); }
+                var r = $('#selectedReportId').val().toString();
+                if ($("input[name='IsRDLChange']:checked").val() == "Yes") {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("_RelatedReports", "MainConsole")',
+                        data: JSON.stringify({ SPName: x, CurrentReportId: r }),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "html",
+                        success: function (result) {
 
+                            $('#relatedReportsPlaceHolder').html(result);
+
+                        }
+                    })
+                }
+                else { $("#relatedReportsPlaceHolder").empty(); }
+                
+                
+                
+                
+               
+            }
+
+
+
+        </script>
+        
 
         <label class="col-form-label" for="ITComment">Internal Comment*</label>
         @Html.TextBox("ITComment", null, new { @class = "form-control valid", @data_val = "true", @data_val_required = "ITComment is required" })
@@ -81,7 +122,7 @@
         <label class="col-form-label" for="ChangeReason">Change Reason</label>
         @Html.TextBox("ChangeReason", null, new { @class = "form-control" })
 
-        <input type="submit" value="ADD" class="btn btn-primary" />
+        <input type="submit" value="ADD" class="btn btn-primary"/>
     </fieldset>
             }
         </div>

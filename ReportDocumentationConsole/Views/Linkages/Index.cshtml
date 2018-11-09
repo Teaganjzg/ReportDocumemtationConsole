@@ -34,7 +34,8 @@
                 var value = $(this).html();
                 var row = $(e.target).closest('tr');
                 var LinkageID = row.find($("[id*=key]")).val();
-                DeleteRow(LinkageID);
+                //DeleteRow(LinkageID);
+                DeleteRow(LinkageID, confirm("Are you sure?"));
             });
 
         });
@@ -73,29 +74,32 @@
             window.location.reload();
         }
 
-        function DeleteRow(LinkageID) {
+        function DeleteRow(LinkageID,con) {
             var link = {};
-
-            link.ID = LinkageID;
-            $.ajax({
-                type: "POST",
-                url: '@Url.Action("DeleteLK", "Linkages")',
-                data: '{link: ' + JSON.stringify(link) + '}',
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    alert("done!!");
+            if (con == true)
+            {
+                link.ID = LinkageID;
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("DeleteLK", "Linkages")',
+                    data: '{link: ' + JSON.stringify(link) + '}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        alert("done!!");
                     
-                    window.location.reload();
-                }
+                        window.location.reload();
+                    }
 
-            });
+                });
+            }
+            
         }
 
         function SaveChanges(e) {
             var linkage = {};
             linkage.ColumnToUpdate = $("[id*=ColumnToUpdate]").val();
-            linkage.FieldValue = $("[id*=txtValue]").val();
+            linkage.FieldValue = $("[id*=txtValue]").val().trim();
             linkage.ID = $("[id*=keySelected]").val();
             $.ajax({
                 type: "POST",
@@ -120,13 +124,14 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                
+
                 <th width="1px"></th>
                 <th scope="col">@Html.DisplayNameFor(m => m[0].LinkageType)</th>
-                
+
                 <th>@Html.DisplayNameFor(m => m[0].LinkageLocation)</th>
                 <th scope="col">@Html.DisplayNameFor(m => m[0].RowCreateDate)</th>
                 <th scope="col">@Html.DisplayNameFor(m => m[0].CreateEndUserName)</th>
+                
                 <th></th>
 
             </tr>
@@ -134,18 +139,19 @@
         <tbody>
             @for (var i = 0; i < Model.Count; i++)
             {
-                <tr class="table-primary">
-                    
-                    <td>@Html.HiddenFor(modelItem => @Model[i].ID, new { id = "key" })</td>
+            <tr class="table-primary">
 
-                    <td>@Model[i].LinkageType</td>
-                    
-                    <td><div class="LinkageLocation">@Model[i].LinkageLocation</div></td>
+                <td>@Html.HiddenFor(modelItem => @Model[i].ID, new { id = "key" })</td>
 
-                    <td width="120px">@Model[i].RowCreateDate.ToShortDateString()</td>
-                    <td width="160px">@Model[i].CreateEndUserName</td>
-                    <td width="40px"><div class="delete"><button class="btn btn-outline-secondary">Delete</button></div></td>
-                </tr>
+                <td>@Model[i].LinkageType</td>
+
+                <td><div class="LinkageLocation">@if (@Model[i].LinkageLocation == null) { <text>&nbsp;</text>} else {@Model[i].LinkageLocation}</div></td>
+
+                <td width="120px">@Model[i].RowCreateDate.ToShortDateString()</td>
+                <td width="160px">@Model[i].CreateEndUserName</td>
+               
+                <td width="40px"><div class="delete"><button class="btn btn-outline-secondary">Delete</button></div></td>
+            </tr>
             }
         </tbody>
     </table>
