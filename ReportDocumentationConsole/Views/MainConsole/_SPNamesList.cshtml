@@ -1,5 +1,5 @@
 ﻿
 @model ReportDocumentationConsole.ViewModels.ReportsViewModel
 
-@Html.DropDownList("ReportSPNameValidated", new SelectList(Model.names), null, new { @class = "form-control valid", @data_val = "true", @data_val_required = "ReportSPName is required"})
-@Html.DropDownList("ReportSPName", new SelectList(Model.names), "", new { @class = "form-control valid", @data_val = "false", @data_val_required = "ReportSPName is required", @style = "display:none" })
+@Html.DropDownList("ReportSPNameValidated", new SelectList(Model.names), "Select One SP", new {@id = "ReportSPNameValidated", @class = "form-control valid", @data_val = "true", @data_val_required = "ReportSPName is required", onchange = "OnchangeAction()" })
+@Html.DropDownList("ReportSPName", new SelectList(Model.names), "", new {@id = "ReportSPName", @class = "form-control valid", @data_val = "false", @data_val_required = "ReportSPName is required", @style = "display:none", onchange = "OnchangeAction()" })

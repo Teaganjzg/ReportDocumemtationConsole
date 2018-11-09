@@ -24,10 +24,10 @@ namespace ReportDocumentationConsole.ViewModels
                 
                 temp.RDLParamName = rp.RDLParameterName;
                 temp.ParameterDesc = rp.ParamDescription;
-                temp.IsUserControlled = rp.IsUserControlled == true ? "True" : "False";
+                temp.IsUserControlled = rp.IsUserControlled != null?(rp.IsUserControlled == true ? "User Controlled" : "Set Value"): null;
                 temp.UserControlType = rp.UserControlType;
-                temp.IsSetvalue = rp.IsSetValue == true ? "True" : "False";
-                temp.DefaultValue =rp.DefaultValue;
+                temp.IsSetvalue = rp.IsSetValue != null?(rp.IsSetValue == true ? "True" : "False"):null;
+                temp.DefaultValue = rp.DefaultValue;
                 temp.AdditionalInfo = rp.AdditionalInfo;
                 temp.RowCreateDate = Convert.ToDateTime(rp.RowCreateDate);
                 temp.CreateEndUserName = rp.CreateEnduserId == null ? "":DB_MSBDW.endusers.FirstOrDefault(eu => eu.id == rp.CreateEnduserId).full_name;

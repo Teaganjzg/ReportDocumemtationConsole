@@ -86,7 +86,7 @@ namespace ReportDocumentationConsole.Controllers
         public int SavePara(ParameterToUpdate para)
         {
             DB.ReportSPParameter pa = DB_MSBDW.ReportSPParameters.FirstOrDefault(l => l.ID == para.ID);
-            Boolean input_isUserControlled = true, input_isSetValue = true;
+            //Boolean input_isUserControlled = true, input_isSetValue = true;
             switch (para.ColumnToUpdate)
             {
                 case "RDLParamName":
@@ -96,24 +96,21 @@ namespace ReportDocumentationConsole.Controllers
                     pa.ParamDescription = para.FieldValue;
                     break;
                 case "IsUserControlled":
-                    var debug = para.FieldValue.ToUpper();
-                    if (para.FieldValue.ToUpper() != "TRUE" && para.FieldValue.ToUpper() != "FALSE")
+                    
+                    if (para.FieldValue == "True")
                     {
-                        input_isUserControlled = false;
-                        break;
+                        pa.IsUserControlled = true; pa.IsSetValue = false;
                     }
-                    pa.IsUserControlled = para.FieldValue.ToUpper() == "TRUE"? true : false;
+                    else
+                    {
+                        pa.IsUserControlled = false; pa.IsSetValue = true;
+                    }
                     break;
                 case "UserControlType":
                     pa.UserControlType = para.FieldValue;
                     break;
-                case "IsSetvalue":
-                    if (para.FieldValue.ToUpper() != "TRUE" && para.FieldValue.ToUpper() != "FALSE")
-                    {
-                        input_isSetValue = false;
-                        break;
-                    }
-                    pa.IsSetValue = para.FieldValue.ToUpper() == "TRUE" ? true : false;
+                case "DefaultValue":
+                    pa.DefaultValue = para.FieldValue;
                     break;
                 case "AdditionalInfo":
                     pa.AdditionalInfo = para.FieldValue;
@@ -123,10 +120,10 @@ namespace ReportDocumentationConsole.Controllers
                     break;
             }
             
-            if (input_isUserControlled == false || input_isSetValue == false)
-            {
-                return 0;
-            }
+            //if (input_isUserControlled == false || input_isSetValue == false)
+            //{
+            //    return 0;
+            //}
             DB_MSBDW.SaveChanges();
 
             return 1;

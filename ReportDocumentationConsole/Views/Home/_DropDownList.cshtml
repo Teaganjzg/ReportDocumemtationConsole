@@ -1,8 +1,11 @@
 ﻿
 @model ReportDocumentationConsole.ViewModels.ReportsViewModel
 @{
-    ViewBag.Title = "Home Page";
+                /**/
+
+                ViewBag.Title = "Home Page";
 }
+
 
 
 @using (Html.BeginForm("Index", "MainConsole", FormMethod.Post))
@@ -15,14 +18,25 @@
 
     <div class="form-group">
 
-       
+
         @Html.Label("Report Name")
 
 
-        @Html.DropDownList("selectedReportName", new SelectList(Model.names), @ViewData["selectedReportName"] == null?"select report": ViewData["selectedReportName"].ToString(), new { @class = "custom-select" })
+        @Html.DropDownList("selectedReportName", new SelectList(Model.names), @ViewData["selectedReportName"] == null ? "select report" : ViewData["selectedReportName"].ToString(), new { @class = "custom-select" })
         @Html.Hidden("buttonName", "CH")
         <input type="submit" value="submit" class="btn btn-primary" />
+        <button type="button" class="btn btn-primary" id="NewReport"  onclick= "window.location.href='@Url.Action( "AddReportForm", "MainConsole")';">New Report</button>
+        @*<button type="button" class="btn btn-primary" id="NewReport" onclick="javascript: popupf(); return false;">New Report</button>*@
     </div>
-
 </fieldset>
 }
+
+
+
+<div class="AddReportForm"></div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script type="text/javascript">
+    
+
+</script>

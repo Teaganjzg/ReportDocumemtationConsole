@@ -54,13 +54,13 @@
                 var ParameterID = row.find($("[id*=key]")).val();
                 UpdateVal(CurrentEle, value, ParameterID, "UserControlType");
             });
-            $(".IsSetvalue").dblclick(function (e) {
+            $(".DefaultValue").dblclick(function (e) {
                 e.stopPropagation();
                 var CurrentEle = $(this);
                 var value = $(this).html();
                 var row = $(e.target).closest('tr');
                 var ParameterID = row.find($("[id*=key]")).val();
-                UpdateVal(CurrentEle, value, ParameterID, "IsSetvalue");
+                UpdateVal(CurrentEle, value, ParameterID, "DefaultValue");
             });
             $(".AdditionalInfo").dblclick(function (e) {
                 e.stopPropagation();
@@ -76,7 +76,8 @@
                 var value = $(this).html();
                 var row = $(e.target).closest('tr');
                 var ParameterID = row.find($("[id*=key]")).val();
-                DeleteRow(ParameterID);
+                //DeleteRow(ParameterID);
+                DeleteRow(ParameterID, confirm("Are you sure?"));
             });
         });
         function UpdateVal(CurrentEle, value, ParameterID, ColumnToUpdate) {
@@ -87,14 +88,42 @@
                 }
             }
             if (value.match("<") == null) {
-                $(CurrentEle).html('<div class="cellValue" id="cellWrapper"> ' +
-                    '<input class="cellValue" type="text" id="txtValue" value="' + value + '" />' +
-                    '<input class="cellValue" type="hidden" value="' + ParameterID + '" id="keySelected" />' +
-                    '<input class="cellValue" type="hidden" value="' + ColumnToUpdate + '" id="ColumnToUpdate" /> ' +
-                    '<input class="cellValue" type="hidden" value="' + value + '" id="OriginalValue" /> ' +
-                    '<input class="cellValue" type="button" value="save"   onclick="return SaveChanges()" /> ' +
-                    '<input class="cellValue" type="button" value="cancel" onclick="return CancelChanges()" /> ' +
-                    '</div> ');
+                if (ColumnToUpdate == "IsSetvalue" || ColumnToUpdate == "IsUserControlled") {
+                    $(CurrentEle).html('<div class="cellValue" id="cellWrapper"> ' +
+                        ' <select id="txtValue"  value ="' + value + '" > '+
+                        '<option value = "True" >User Controlled</option >' +
+                        '<option value = "False" >Set Value</option >' +
+                        '</select>' +
+                        '<input class="cellValue" type="hidden" value="' + ParameterID + '" id="keySelected" />' +
+                        '<input class="cellValue" type="hidden" value="' + ColumnToUpdate + '" id="ColumnToUpdate" /> ' +
+                        '<input class="cellValue" type="hidden" value="' + value + '" id="OriginalValue" /> ' +
+                        '<input class="cellValue" type="button" value="save"   onclick="return SaveChanges()" /> ' +
+                        '<input class="cellValue" type="button" value="cancel" onclick="return CancelChanges()" /> ' +
+                        '</div> ');
+                }
+                else if(ColumnToUpdate == "ParameterDesc" || ColumnToUpdate == "AdditionalInfo")
+                {
+                    $(CurrentEle).html('<div class="cellValue" id="cellWrapper"> ' +
+                        '<textarea class="cellValue" type="text" id="txtValue"  style="resize : both">' + value + '</textarea>' +
+                        '<input class="cellValue" type="hidden" value="' + ParameterID + '" id="keySelected" />' +
+                        '<input class="cellValue" type="hidden" value="' + ColumnToUpdate + '" id="ColumnToUpdate" /> ' +
+                        '<input class="cellValue" type="hidden" value="' + value + '" id="OriginalValue" /> ' +
+                        '<input class="cellValue" type="button" value="save"   onclick="return SaveChanges()" /> ' +
+                        '<input class="cellValue" type="button" value="cancel" onclick="return CancelChanges()" /> ' +
+                        '</div> ');
+                }
+                else
+                {
+                    $(CurrentEle).html('<div class="cellValue" id="cellWrapper"> ' +
+                        '<input class="cellValue" type="text" id="txtValue" value="' + value + '" />' +
+                        '<input class="cellValue" type="hidden" value="' + ParameterID + '" id="keySelected" />' +
+                        '<input class="cellValue" type="hidden" value="' + ColumnToUpdate + '" id="ColumnToUpdate" /> ' +
+                        '<input class="cellValue" type="hidden" value="' + value + '" id="OriginalValue" /> ' +
+                        '<input class="cellValue" type="button" value="save"   onclick="return SaveChanges()" /> ' +
+                        '<input class="cellValue" type="button" value="cancel" onclick="return CancelChanges()" /> ' +
+                        '</div> ');
+                }
+                
             }
             $(".cellValue").focus();
             $(".cellValue").keyup(function (event) {
@@ -117,7 +146,7 @@
         function SaveChanges(e) {
             var para = {};
             para.ColumnToUpdate = $("[id*=ColumnToUpdate]").val();
-            para.FieldValue = $("[id*=txtValue]").val();
+            para.FieldValue = $("[id*=txtValue]").val().trim();
             para.ID = $("[id*=keySelected]").val();
             $.ajax({
                 type: "POST",
@@ -137,25 +166,28 @@
             });
         }
 
-        function DeleteRow(ParameterID) {
+        function DeleteRow(ParameterID,con) {
             var para = {};
-          
-            para.ID = ParameterID;
-            $.ajax({
-                type: "POST",
-                url: '@Url.Action("DeletePara", "Parameters")',
-                data: '{para: ' + JSON.stringify(para) + '}',
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    alert("done!!");
-                    location.href = location.href;
+            if (con == true)
+            {
+                para.ID = ParameterID;
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("DeletePara", "Parameters")',
+                    data: '{para: ' + JSON.stringify(para) + '}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        alert("done!!");
+                        location.href = location.href;
                     
-                    window.location.reload();
+                        window.location.reload();
                     
-                }
+                    }
 
-            });
+                });
+            }
+            
         }
     </script>
 }
@@ -165,15 +197,18 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                
+                @*<th scope="col">ID</th>
+                    <th scope="col">SSRSReportId</th>*@
                 <th width="1px"></th>
+                @*<th scope="col">@Html.DisplayNameFor(m => m[0].SPName)</th>*@
                 <th scope="col">@Html.DisplayNameFor(m => m[0].RDLParamName)</th>
                 <th scope="col">@Html.DisplayNameFor(m => m[0].ParameterDesc)</th>
                 <th scope="col"><center>@Html.DisplayNameFor(m => m[0].IsUserControlled)</center></th>
                 <th scope="col"><center>@Html.DisplayNameFor(m => m[0].UserControlType)</center></th>
-                <th scope="col"><center>@Html.DisplayNameFor(m => m[0].IsSetvalue)</center></th>
+                <th scope="col"><center>@Html.DisplayNameFor(m => m[0].DefaultValue)</center></th>
                 <th scope="col">@Html.DisplayNameFor(m => m[0].AdditionalInfo)</th>
-                
+                @*<th scope="col">@Html.DisplayNameFor(m => m[0].RowCreateDate)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m[0].CreateEndUserName)</th>*@
                 <th></th>
 
             </tr>
@@ -182,16 +217,19 @@
             @for (var i = 0; i < Model.Count; i++)
             {
                 <tr class="table-primary">
-                   
+                    @*<th scope="row">Primary</th>*@
+                    @*<td>@sp.ID</td>
+                <td>@sp.SSRSReportId</td>*@
                     <td>@Html.HiddenFor(modelItem => @Model[i].ID, new { id = "key" })</td>
-                   
-                    <td width="200px"><div class="RDLParamName">@Html.DisplayFor(modelItem => @Model[i].RDLParamName)</td>
-                    <td ><div class="ParameterDesc">@Html.DisplayFor(modelItem => @Model[i].ParameterDesc)</td>
-                    <td width="80px" align="center"><div class="IsUserControlled">@Html.DisplayFor(modelItem => @Model[i].IsUserControlled)</td>
-                    <td width="160px" align="center"><div class="UserControlType">@Html.DisplayFor(modelItem => @Model[i].UserControlType)</td>
-                    <td width="80px" align="center"><div class="IsSetvalue">@Html.DisplayFor(modelItem => @Model[i].IsSetvalue)</td>
-                    <td width="180px"><div class="AdditionalInfo">@Html.DisplayFor(modelItem => @Model[i].AdditionalInfo)</td>
-                    
+                    @*<td>@Model[i].SPName</td>*@
+                    <td width="200px"><div class="RDLParamName">@if (@Model[i].RDLParamName == null){ <text>&nbsp;</text>} else{ @Html.DisplayFor(modelItem => @Model[i].RDLParamName)}</div></td>
+                    <td ><div class="ParameterDesc">@if (@Model[i].ParameterDesc == null){<text>&nbsp;</text>}else{@Html.DisplayFor(modelItem => @Model[i].ParameterDesc)}</div></td>
+                    <td width="80px" align="center"><div class="IsUserControlled">@if (@Model[i].IsUserControlled == null){<text>&nbsp;</text>}else{@Html.DisplayFor(modelItem => @Model[i].IsUserControlled)}</div></td>
+                    <td width="160px" align="center"><div class="UserControlType">@if (@Model[i].UserControlType == null){<text>&nbsp;</text>}else{@Html.DisplayFor(modelItem => @Model[i].UserControlType)}</div></td>
+                    <td width="100px" align="center"><div class="DefaultValue">@if (@Model[i].DefaultValue == null){<text>&nbsp;</text> } else {@Html.DisplayFor(modelItem => @Model[i].DefaultValue)}</div></td>
+                    <td width="450px"><div class="AdditionalInfo">@if (@Model[i].AdditionalInfo == null){<text>&nbsp;</text>}else{@Html.DisplayFor(modelItem => @Model[i].AdditionalInfo)}</div></td>
+                    @*<td width="120px">@Model[i].RowCreateDate.ToShortDateString()</td>
+                    <td width="160px">@Model[i].CreateEndUserName</td>*@
                     <td width="40px"><div class="delete"><button class="btn btn-outline-secondary">Delete</button></div></td>
                 </tr>
             }

@@ -11,7 +11,7 @@ namespace ReportDocumentationConsole.ViewModels
          
         public List<ReportSP> reportSPs { get; set; }
        
-        public StoredProcsViewModel(List<DB.ReportSP> sPs)
+        public StoredProcsViewModel(List<DB.ReportSP> sPs, int ReportId)
         {
             
             reportSPs = new List<ReportSP>();
@@ -25,9 +25,10 @@ namespace ReportDocumentationConsole.ViewModels
                 temp.IsRDLDropdown = Convert.ToBoolean(sp.IsRDLDropdown);
                 temp.PermissionNotes = sp.PermissionsNotes;
                 temp.CreateEndUserName = sp.CreateEnduserId == null ? "": DB_MSBDW.endusers.FirstOrDefault(eu => eu.id == sp.CreateEnduserId).full_name;
-                temp.RowCreateDate = Convert.ToDateTime(sp.RowModifyDate);
+                temp.RowCreateDate = Convert.ToDateTime(sp.RowCreateDate);
                 temp.ModifyEndUserName = sp.ModifyEnduserId == null ? "":DB_MSBDW.endusers.FirstOrDefault(eu => eu.id == sp.ModifyEnduserId).full_name;
                 temp.RowModifyDate = Convert.ToDateTime(sp.RowModifyDate);
+                temp.LinkedDate = Convert.ToDateTime(DB_MSBDW.Report_ReportSP.FirstOrDefault(s => s.ReportSPId == sp.ID && s.SSRSReportId == ReportId).RowCreateDate);
                 reportSPs.Add(temp);
             }
 
@@ -51,5 +52,7 @@ namespace ReportDocumentationConsole.ViewModels
         public DateTime RowModifyDate { get; set; }
         [DisplayName("Modify EndUser")]
         public string ModifyEndUserName { get; set; }
+        [DisplayName("Linked Date")]
+        public DateTime LinkedDate { get; set; }
     }
 }

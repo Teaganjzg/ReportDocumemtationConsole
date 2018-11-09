@@ -1,0 +1,27 @@
+﻿
+@model ReportDocumentationConsole.ViewModels.CheckboxList
+
+@*@Html.EditorFor( m => Model, new { @title = Model.info });*@
+@if (Model.checkboxList.Count > 0)
+{<div><small class="form-text text-muted">Related Reports(@Model.info)</small></div>}
+<table>
+@for (var i = 0; i < Model.checkboxList.Count; i = i + 2)
+{
+    <tr>
+        <td>
+            @Html.HiddenFor(x => Model.checkboxList[i].Id)
+            @Html.CheckBoxFor(x => Model.checkboxList[i].IsSelected)
+            @Html.DisplayFor(x => Model.checkboxList[i].Name)
+        </td>
+        <td>
+            @if (i + 1 < Model.checkboxList.Count)
+            {
+                @Html.HiddenFor(x => Model.checkboxList[i + 1].Id)
+                @Html.CheckBoxFor(x => Model.checkboxList[i + 1].IsSelected)
+                @Html.DisplayFor(x => Model.checkboxList[i + 1].Name)
+
+            }
+            </td>
+</tr>
+ }
+    </table>

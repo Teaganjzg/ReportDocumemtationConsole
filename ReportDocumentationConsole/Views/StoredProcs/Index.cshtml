@@ -18,7 +18,14 @@
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/css/result-light.css">
+    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css">
     <script type="text/javascript">
+
+
         $(document).ready(function () {
 
             $(".delete").click(function (e) {
@@ -27,15 +34,122 @@
                 var value = $(this).html();
                 var row = $(e.target).closest('tr');
                 var SPID = row.find($("[id*=key]")).val();
-                DeleteRow(SPID, confirm("Do you also want to delete this SP and all of its ralated information?"));
+                //DeleteRow(SPID, confirm("Do you also want to delete this SP and all of its ralated information?"));
+                DeleteOptions(SPID);
+            });
+
+            $(".PermissionNotes").dblclick(function (e) {
+                e.stopPropagation();
+                var CurrentEle = $(this);
+                var value = $(this).html();
+                var row = $(e.target).closest('tr');
+                var ParameterID = row.find($("[id*=key]")).val();
+                UpdateVal(CurrentEle, value, ParameterID, "PermissionNotes");
             });
 
         });
-        function DeleteRow(SPID, con) {
+
+        function UpdateVal(CurrentEle, value, ParameterID, ColumnToUpdate) {
+            if ($(".cellValue") !== undefined) {
+                if ($(".cellValue").val() !== undefined) {
+                    $(".cellValue").parent().html($("#OriginalValue").val().trim());
+                    $(".cellValue").remove();
+                }
+            }
+            if (value.match("<") == null) {
+                $(CurrentEle).html('<div class="cellValue" id="cellWrapper"> ' +
+                    '<input class="cellValue" type="text" id="txtValue" value="' + value + '" />' +
+                    '<input class="cellValue" type="hidden" value="' + ParameterID + '" id="keySelected" />' +
+                    '<input class="cellValue" type="hidden" value="' + ColumnToUpdate + '" id="ColumnToUpdate" /> ' +
+                    '<input class="cellValue" type="hidden" value="' + value + '" id="OriginalValue" /> ' +
+                    '<input class="cellValue" type="button" value="save"   onclick="return SaveChanges()" /> ' +
+                    '<input class="cellValue" type="button" value="cancel" onclick="return CancelChanges()" /> ' +
+                    '</div> ');
+            }
+            $(".cellValue").focus();
+            $(".cellValue").keyup(function (event) {
+                if (event.keyCode == 13) {
+                    $(CurrentEle).html($(".cellValue").val().trim());
+                }
+            });
+        }
+
+        function CancelChanges(e) {
+            if ($(".cellValue") !== undefined) {
+                if ($(".cellValue").val() !== undefined) {
+                    $(".cellValue").parent().html($("#OriginalValue").val().trim());
+                    $(".cellValue").remove();
+                }
+            }
+            window.location.reload();
+        }
+
+        function SaveChanges(e) {
+            var SP = {};
+            SP.ColumnToUpdate = $("[id*=ColumnToUpdate]").val();
+            SP.FieldValue = $("[id*=txtValue]").val().trim();
+            SP.ID = $("[id*=keySelected]").val();
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("SaveSP", "StoredProcs")',
+                data: '{SP: ' + JSON.stringify(SP) + '}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response == 0) { alert("input wrong!! only 'true' or 'false' allowed"); }
+                    else {
+                        alert("done!!");
+                        location.href = location.href;
+                        window.location.reload();
+                    }
+                }
+
+            });
+        }
+
+        function DeleteOptions(SPID)
+        {
+           
+           
+            //e.preventDefault();
+            var dialog = $('<ul><li>Delete this SP in all cases, on all reports - All</li><li>Delete this SP on this report ONLY - Only One</li></ul>').dialog({
+                resizable: true,
+                height: 400,
+                width: 600,
+                class: "alert alert-dismissible alert-light",
+                buttons: {
+                    "All": function () { dialog.dialog('close');return  DeleteRow(SPID, 1); },
+                    "Only One": function () { dialog.dialog('close'); return DeleteRow(SPID, 2)},
+                    "Cancel": function () {
+                        dialog.dialog('close');
+                        return CancelChanges();
+
+                    }
+                }
+            });
+        }
+
+        function DeleteRow(SPID,o) {
+
+            //alert("works");
+            ////e.preventDefault();
+            
+            //var sp = {};
+            //var dialog = $('<p>Delete this SP in all cases, on all reports - All</p><p>Delete this SP on this report ONLY - Only One</p>').dialog({
+            //    buttons: {
+            //        "All": function () { dialog.dialog('close'); sp.deleteAll = 1; },
+            //        "Only One": function () { dialog.dialog('close'); sp.deleteAll = 2; },
+            //        "Cancel": function () {
+            //            dialog.dialog('close');
+            //            CancelChanges();
+
+            //        }
+            //    }
+            //});
             var sp = {};
             sp.ID = SPID;
             sp.report = @Html.Raw(Json.Encode(ViewData["selectedReportId"]));
-            sp.deleteAll = con;
+            sp.deleteAll = o;
             $.ajax({
                 type: "POST",
                 url: '@Url.Action("DeleteSP", "StoredProcs")',
@@ -66,6 +180,7 @@
                 <th scope="col"><center>@Html.DisplayNameFor(m => m[0].CreateEndUserName)</center></th>
                 <th scope="col"><center>@Html.DisplayNameFor(m => m[0].RowModifyDate)</center></th>
                 <th scope="col"><center>@Html.DisplayNameFor(m => m[0].ModifyEndUserName)</center></th>
+                <th scope="col"><center>@Html.DisplayNameFor(m => m[0].LinkedDate)</center></th>
                 <th></th>
             </tr>
         </thead>
@@ -73,24 +188,27 @@
             @for (var i = 0; i < Model.Count; i++)
             {
                 <tr class="table-primary">
-                    
+
                     <td>@Html.HiddenFor(modelItem => @Model[i].ID, new { id = "key" })</td>
                     <td width="350px">@Model[i].SPName</td>
                     <td width="80px" align="center">@Model[i].IsRDLDropdown</td>
-                    <td>@Model[i].PermissionNotes</td>
+                    <td><div class="PermissionNotes">@if (@Model[i].PermissionNotes == null){<text>&nbsp;</text>}else{ @Model[i].PermissionNotes}</div></td>
                     <td width="120px" align="center">@Model[i].RowCreateDate.ToShortDateString()</td>
                     <td width="160px" align="center">@Model[i].CreateEndUserName</td>
                     <td width="120px" align="center">@Model[i].RowModifyDate.ToShortDateString()</td>
-                    <td width="160px" align="center">@Model[i].ModifyEndUserName</td>
+                    <td width="150px" align="center">@Model[i].ModifyEndUserName</td>
+                    <td width="120px" align="center">
+                        @if (@Model[i].LinkedDate != Convert.ToDateTime("1/1/0001"))
+                        {@Model[i].LinkedDate.ToShortDateString()}
+                    </td>
                     <td width="40px"><div class="delete"><button class="btn btn-outline-secondary">Delete</button></div></td>
 
                 </tr>
-             }
-                        </tbody>
-                    </table>
+            }
+        </tbody>
+    </table>
 
 </div>
 
 @Html.Partial("_AddStoredProcs")
 
-              

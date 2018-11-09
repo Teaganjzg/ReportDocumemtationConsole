@@ -20,7 +20,7 @@ namespace ReportDocumentationConsole.Controllers
 
             var spIds = DB_MSBDW.Report_ReportSP.Where(rsp => rsp.SSRSReportId == selectedReport).Select(rsp => rsp.ReportSPId);
             List<DB.ReportSP> reportSP = DB_MSBDW.ReportSPs.Where(sp => spIds.Contains(sp.ID)).OrderByDescending(sp => sp.RowCreateDate).ToList();
-            StoredProcsViewModel reportsViewModel = new StoredProcsViewModel(reportSP);
+            StoredProcsViewModel reportsViewModel = new StoredProcsViewModel(reportSP, selectedReport);
             ViewData["selectedReportId"] = selectedReport;
             ViewData["buttonName"] = "SP";
             ViewData["selectedReportName"] = selectedReportName;
@@ -45,6 +45,7 @@ namespace ReportDocumentationConsole.Controllers
                     DB.Report_ReportSP r_sp_temp = new DB.Report_ReportSP();
                     r_sp_temp.ReportSPId = reportSPId;
                     r_sp_temp.SSRSReportId = SSRSReportId;
+                    r_sp_temp.RowCreateDate = DateTime.Now;
 
                     DB_MSBDW.Report_ReportSP.Add(r_sp_temp);
                     DB_MSBDW.SaveChanges();
@@ -68,6 +69,7 @@ namespace ReportDocumentationConsole.Controllers
                 DB.Report_ReportSP r_sp_temp = new DB.Report_ReportSP();
                 r_sp_temp.ReportSP = temp;
                 r_sp_temp.SSRSReport = DB_MSBDW.SSRSReport1.FirstOrDefault(r => r.id == SSRSReportId);
+                r_sp_temp.RowCreateDate = DateTime.Now;
 
                 DB_MSBDW.Report_ReportSP.Add(r_sp_temp);
                 DB_MSBDW.SaveChanges();
@@ -82,16 +84,42 @@ namespace ReportDocumentationConsole.Controllers
             return RedirectToAction("Index", "StoredProcs", new { id = SSRSReportId, name = Request.Form["selectedReportName"] });
         }
 
+        public class SPToUpdate
+        {
+            public int ID { get; set; }
+            public string FieldValue { get; set; }
+            public string ColumnToUpdate { get; set; }
+        }
+        
+        public int SaveSP(SPToUpdate SP)
+        {
+            DB.ReportSP sp = DB_MSBDW.ReportSPs.FirstOrDefault( s => s.ID == SP.ID);
+           
+            switch (SP.ColumnToUpdate)
+            {
+                case "PermissionNotes":
+                    sp.PermissionsNotes = SP.FieldValue;
+                    break;
+                default:
+                    break;
+            }
+
+            
+            DB_MSBDW.SaveChanges();
+
+            return 1;
+        }
+
         public class SPToDelete
         {
             public int ID { get; set; }
-            public Boolean deleteAll { get; set; }
+            public int deleteAll { get; set; }
             public int report { get; set; }
         }
 
         public int DeleteSP(SPToDelete sp)
         {
-            if (sp.deleteAll == true)
+            if (sp.deleteAll == 1)
             {
                 var de = DB_MSBDW.ReportSPs.FirstOrDefault(s => s.ID == sp.ID);
                 DB_MSBDW.ReportSPs.Remove(de);

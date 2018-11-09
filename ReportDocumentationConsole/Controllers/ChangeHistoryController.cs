@@ -40,39 +40,83 @@ namespace ReportDocumentationConsole.Controllers
 
             int SSRSReportId = Convert.ToInt32(Request.Form["selectedReportId"]);
             string selectedSPName = Request.Form["IsRDLChange"] == "No" ? Request.Form["ReportSPNameValidated"]: Request.Form["ReportSPName"];
-            int selectedSPId = selectedSPName == ""?-1:DB_MSBDW.ReportSPs.FirstOrDefault(s => s.SPName == selectedSPName).ID;
+            List<int> UnSelectedRepIds = new List<int>();
+
+            List<DB.Report_ReportSP> relatedRpts = new List<DB.Report_ReportSP>();
+            int selectedSPId = -1;
+            if (selectedSPName != "" && selectedSPName != null)
+            {
+                selectedSPId = DB_MSBDW.ReportSPs.FirstOrDefault(s => s.SPName == selectedSPName).ID;
+                relatedRpts = DB_MSBDW.Report_ReportSP.Where(sp => sp.ReportSPId == selectedSPId).Distinct().ToList();
+                string cbl1 = "checkboxlist[", cbl2 = "].id", cbl3 = "].isselected";
+                
+                if (Request.Form[cbl1 + "0" + cbl3] != null)
+                {
+                    for (int i = 0; i < relatedRpts.Count - 1; i++)
+                    {
+                        if (!Request.Form[cbl1 + i.ToString() + cbl3].Contains("true".ToLower()))
+                        {
+                            UnSelectedRepIds.Add(Convert.ToInt32(Request.Form[cbl1 + i.ToString() + cbl2]));
+                        }
+                    }
+
+                    //relatedRpts = relatedRpts.Where(r => !UnSelectedRepIds.Contains((int)r.SSRSReportId)).ToList();
+                }
+                
+            }
             string selectedEuName = Request.Form["CreatedEndUser"];
             
-            List<DB.Report_ReportSP> relatedRpts = DB_MSBDW.Report_ReportSP.Where(sp => sp.ReportSPId == selectedSPId).ToList();
-            for (int i = 0; i < relatedRpts.Count || Request.Form["IsRDLChange"] == "Yes"; i++)
+             for (int i = 0; i < relatedRpts.Count || (Request.Form["IsRDLChange"] == "Yes" && relatedRpts.Count == 0); i++) // both with SP selected(at least one in relatedreports list, including "Yes" + SP and "No" + SP) and "Yes" + no SP  can go through, and prevent "Yes" + SP index out of range exception
             {
+                //if (i == relatedRpts.Count && i != 0) break;
                 DB.ReportChangeLog temp = new DB.ReportChangeLog();
                 temp.ITComment = Request.Unvalidated.Form["ITComment"];
                 temp.PublicComment = Request.Form["PublicComment"];
                 temp.RowCreateDate = DateTime.Now;
                 temp.ChangeEnduserId = DB_MSBDW.endusers.FirstOrDefault(eu => eu.full_name == selectedEuName).id;
                 temp.ChangeReason = Request["ChangeReason"];
-                
-                if (Request.Form["IsRDLChange"] == "Yes")
+                if (selectedSPId == -1 && Request.Form["IsRDLChange"] == "Yes") // For IsRdlChange is yes and no SP selected, break from the loop 
                 {
                     temp.SSRSReportId = SSRSReportId;
                     temp.IsRDLChange = true;
-                    if (selectedSPName != "" && selectedSPName != null)
-                    {
-                        temp.ReportSPId = selectedSPId;
-                    }
                     DB_MSBDW.ReportChangeLogs.Add(temp);
+                    DB_MSBDW.SaveChanges();
                     break;
                 }
-                temp.SSRSReportId = relatedRpts[i].SSRSReportId;
                 temp.ReportSPId = selectedSPId;
-                temp.IsRDLChange = false;
+                
+                temp.SSRSReportId = relatedRpts[i].SSRSReportId;
+                if (Request.Form["IsRDLChange"] == "Yes" && !UnSelectedRepIds.Contains((int)relatedRpts[i].SSRSReportId)) // Only the selected reports(from checkboxlist) and current report will get flagged  isrdgchange true when user selects IsRDlChange Yes
+                {
+                    temp.IsRDLChange = true;
+                }
+                else
+                {
+                    temp.IsRDLChange = false;
+                }
+
+                
+                
+                //if (Request.Form["IsRDLChange"] == "Yes")
+                //{
+                //    temp.SSRSReportId = SSRSReportId;
+                //    temp.IsRDLChange = true;
+                //    if (selectedSPName != "" && selectedSPName != null)
+                //    {
+                //        temp.ReportSPId = selectedSPId;
+                //    }
+                //    DB_MSBDW.ReportChangeLogs.Add(temp);
+                //    break;
+                //}
+                //temp.SSRSReportId = relatedRpts[i].SSRSReportId;
+                //temp.ReportSPId = selectedSPId;
+                //temp.IsRDLChange = false;
                 DB_MSBDW.ReportChangeLogs.Add(temp);
                 DB_MSBDW.SaveChanges();
             }
             
             
-            DB_MSBDW.SaveChanges();
+            //DB_MSBDW.SaveChanges();
             
 
             List<DB.ReportChangeLog> reportChange = DB_MSBDW.ReportChangeLogs.Where(sp => sp.SSRSReportId == SSRSReportId).OrderByDescending(sp => sp.RowCreateDate).ToList();
