@@ -86,7 +86,7 @@ namespace ReportDocumentationConsole.Controllers
         public int SavePara(ParameterToUpdate para)
         {
             DB.ReportSPParameter pa = DB_MSBDW.ReportSPParameters.FirstOrDefault(l => l.ID == para.ID);
-            //Boolean input_isUserControlled = true, input_isSetValue = true;
+           
             switch (para.ColumnToUpdate)
             {
                 case "RDLParamName":
@@ -120,10 +120,7 @@ namespace ReportDocumentationConsole.Controllers
                     break;
             }
             
-            //if (input_isUserControlled == false || input_isSetValue == false)
-            //{
-            //    return 0;
-            //}
+            
             DB_MSBDW.SaveChanges();
 
             return 1;

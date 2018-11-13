@@ -34,7 +34,7 @@
                 var value = $(this).html();
                 var row = $(e.target).closest('tr');
                 var LinkageID = row.find($("[id*=key]")).val();
-                //DeleteRow(LinkageID);
+            
                 DeleteRow(LinkageID, confirm("Are you sure?"));
             });
 

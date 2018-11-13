@@ -60,7 +60,7 @@ namespace ReportDocumentationConsole.Controllers
                         }
                     }
 
-                    //relatedRpts = relatedRpts.Where(r => !UnSelectedRepIds.Contains((int)r.SSRSReportId)).ToList();
+                    
                 }
                 
             }
@@ -68,7 +68,7 @@ namespace ReportDocumentationConsole.Controllers
             
              for (int i = 0; i < relatedRpts.Count || (Request.Form["IsRDLChange"] == "Yes" && relatedRpts.Count == 0); i++) // both with SP selected(at least one in relatedreports list, including "Yes" + SP and "No" + SP) and "Yes" + no SP  can go through, and prevent "Yes" + SP index out of range exception
             {
-                //if (i == relatedRpts.Count && i != 0) break;
+                
                 DB.ReportChangeLog temp = new DB.ReportChangeLog();
                 temp.ITComment = Request.Unvalidated.Form["ITComment"];
                 temp.PublicComment = Request.Form["PublicComment"];
@@ -97,26 +97,13 @@ namespace ReportDocumentationConsole.Controllers
 
                 
                 
-                //if (Request.Form["IsRDLChange"] == "Yes")
-                //{
-                //    temp.SSRSReportId = SSRSReportId;
-                //    temp.IsRDLChange = true;
-                //    if (selectedSPName != "" && selectedSPName != null)
-                //    {
-                //        temp.ReportSPId = selectedSPId;
-                //    }
-                //    DB_MSBDW.ReportChangeLogs.Add(temp);
-                //    break;
-                //}
-                //temp.SSRSReportId = relatedRpts[i].SSRSReportId;
-                //temp.ReportSPId = selectedSPId;
-                //temp.IsRDLChange = false;
+                
                 DB_MSBDW.ReportChangeLogs.Add(temp);
                 DB_MSBDW.SaveChanges();
             }
             
             
-            //DB_MSBDW.SaveChanges();
+          
             
 
             List<DB.ReportChangeLog> reportChange = DB_MSBDW.ReportChangeLogs.Where(sp => sp.SSRSReportId == SSRSReportId).OrderByDescending(sp => sp.RowCreateDate).ToList();

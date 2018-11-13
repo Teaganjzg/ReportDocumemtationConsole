@@ -111,7 +111,7 @@
         {
            
            
-            //e.preventDefault();
+        
             var dialog = $('<ul><li>Delete this SP in all cases, on all reports - All</li><li>Delete this SP on this report ONLY - Only One</li></ul>').dialog({
                 resizable: true,
                 height: 400,
@@ -131,21 +131,6 @@
 
         function DeleteRow(SPID,o) {
 
-            //alert("works");
-            ////e.preventDefault();
-            
-            //var sp = {};
-            //var dialog = $('<p>Delete this SP in all cases, on all reports - All</p><p>Delete this SP on this report ONLY - Only One</p>').dialog({
-            //    buttons: {
-            //        "All": function () { dialog.dialog('close'); sp.deleteAll = 1; },
-            //        "Only One": function () { dialog.dialog('close'); sp.deleteAll = 2; },
-            //        "Cancel": function () {
-            //            dialog.dialog('close');
-            //            CancelChanges();
-
-            //        }
-            //    }
-            //});
             var sp = {};
             sp.ID = SPID;
             sp.report = @Html.Raw(Json.Encode(ViewData["selectedReportId"]));
